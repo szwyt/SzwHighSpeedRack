@@ -4,4 +4,13 @@
     <TargetFramework>netcoreapp2.2</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Autofac.Extras.DynamicProxy" Version="4.5.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\SzwHighSpeedRack.EntityFrameworkCore\SzwHighSpeedRack.EntityFrameworkCore.csproj" />
+    <ProjectReference Include="..\SzwHighSpeedRack.Utility\SzwHighSpeedRack.Utility.csproj" />
+  </ItemGroup>
+
 </Project>

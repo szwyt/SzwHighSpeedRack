@@ -1,6 +1,8 @@
-﻿using System;
+﻿using Autofac.Extras.DynamicProxy;
+using System;
 using System.Collections.Generic;
 using System.Text;
+using SzwHighSpeedRack.Aop;
 using SzwHighSpeedRack.EntityFrameworkCore;
 
 namespace SzwHighSpeedRack.Service
