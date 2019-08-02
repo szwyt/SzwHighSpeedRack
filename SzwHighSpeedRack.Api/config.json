@@ -1,0 +1,6 @@
+﻿{
+  "Database": {  
+    "MySqlConnStr": "Server=192.168.0.123; Port=3306; Uid=warranty; Pwd=warranty123456; Database=warranty_base;SslMode=None",
+	  "SqlLiteConnStr":"Data Source=VideoInfo.dat"
+  }
+}

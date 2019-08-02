@@ -15,10 +15,16 @@ namespace SzwHighSpeedRack.EntityFrameworkCore
     /// </summary>
     public class BaseContext : DbContext
     {
+
+        public BaseContext(string connectionString)
+        {
+            this.ConnectionString = connectionString;
+        }
+
         /// <summary>
         /// Gets connectionString.
         /// </summary>
-        protected string ConnectionString => string.Empty;
+        protected string ConnectionString { get; set; }
 
         /// <summary>
         /// modelBuilder.

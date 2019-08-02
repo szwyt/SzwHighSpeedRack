@@ -18,6 +18,6 @@ namespace SzwHighSpeedRack.EntityFrameworkCore
         /// </summary>
         /// <param name="dbType">dbType.</param>
         /// <returns>BaseContext.</returns>
-        BaseContext GetDbContext(DbEnum.DbType dbType);
+        BaseContext GetDbContext(DbEnum.DbType dbType,string connectionString);
     }
 }

@@ -10,6 +10,7 @@
     /// </summary>
     public class PostgreSQLContext : BaseContext
     {
+        public PostgreSQLContext(string connectionString) : base(connectionString) { }
         /// <inheritdoc/>
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

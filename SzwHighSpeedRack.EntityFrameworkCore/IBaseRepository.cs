@@ -19,7 +19,7 @@ namespace SzwHighSpeedRack.EntityFrameworkCore
             where T : BaseModel
     {
         /// <summary>
-        /// Gets or sets DbContext.
+        /// Gets or sets dbContext.
         /// </summary>
         BaseContext DbContext { get; set; }
 

@@ -17,13 +17,15 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SzwHighSpeedRack.Desktop", 
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SzwHighSpeedRack.Src", "SzwHighSpeedRack.Src", "{35252EBD-E01C-47CA-861D-BE84579DDFB3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SzwHighSpeedRack.Service", "SzwHighSpeedRack.Service\SzwHighSpeedRack.Service.csproj", "{2D0147F9-A304-4963-BAF5-1792E96EE55E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SzwHighSpeedRack.Service", "SzwHighSpeedRack.Service\SzwHighSpeedRack.Service.csproj", "{2D0147F9-A304-4963-BAF5-1792E96EE55E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SzwHighSpeedRack.QuartzJob", "SzwHighSpeedRack.QuartzJob\SzwHighSpeedRack.QuartzJob.csproj", "{04A45C33-5C58-426B-8A4B-FF2BB08CDA4E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SzwHighSpeedRack.QuartzJob", "SzwHighSpeedRack.QuartzJob\SzwHighSpeedRack.QuartzJob.csproj", "{04A45C33-5C58-426B-8A4B-FF2BB08CDA4E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SzwHighSpeedRack.EntityFrameworkCore", "SzwHighSpeedRack.EntityFrameworkCore\SzwHighSpeedRack.EntityFrameworkCore.csproj", "{B5FE5A44-E7A9-4458-8A54-226D6F67364A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SzwHighSpeedRack.EntityFrameworkCore", "SzwHighSpeedRack.EntityFrameworkCore\SzwHighSpeedRack.EntityFrameworkCore.csproj", "{B5FE5A44-E7A9-4458-8A54-226D6F67364A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SzwHighSpeedRack.Test", "SzwHighSpeedRack.Test\SzwHighSpeedRack.Test.csproj", "{21EBC7FA-7F15-4EB2-8A04-7C51F9FD7191}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SzwHighSpeedRack.Test", "SzwHighSpeedRack.Test\SzwHighSpeedRack.Test.csproj", "{21EBC7FA-7F15-4EB2-8A04-7C51F9FD7191}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SzwHighSpeedRack.SqlSugar", "SzwHighSpeedRack.SqlSugar\SzwHighSpeedRack.SqlSugar.csproj", "{2E1D55CF-C78B-4729-A02D-CD591F0214A0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -67,6 +69,10 @@ Global
 		{21EBC7FA-7F15-4EB2-8A04-7C51F9FD7191}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{21EBC7FA-7F15-4EB2-8A04-7C51F9FD7191}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{21EBC7FA-7F15-4EB2-8A04-7C51F9FD7191}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2E1D55CF-C78B-4729-A02D-CD591F0214A0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2E1D55CF-C78B-4729-A02D-CD591F0214A0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2E1D55CF-C78B-4729-A02D-CD591F0214A0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2E1D55CF-C78B-4729-A02D-CD591F0214A0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -81,9 +87,10 @@ Global
 		{04A45C33-5C58-426B-8A4B-FF2BB08CDA4E} = {35252EBD-E01C-47CA-861D-BE84579DDFB3}
 		{B5FE5A44-E7A9-4458-8A54-226D6F67364A} = {35252EBD-E01C-47CA-861D-BE84579DDFB3}
 		{21EBC7FA-7F15-4EB2-8A04-7C51F9FD7191} = {35252EBD-E01C-47CA-861D-BE84579DDFB3}
+		{2E1D55CF-C78B-4729-A02D-CD591F0214A0} = {35252EBD-E01C-47CA-861D-BE84579DDFB3}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		VisualSVNWorkingCopyRoot = .
 		SolutionGuid = {39F19F2D-EA07-41B7-8C89-FA6783CF8919}
+		VisualSVNWorkingCopyRoot = .
 	EndGlobalSection
 EndGlobal

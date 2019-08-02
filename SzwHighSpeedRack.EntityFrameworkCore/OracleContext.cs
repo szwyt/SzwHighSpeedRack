@@ -14,6 +14,7 @@ namespace SzwHighSpeedRack.EntityFrameworkCore
     /// </summary>
     public class OracleContext : BaseContext
     {
+        public OracleContext(string connectionString) : base(connectionString) { }
         /// <inheritdoc/>
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
