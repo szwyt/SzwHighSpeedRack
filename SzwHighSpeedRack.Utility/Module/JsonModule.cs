@@ -1,4 +1,8 @@
-﻿namespace SzwHighSpeedRack.Utility.Module
+﻿// <copyright file="JsonModule.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+namespace SzwHighSpeedRack.Utility
 {
     using System;
     using System.Collections.Generic;

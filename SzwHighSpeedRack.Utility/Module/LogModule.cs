@@ -2,7 +2,7 @@
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
-namespace SzwHighSpeedRack.Utility.Module
+namespace SzwHighSpeedRack.Utility
 {
     using System;
     using System.Collections.Generic;
