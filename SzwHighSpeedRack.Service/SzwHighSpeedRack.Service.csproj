@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\SzwHighSpeedRack.Aop\SzwHighSpeedRack.Aop.csproj" />
+    <ProjectReference Include="..\SzwHighSpeedRack.Model\SzwHighSpeedRack.Model.csproj" />
+    <ProjectReference Include="..\SzwHighSpeedRack.Utility\SzwHighSpeedRack.Utility.csproj" />
+  </ItemGroup>
+
+</Project>
