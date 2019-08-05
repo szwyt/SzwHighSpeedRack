@@ -14,7 +14,9 @@ namespace SzwHighSpeedRack.Test
         static void Main(string[] args)
         {
             var builder = new ContainerBuilder();
+            // 注册AOP
             builder.RegisterType<LogInterceptor>();
+            builder.RegisterType<TransactionInterceptor>();
             //数据库对象注入
             builder.RegisterType<DbContextFactory>().As<IDbFactory>();
             //builder.RegisterType<MngAdminService>();
@@ -25,9 +27,9 @@ namespace SzwHighSpeedRack.Test
             _container = builder.Build();
             var iuser = _container.Resolve<MngAdminService>();
             var manager = _container.Resolve<ManagerService>();
-            //var info = iuser.GetSiteCategoryInfo();
+            var info = iuser.TransactionTest();
             //Console.WriteLine(info.ToJson());
-            manager.Test();
+            //manager.Test();
             Console.ReadKey();
         }
     }

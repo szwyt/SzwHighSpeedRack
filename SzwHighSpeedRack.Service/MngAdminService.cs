@@ -10,7 +10,7 @@ using SzwHighSpeedRack.Utility;
 
 namespace SzwHighSpeedRack.Service
 {
-    [Intercept(typeof(LogInterceptor))]
+    [Intercept(typeof(TransactionInterceptor))]
     public partial class MngAdminService : BaseService
     {
         public MngAdminService(IDbFactory factory)
@@ -18,9 +18,29 @@ namespace SzwHighSpeedRack.Service
         {
         }
 
-        public SiteCategoryDto GetSiteCategoryInfo(Expression<Func<SiteCategory, bool>> exp = null)
+        public virtual SiteCategoryDto GetSiteCategoryInfo(Expression<Func<SiteCategory, bool>> exp = null)
         {
-            return new EmitMapperEx().Mapper<SiteCategory, SiteCategoryDto>(db.FindSingle<SiteCategory>(f => f.Id == 1));
+            return new EmitMapperEx().Mapper<SiteCategory, SiteCategoryDto>(baseContext.FindSingle<SiteCategory>(f => f.Id == 1));
+        }
+
+        //[Transaction(true)]
+        public virtual int TransactionTest()
+        {
+            baseContext.AddEntity(new SiteCategory
+            {
+                ContentTitle = "测试",
+                Depth = 2,
+                HasModelContent = 20,
+                ModelId = 2,
+                ParId = 2,
+                Sequence = 2
+            });
+
+            int a = 0;
+            var test = 10 / a;
+
+            baseContext.DeleteEntity<SiteCategory>(w => w.Id == 101);
+            return 1;
         }
     }
 }

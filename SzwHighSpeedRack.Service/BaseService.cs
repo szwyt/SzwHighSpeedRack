@@ -9,18 +9,18 @@ namespace SzwHighSpeedRack.Service
 {
     public class BaseService
     {
-        protected BaseContext db;
+        public BaseContext baseContext { get; set; }
 
         public BaseService(IDbFactory dbFactory)
         {
-            db = dbFactory.GetDbContext(DbEnum.DbType.MySql, "Server=118.24.60.212; Port=3306; Uid=root; Pwd=123456; Database=szwHighspeedrack;SslMode=None");
+            baseContext = dbFactory.GetDbContext(DbEnum.DbType.MySql, "Server=118.24.60.212; Port=3306; Uid=root; Pwd=123456; Database=szwHighspeedrack;SslMode=None");
         }
 
         ~BaseService()
         {
-            if (db != null)
+            if (baseContext != null)
             {
-                db.Dispose();
+                baseContext.Dispose();
             }
         }
     }

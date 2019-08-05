@@ -29,9 +29,10 @@ namespace SzwHighSpeedRack.Aop
                 enabled = attr.Enabled;
             }
 
-            foreach (PropertyInfo p in type.BaseType.GetProperties())
+            PropertyInfo[] baseType = type.BaseType.GetProperties();
+            foreach (PropertyInfo p in baseType)
             {
-                if (p.PropertyType.Name == "SqlSugarClient")
+                if (p.PropertyType.Name == "BaseContext")
                 {
                     this.BaseContext = (BaseContext)invocation.InvocationTarget.GetValue(p);
                     break;

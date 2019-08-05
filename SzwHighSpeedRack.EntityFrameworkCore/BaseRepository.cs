@@ -14,7 +14,7 @@ namespace SzwHighSpeedRack.EntityFrameworkCore
 
     public static class BaseRepository
     {
-        public static void Add<T>(this BaseContext baseContext, T entity)
+        public static void AddEntity<T>(this BaseContext baseContext, T entity)
              where T : class, new()
         {
             baseContext.Set<T>().Add(entity);
@@ -116,7 +116,7 @@ namespace SzwHighSpeedRack.EntityFrameworkCore
         /// </summary>
         /// <param name="where">更新条件</param>
         /// <param name="entity">更新后的实体</param>
-        public static void Update<T>(this BaseContext baseContext, Expression<Func<T, bool>> where, Expression<Func<T, T>> entity)
+        public static void UpdateEntity<T>(this BaseContext baseContext, Expression<Func<T, bool>> where, Expression<Func<T, T>> entity)
             where T : class, new()
         {
             if (where != null)
@@ -129,7 +129,7 @@ namespace SzwHighSpeedRack.EntityFrameworkCore
             }
         }
 
-        public static void Delete<T>(this BaseContext baseContext, Expression<Func<T, bool>> exp)
+        public static void DeleteEntity<T>(this BaseContext baseContext, Expression<Func<T, bool>> exp)
             where T : class, new()
         {
             baseContext.Set<T>().Where(exp).Delete();

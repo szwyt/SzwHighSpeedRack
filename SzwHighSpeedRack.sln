@@ -25,7 +25,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SzwHighSpeedRack.EntityFram
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SzwHighSpeedRack.Test", "SzwHighSpeedRack.Test\SzwHighSpeedRack.Test.csproj", "{21EBC7FA-7F15-4EB2-8A04-7C51F9FD7191}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SzwHighSpeedRack.SqlSugar", "SzwHighSpeedRack.SqlSugar\SzwHighSpeedRack.SqlSugar.csproj", "{2E1D55CF-C78B-4729-A02D-CD591F0214A0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SzwHighSpeedRack.SqlSugar", "SzwHighSpeedRack.SqlSugar\SzwHighSpeedRack.SqlSugar.csproj", "{2E1D55CF-C78B-4729-A02D-CD591F0214A0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -90,7 +90,7 @@ Global
 		{2E1D55CF-C78B-4729-A02D-CD591F0214A0} = {35252EBD-E01C-47CA-861D-BE84579DDFB3}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {39F19F2D-EA07-41B7-8C89-FA6783CF8919}
 		VisualSVNWorkingCopyRoot = .
+		SolutionGuid = {39F19F2D-EA07-41B7-8C89-FA6783CF8919}
 	EndGlobalSection
 EndGlobal
