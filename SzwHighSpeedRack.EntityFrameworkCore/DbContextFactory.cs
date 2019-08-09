@@ -50,7 +50,7 @@ namespace SzwHighSpeedRack.EntityFrameworkCore
         /// <param name="dbType">Db类型.</param>
         /// <param name="connectionString">connectionString.</param>
         /// <returns>BaseContext.</returns>
-        private static BaseContext CreateDbInstance(DbEnum.DbType dbType, string connectionString)
+        public static BaseContext CreateDbInstance(DbEnum.DbType dbType, string connectionString)
         {
             string className = string.Format("SzwHighSpeedRack.EntityFrameworkCore.{0}Context", dbType);
             try
