@@ -10,10 +10,4 @@
     <ProjectReference Include="..\SzwHighSpeedRack.Service\SzwHighSpeedRack.Service.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <None Update="log.config">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
-
 </Project>

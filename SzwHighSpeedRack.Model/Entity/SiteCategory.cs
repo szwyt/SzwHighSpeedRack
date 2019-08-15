@@ -2,7 +2,7 @@
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
-namespace SzwHighSpeedRack.Model
+namespace SzwHighSpeedRack.Entity
 {
     using System;
     using System.Collections.Generic;
@@ -12,7 +12,7 @@ namespace SzwHighSpeedRack.Model
     /// <summary>
     /// 表.
     /// </summary>
-    public partial class SiteCategory : BaseModel
+    public partial class SiteCategory : BaseEntity
     {
         /// <summary>
         /// Gets or sets ContentTitle.

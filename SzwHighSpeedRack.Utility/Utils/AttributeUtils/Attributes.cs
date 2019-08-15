@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace SzwHighSpeedRack.Utility
+namespace SzwHighSpeedRack
 {
     /// <summary>
     /// EnumType 枚举类型

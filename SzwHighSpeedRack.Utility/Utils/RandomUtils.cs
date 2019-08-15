@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace SzwHighSpeedRack.Utility
+namespace SzwHighSpeedRack
 {
     /// <summary>
     /// 随机数操作

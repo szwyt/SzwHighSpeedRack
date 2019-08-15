@@ -3,7 +3,7 @@ using System.Security.Cryptography;
 using System.Text;
 using XYQMS.Utility.Utils;
 
-namespace SzwHighSpeedRack.Utility
+namespace SzwHighSpeedRack
 {
     /// <summary>
     /// MD5工具类

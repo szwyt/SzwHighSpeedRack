@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace SzwHighSpeedRack.Utility
+namespace SzwHighSpeedRack
 {
     public static class ToolsEx
     {

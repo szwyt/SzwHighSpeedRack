@@ -1,6 +1,6 @@
 ﻿using System.Reflection;
 
-namespace SzwHighSpeedRack.Utility
+namespace SzwHighSpeedRack
 {
     /// <summary>
     /// 作者：史梓W威

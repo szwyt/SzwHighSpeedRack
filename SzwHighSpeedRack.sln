@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28307.645
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SzwHighSpeedRack.Utility", "SzwHighSpeedRack.Utility\SzwHighSpeedRack.Utility.csproj", "{4992D34B-7AF5-4B57-92BF-D247DEC49264}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SzwHighSpeedRack", "SzwHighSpeedRack.Utility\SzwHighSpeedRack.csproj", "{4992D34B-7AF5-4B57-92BF-D247DEC49264}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SzwHighSpeedRack.Model", "SzwHighSpeedRack.Model\SzwHighSpeedRack.Model.csproj", "{BB2229F7-E1B9-49EA-966F-8E003AD474C7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SzwHighSpeedRack.Entity", "SzwHighSpeedRack.Model\SzwHighSpeedRack.Entity.csproj", "{BB2229F7-E1B9-49EA-966F-8E003AD474C7}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SzwHighSpeedRack.Aop", "SzwHighSpeedRack.Aop\SzwHighSpeedRack.Aop.csproj", "{C5E48EFA-DC3F-44EE-8B03-B8BE88F204EC}"
 EndProject
@@ -24,8 +24,6 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SzwHighSpeedRack.EntityFrameworkCore", "SzwHighSpeedRack.EntityFrameworkCore\SzwHighSpeedRack.EntityFrameworkCore.csproj", "{B5FE5A44-E7A9-4458-8A54-226D6F67364A}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SzwHighSpeedRack.Test", "SzwHighSpeedRack.Test\SzwHighSpeedRack.Test.csproj", "{21EBC7FA-7F15-4EB2-8A04-7C51F9FD7191}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SzwHighSpeedRack.SqlSugar", "SzwHighSpeedRack.SqlSugar\SzwHighSpeedRack.SqlSugar.csproj", "{2E1D55CF-C78B-4729-A02D-CD591F0214A0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -69,10 +67,6 @@ Global
 		{21EBC7FA-7F15-4EB2-8A04-7C51F9FD7191}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{21EBC7FA-7F15-4EB2-8A04-7C51F9FD7191}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{21EBC7FA-7F15-4EB2-8A04-7C51F9FD7191}.Release|Any CPU.Build.0 = Release|Any CPU
-		{2E1D55CF-C78B-4729-A02D-CD591F0214A0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{2E1D55CF-C78B-4729-A02D-CD591F0214A0}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{2E1D55CF-C78B-4729-A02D-CD591F0214A0}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{2E1D55CF-C78B-4729-A02D-CD591F0214A0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -87,7 +81,6 @@ Global
 		{04A45C33-5C58-426B-8A4B-FF2BB08CDA4E} = {35252EBD-E01C-47CA-861D-BE84579DDFB3}
 		{B5FE5A44-E7A9-4458-8A54-226D6F67364A} = {35252EBD-E01C-47CA-861D-BE84579DDFB3}
 		{21EBC7FA-7F15-4EB2-8A04-7C51F9FD7191} = {35252EBD-E01C-47CA-861D-BE84579DDFB3}
-		{2E1D55CF-C78B-4729-A02D-CD591F0214A0} = {35252EBD-E01C-47CA-861D-BE84579DDFB3}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		VisualSVNWorkingCopyRoot = .

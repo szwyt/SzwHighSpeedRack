@@ -1,4 +1,4 @@
-﻿namespace SzwHighSpeedRack.Utility
+﻿namespace SzwHighSpeedRack
 {
     using System;
     using System.Collections.Generic;
@@ -8,7 +8,7 @@
     /// <summary>
     /// 字符串Hash操作类
     /// </summary>
-    public static class HashHelper
+    public static class HashUtil
     {
         /// <summary>
         /// 加密

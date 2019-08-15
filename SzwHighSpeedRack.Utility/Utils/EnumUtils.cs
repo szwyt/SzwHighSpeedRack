@@ -4,7 +4,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
 
-namespace SzwHighSpeedRack.Utility
+namespace SzwHighSpeedRack
 {
     /// <summary>
     /// 枚举工具类

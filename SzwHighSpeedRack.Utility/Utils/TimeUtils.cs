@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace SzwHighSpeedRack.Utility
+namespace SzwHighSpeedRack
 {
     /// <summary>
     /// 时间工具类

@@ -1,8 +1,8 @@
-﻿// <copyright file="BaseModel.cs" company="PlaceholderCompany">
+﻿// <copyright file="BaseEntity.cs" company="PlaceholderCompany">
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
-namespace SzwHighSpeedRack.Model
+namespace SzwHighSpeedRack.Entity
 {
     using System;
     using System.Collections.Generic;
@@ -12,7 +12,7 @@ namespace SzwHighSpeedRack.Model
     /// <summary>
     /// 基类.
     /// </summary>
-    public class BaseModel
+    public class BaseEntity
     {
         /// <summary>
         /// Gets or sets id.

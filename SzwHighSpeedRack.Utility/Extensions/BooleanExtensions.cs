@@ -6,7 +6,7 @@
 //  <last-date>2014:07:04 8:01</last-date>
 // -----------------------------------------------------------------------
 
-namespace SzwHighSpeedRack.Utility
+namespace SzwHighSpeedRack
 {
     using System;
 

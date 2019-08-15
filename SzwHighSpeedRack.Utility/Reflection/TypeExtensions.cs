@@ -1,4 +1,4 @@
-﻿namespace SzwHighSpeedRack.Utility
+﻿namespace SzwHighSpeedRack
 {
     using System;
     using System.Collections;

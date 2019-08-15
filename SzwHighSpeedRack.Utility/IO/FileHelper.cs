@@ -12,7 +12,7 @@ using System.IO;
 using System.Security.Cryptography;
 using System.Text;
 
-namespace OSharp.IO
+namespace SzwHighSpeedRack
 {
     /// <summary>
     /// 文件辅助操作类

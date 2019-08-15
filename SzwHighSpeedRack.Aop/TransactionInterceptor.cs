@@ -5,7 +5,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using SzwHighSpeedRack.EntityFrameworkCore;
-using SzwHighSpeedRack.Utility;
+using SzwHighSpeedRack;
 
 namespace SzwHighSpeedRack.Aop
 {

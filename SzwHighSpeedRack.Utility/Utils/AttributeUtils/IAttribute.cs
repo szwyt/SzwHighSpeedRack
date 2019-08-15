@@ -1,4 +1,4 @@
-﻿namespace SzwHighSpeedRack.Utility
+﻿namespace SzwHighSpeedRack
 {
     /// <summary>
     /// 枚举特性标签

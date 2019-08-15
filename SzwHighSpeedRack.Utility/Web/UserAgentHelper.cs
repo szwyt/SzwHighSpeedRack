@@ -6,7 +6,7 @@
 //  <last-date>2014-07-18 18:48</last-date>
 // -----------------------------------------------------------------------
 
-namespace SzwHighSpeedRack.Utility
+namespace SzwHighSpeedRack
 {
     /// <summary>
     /// UserAgent辅助操作类

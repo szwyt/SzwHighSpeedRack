@@ -1,8 +1,8 @@
-﻿// <copyright file="EmitMapperEx.cs" company="PlaceholderCompany">
+﻿// <copyright file="EmitMapperExtension.cs" company="PlaceholderCompany">
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
-namespace SzwHighSpeedRack.Utility
+namespace SzwHighSpeedRack
 {
     using System;
     using System.Collections.Generic;
@@ -14,12 +14,12 @@ namespace SzwHighSpeedRack.Utility
     /// <summary>
     /// 对象转换扩展.
     /// </summary>
-    public class EmitMapperEx : IDisposable
+    public class EmitMapperExtension : IDisposable
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="EmitMapperEx"/> class.
+        /// Initializes a new instance of the <see cref="EmitMapperExtension"/> class.
         /// </summary>
-        public EmitMapperEx()
+        public EmitMapperExtension()
         {
             this.OwnDefaultMapConfigs = this.OwnDefaultMapConfig();
             this.OMM = new ObjectMapperManager();

@@ -1,4 +1,4 @@
-﻿namespace SzwHighSpeedRack.Model
+﻿namespace SzwHighSpeedRack.Entity
 {
     using System;
     using System.Collections.Generic;

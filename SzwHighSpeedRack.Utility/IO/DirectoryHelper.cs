@@ -9,7 +9,7 @@
 using System;
 using System.IO;
 
-namespace OSharp.IO
+namespace SzwHighSpeedRack
 {
     /// <summary>
     /// 目录操作辅助类

@@ -10,7 +10,7 @@ namespace SzwHighSpeedRack.EntityFrameworkCore
     using System.Reflection;
     using System.Text;
     using Microsoft.EntityFrameworkCore;
-    using SzwHighSpeedRack.Model;
+    using SzwHighSpeedRack.Entity;
 
     /// <summary>
     /// 基类上下文.
@@ -34,7 +34,7 @@ namespace SzwHighSpeedRack.EntityFrameworkCore
         /// <param name="modelBuilder">modelBuilder</param>
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            Assembly assembly = Assembly.LoadFrom(Directory.GetCurrentDirectory() + "\\SzwHighSpeedRack.Model.dll");
+            Assembly assembly = Assembly.LoadFrom(Directory.GetCurrentDirectory() + "\\SzwHighSpeedRack.Entity.dll");
             modelBuilder.ApplyConfigurationsFromAssembly(assembly);
             base.OnModelCreating(modelBuilder);
         }

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Reflection;
 
-namespace SzwHighSpeedRack.Utility
+namespace SzwHighSpeedRack
 {
     /// <summary>
     /// 公共的工具类

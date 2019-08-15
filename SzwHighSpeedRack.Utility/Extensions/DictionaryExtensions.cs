@@ -7,7 +7,7 @@
 //  <last-date>2017-08-19 13:31</last-date>
 // -----------------------------------------------------------------------
 
-namespace SzwHighSpeedRack.Utility
+namespace SzwHighSpeedRack
 {
     using System;
     using System.Collections.Generic;

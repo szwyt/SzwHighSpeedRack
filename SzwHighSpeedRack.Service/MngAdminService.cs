@@ -5,8 +5,8 @@ using System.Linq.Expressions;
 using System.Text;
 using SzwHighSpeedRack.Aop;
 using SzwHighSpeedRack.EntityFrameworkCore;
-using SzwHighSpeedRack.Model;
-using SzwHighSpeedRack.Utility;
+using SzwHighSpeedRack.Entity;
+using SzwHighSpeedRack;
 
 namespace SzwHighSpeedRack.Service
 {
@@ -20,7 +20,7 @@ namespace SzwHighSpeedRack.Service
 
         public virtual SiteCategoryDto GetSiteCategoryInfo(Expression<Func<SiteCategory, bool>> exp = null)
         {
-            return new EmitMapperEx().Mapper<SiteCategory, SiteCategoryDto>(baseContext.FindSingle<SiteCategory>(f => f.Id == 1));
+            return new EmitMapperExtension().Mapper<SiteCategory, SiteCategoryDto>(baseContext.FindSingle<SiteCategory>(f => f.Id == 1));
         }
 
         //[Transaction(true)]

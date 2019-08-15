@@ -2,7 +2,7 @@
 using System.IO;
 using System.Text;
 
-namespace SzwHighSpeedRack.Utility
+namespace SzwHighSpeedRack
 {
     public class ByteUtils
     {
