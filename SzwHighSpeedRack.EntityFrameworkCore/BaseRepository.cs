@@ -23,24 +23,20 @@ namespace SzwHighSpeedRack.EntityFrameworkCore
             _dbFactory = dbFactory;
             _baseContext = _dbFactory.GetDbContext();
         }
-        /// <summary>
-        /// 添加
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="  _baseContext"></param>
-        /// <param name="entity"></param>
+
+        public bool IsExist(Expression<Func<T, bool>> exp)
+        {
+            List<T> list = _baseContext.Set<T>().Where(exp).ToList();
+            return list != null & list.Count > 0;
+        }
+
         public void Add(T entity)
         {
             _baseContext.Set<T>().Add(entity);
             _baseContext.SaveChanges();
         }
 
-        /// <summary>
-        /// 批量添加
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="  _baseContext"></param>
-        /// <param name="entities"></param>
+       
         public void BatchAdd(List<T> entities)
         {
             _baseContext.Set<T>().AddRange(entities);
@@ -48,48 +44,24 @@ namespace SzwHighSpeedRack.EntityFrameworkCore
 
         }
 
-        /// <summary>
-        /// 批量删除
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="  _baseContext"></param>
-        /// <param name="entities"></param>
         public void BatchDelete(List<T> entities)
         {
             _baseContext.Set<T>().RemoveRange(entities);
             _baseContext.SaveChanges();
         }
 
-        /// <summary>
-        /// 批量修改
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="  _baseContext"></param>
-        /// <param name="entities"></param>
         public void BatchUpdate(List<T> entities)
         {
             _baseContext.Set<T>().UpdateRange(entities);
             _baseContext.SaveChanges();
         }
 
-        /// <summary>
-        /// 删除
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="  _baseContext"></param>
-        /// <param name="entity"></param>
         public void Delete(T entity)
         {
             _baseContext.Set<T>().Remove(entity);
             _baseContext.SaveChanges();
         }
 
-        /// <summary>
-        /// 修改
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="  _baseContext"></param>
-        /// <param name="entity"></param>
         public void Update(T entity)
         {
             _baseContext.Set<T>().Update(entity);
@@ -121,10 +93,6 @@ namespace SzwHighSpeedRack.EntityFrameworkCore
             return Tuple.Create(data.Skip(pageSize * (pageIndex - 1)).Take(pageSize).ToList(), total);
         }
 
-        /// <summary>
-        /// 按条件获取单个实体
-        /// </summary>
-        /// <param name="exp">条件</param>
         /// <returns>T</returns>
         public T FindSingle(Expression<Func<T, bool>> exp = null)
         {
@@ -154,7 +122,7 @@ namespace SzwHighSpeedRack.EntityFrameworkCore
         /// </summary>
         /// <param name="where">更新条件</param>
         /// <param name="entity">更新后的实体</param>
-        public void Update(Expression<Func<T, bool>> where, Expression<Func<T, T>> entity)
+        public void UpdateByExp(Expression<Func<T, bool>> where, Expression<Func<T, T>> entity)
         {
             if (where != null)
             {
@@ -172,7 +140,7 @@ namespace SzwHighSpeedRack.EntityFrameworkCore
         /// <typeparam name="T"></typeparam>
         /// <param name="  _baseContext"></param>
         /// <param name="exp"></param>
-        public void Delete(Expression<Func<T, bool>> exp)
+        public void DeleteByExp(Expression<Func<T, bool>> exp)
         {
             _baseContext.Set<T>().Where(exp).Delete();
         }
@@ -194,10 +162,6 @@ namespace SzwHighSpeedRack.EntityFrameworkCore
             GC.SuppressFinalize(this);
         }
 
-        public bool IsExist(Expression<Func<T, bool>> exp)
-        {
-            throw new NotImplementedException();
-        }
 
     }
 }

@@ -41,7 +41,7 @@ namespace SzwHighSpeedRack.Service
             //int a = 0;
             //var test = 10 / a;
 
-            _siteCategory.Update(w => w.Id == 115, u => new SiteCategory { ContentTitle = "Hello" });
+            _siteCategory.UpdateByExp(w => w.Id == 115, u => new SiteCategory { ContentTitle = "Hello" });
             return 1;
         }
     }

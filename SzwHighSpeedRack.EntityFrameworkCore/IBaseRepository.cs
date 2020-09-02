@@ -22,6 +22,7 @@ namespace SzwHighSpeedRack.EntityFrameworkCore
 
         /// <summary>
         /// 按条件判断是否存在对象
+        /// true存在，false不存在
         /// </summary>
         /// <param name="exp">条件</param>
         /// <returns>bool</returns>
@@ -95,12 +96,12 @@ namespace SzwHighSpeedRack.EntityFrameworkCore
         /// </summary>
         /// <param name="where">更新条件</param>
         /// <param name="entity">更新后的实体</param>
-        void Update(Expression<Func<T, bool>> where, Expression<Func<T, T>> entity);
+        void UpdateByExp(Expression<Func<T, bool>> where, Expression<Func<T, T>> entity);
 
         /// <summary>
         /// 删除
         /// </summary>
         /// <param name="exp">条件</param>
-        void Delete(Expression<Func<T, bool>> exp);
+        void DeleteByExp(Expression<Func<T, bool>> exp);
     }
 }

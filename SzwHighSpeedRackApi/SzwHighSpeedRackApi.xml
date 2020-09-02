@@ -9,6 +9,13 @@
             构造函数
             </summary>
             <param name="jwtSettingsAccesser"></param>
+            <param name="mngAdminService"></param>
+        </member>
+        <member name="M:SzwHighSpeedRackApi.Controllers.LoginController.Token">
+            <summary>
+            获取Token令牌
+            </summary>
+            <returns></returns>
         </member>
         <member name="M:SzwHighSpeedRackApi.Controllers.LoginController.Test1(System.String)">
             <summary>

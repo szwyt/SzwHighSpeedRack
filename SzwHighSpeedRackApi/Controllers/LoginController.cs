@@ -24,19 +24,20 @@ namespace SzwHighSpeedRackApi.Controllers
         /// 构造函数
         /// </summary>
         /// <param name="jwtSettingsAccesser"></param>
+        /// <param name="mngAdminService"></param>
         public LoginController(IOptions<JwtSettings> jwtSettingsAccesser, MngAdminService mngAdminService)
         {
             _jwtSettings = jwtSettingsAccesser.Value;
             _mngAdminService = mngAdminService;
         }
 
-        [HttpPost("GetToken")]
-        [AllowAnonymous]
+
         /// <summary>
         /// 获取Token令牌
         /// </summary>
-        /// <param name="userModel"></param>
         /// <returns></returns>
+        [HttpPost("GetToken")]
+        [AllowAnonymous]
         public object Token()
         {
             var tokenHandler = new JwtSecurityTokenHandler();
