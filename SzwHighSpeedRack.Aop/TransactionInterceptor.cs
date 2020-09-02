@@ -16,8 +16,13 @@ namespace SzwHighSpeedRack.Aop
     /// </summary>
     public class TransactionInterceptor : IInterceptor
     {
-        public BaseContext BaseContext { get; set; }
-
+        private IDbFactory _dbFactory;
+        private BaseContext _baseContext;
+        public TransactionInterceptor(IDbFactory dbFactory)
+        {
+            _dbFactory = dbFactory;
+            _baseContext = dbFactory.GetDbContext();
+        }
         public void Intercept(IInvocation invocation)
         {
             Type type = invocation.TargetType;
@@ -29,29 +34,18 @@ namespace SzwHighSpeedRack.Aop
                 enabled = attr.Enabled;
             }
 
-            PropertyInfo[] baseType = type.BaseType.GetProperties();
-            foreach (PropertyInfo p in baseType)
-            {
-                if (p.PropertyType.Name == "BaseContext")
-                {
-                    this.BaseContext = (BaseContext)invocation.InvocationTarget.GetValue(p);
-                    break;
-                }
-            }
-
             if (enabled)
             {
-                using (var beginTransaction = this.BaseContext.Database.BeginTransaction())
+                using (_dbFactory.BeginTran())
                 {
                     try
                     {
                         invocation.Proceed();
-                        beginTransaction.Commit();
+                        _dbFactory.CommitTran();
                     }
-                    catch (Exception ex)
+                    catch (Exception)
                     {
-                        beginTransaction.Rollback();
-                        throw ex;
+                        _dbFactory.RollbackTran();
                     }
                 }
             }

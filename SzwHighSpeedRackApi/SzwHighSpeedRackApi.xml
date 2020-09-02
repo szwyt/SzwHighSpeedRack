@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>SzwHighSpeedRackApi</name>
+    </assembly>
+    <members>
+        <member name="M:SzwHighSpeedRackApi.Controllers.LoginController.#ctor(Microsoft.Extensions.Options.IOptions{SzwHighSpeedRackApi.JwtSettings},SzwHighSpeedRack.Service.MngAdminService)">
+            <summary>
+            构造函数
+            </summary>
+            <param name="jwtSettingsAccesser"></param>
+        </member>
+        <member name="M:SzwHighSpeedRackApi.Controllers.LoginController.Test1(System.String)">
+            <summary>
+            集成jwt验证及在Swagger中实现添加Token(需要验证)
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:SzwHighSpeedRackApi.JwtSettings.SecurityKey">
+            <summary>
+            密钥（字符串长度大于16）
+            </summary>
+        </member>
+        <member name="P:SzwHighSpeedRackApi.JwtSettings.Issuer">
+            <summary>
+            颁发者
+            </summary>
+        </member>
+        <member name="P:SzwHighSpeedRackApi.JwtSettings.Audience">
+            <summary>
+            接收者
+            </summary>
+        </member>
+        <member name="P:SzwHighSpeedRackApi.JwtSettings.ExpireSeconds">
+            <summary>
+            过期时间（s）
+            </summary>
+        </member>
+        <member name="M:SzwHighSpeedRackApi.ModuleRegister.Load(Autofac.ContainerBuilder)">
+            <summary>
+            重写Autofac管道Load方法，在这里注册注入
+            </summary>
+            <param name="builder"></param>
+        </member>
+    </members>
+</doc>

@@ -13,94 +13,96 @@ namespace SzwHighSpeedRack.EntityFrameworkCore
     using SzwHighSpeedRack.Entity;
     using Z.EntityFramework.Plus;
 
-    public static class BaseRepository
+    public class BaseRepository<T> : IBaseRepository<T>, IDisposable
+        where T : BaseEntity
     {
+        private readonly IDbFactory _dbFactory;
+        protected BaseContext _baseContext;
+        public BaseRepository(IDbFactory dbFactory)
+        {
+            _dbFactory = dbFactory;
+            _baseContext = _dbFactory.GetDbContext();
+        }
         /// <summary>
         /// 添加
         /// </summary>
         /// <typeparam name="T"></typeparam>
-        /// <param name="baseContext"></param>
+        /// <param name="  _baseContext"></param>
         /// <param name="entity"></param>
-        public static void AddEntity<T>(this BaseContext baseContext, T entity)
-             where T : BaseEntity
+        public void Add(T entity)
         {
-            baseContext.Set<T>().Add(entity);
-            baseContext.SaveChanges();
+            _baseContext.Set<T>().Add(entity);
+            _baseContext.SaveChanges();
         }
 
         /// <summary>
         /// 批量添加
         /// </summary>
         /// <typeparam name="T"></typeparam>
-        /// <param name="baseContext"></param>
+        /// <param name="  _baseContext"></param>
         /// <param name="entities"></param>
-        public static void BatchAddEntity<T>(this BaseContext baseContext, List<T> entities)
-           where T : BaseEntity
+        public void BatchAdd(List<T> entities)
         {
-            baseContext.Set<T>().AddRange(entities);
-            baseContext.SaveChanges();
+            _baseContext.Set<T>().AddRange(entities);
+            _baseContext.SaveChanges();
+
         }
 
         /// <summary>
         /// 批量删除
         /// </summary>
         /// <typeparam name="T"></typeparam>
-        /// <param name="baseContext"></param>
+        /// <param name="  _baseContext"></param>
         /// <param name="entities"></param>
-        public static void BatchDelete<T>(this BaseContext baseContext, List<T> entities)
-           where T : BaseEntity
+        public void BatchDelete(List<T> entities)
         {
-            baseContext.Set<T>().RemoveRange(entities);
-            baseContext.SaveChanges();
+            _baseContext.Set<T>().RemoveRange(entities);
+            _baseContext.SaveChanges();
         }
 
         /// <summary>
         /// 批量修改
         /// </summary>
         /// <typeparam name="T"></typeparam>
-        /// <param name="baseContext"></param>
+        /// <param name="  _baseContext"></param>
         /// <param name="entities"></param>
-        public static void BatchUpdate<T>(this BaseContext baseContext, List<T> entities)
-            where T : BaseEntity
+        public void BatchUpdate(List<T> entities)
         {
-            baseContext.Set<T>().UpdateRange(entities);
-            baseContext.SaveChanges();
+            _baseContext.Set<T>().UpdateRange(entities);
+            _baseContext.SaveChanges();
         }
 
         /// <summary>
         /// 删除
         /// </summary>
         /// <typeparam name="T"></typeparam>
-        /// <param name="baseContext"></param>
+        /// <param name="  _baseContext"></param>
         /// <param name="entity"></param>
-        public static void Delete<T>(this BaseContext baseContext, T entity)
-              where T : BaseEntity
+        public void Delete(T entity)
         {
-            baseContext.Set<T>().Remove(entity);
-            baseContext.SaveChanges();
+            _baseContext.Set<T>().Remove(entity);
+            _baseContext.SaveChanges();
         }
 
         /// <summary>
         /// 修改
         /// </summary>
         /// <typeparam name="T"></typeparam>
-        /// <param name="baseContext"></param>
+        /// <param name="  _baseContext"></param>
         /// <param name="entity"></param>
-        public static void Update<T>(this BaseContext baseContext, T entity)
-             where T : BaseEntity
+        public void Update(T entity)
         {
-            baseContext.Set<T>().Update(entity);
-            baseContext.SaveChanges();
+            _baseContext.Set<T>().Update(entity);
+            _baseContext.SaveChanges();
         }
 
-        public static List<T> FindList<T>(this BaseContext baseContext, Expression<Func<T, bool>> exp = null)
-            where T : BaseEntity
+        public List<T> FindList(Expression<Func<T, bool>> exp = null)
         {
-            return Filter(baseContext, exp).ToList();
+            return Filter(exp).ToList();
         }
 
-        public static Tuple<List<T>, int> Page<TKey, T>(this BaseContext baseContext, int pageIndex = 1, int pageSize = 10, Expression<Func<T, TKey>> orderBy = null, Expression<Func<T, bool>> exp = null, bool isOrder = true)
-             where T : BaseEntity
+        public Tuple<List<T>, int> Page<TKey>(int pageIndex = 1, int pageSize = 10, Expression<Func<T, TKey>> orderBy = null, Expression<Func<T, bool>> exp = null, bool isOrder = true)
+
         {
             if (pageIndex < 1)
             {
@@ -108,8 +110,8 @@ namespace SzwHighSpeedRack.EntityFrameworkCore
             }
 
             IQueryable<T> data = isOrder ?
-               baseContext.Set<T>().OrderBy(orderBy) :
-               baseContext.Set<T>().OrderByDescending(orderBy);
+                 _baseContext.Set<T>().OrderBy(orderBy) :
+                 _baseContext.Set<T>().OrderByDescending(orderBy);
             if (exp != null)
             {
                 data = data.Where(exp).AsNoTracking();
@@ -124,17 +126,16 @@ namespace SzwHighSpeedRack.EntityFrameworkCore
         /// </summary>
         /// <param name="exp">条件</param>
         /// <returns>T</returns>
-        public static T FindSingle<T>(this BaseContext baseContext, Expression<Func<T, bool>> exp = null)
-            where T : class, new()
+        public T FindSingle(Expression<Func<T, bool>> exp = null)
         {
             try
             {
                 if (exp != null)
                 {
-                    return baseContext.Set<T>().AsNoTracking().FirstOrDefault(exp);
+                    return _baseContext.Set<T>().AsNoTracking().FirstOrDefault(exp);
                 }
 
-                return baseContext.Set<T>().AsNoTracking().FirstOrDefault();
+                return _baseContext.Set<T>().AsNoTracking().FirstOrDefault();
             }
             catch (Exception ex)
             {
@@ -142,10 +143,10 @@ namespace SzwHighSpeedRack.EntityFrameworkCore
             }
         }
 
-        public static int GetCount<T>(this BaseContext baseContext, Expression<Func<T, bool>> exp = null)
-           where T : BaseEntity
+        public int GetCount(Expression<Func<T, bool>> exp = null)
+
         {
-            return BaseRepository.Filter<T>(baseContext, exp).Count();
+            return Filter(exp).Count();
         }
 
         /// <summary>
@@ -153,16 +154,15 @@ namespace SzwHighSpeedRack.EntityFrameworkCore
         /// </summary>
         /// <param name="where">更新条件</param>
         /// <param name="entity">更新后的实体</param>
-        public static void UpdateEntity<T>(this BaseContext baseContext, Expression<Func<T, bool>> where, Expression<Func<T, T>> entity)
-            where T : class, new()
+        public void Update(Expression<Func<T, bool>> where, Expression<Func<T, T>> entity)
         {
             if (where != null)
             {
-                baseContext.Set<T>().Where(where).Update(entity);
+                _baseContext.Set<T>().Where(where).Update(entity);
             }
             else
             {
-                baseContext.Set<T>().Update(entity);
+                _baseContext.Set<T>().Update(entity);
             }
         }
 
@@ -170,23 +170,34 @@ namespace SzwHighSpeedRack.EntityFrameworkCore
         /// 按条件删除,如：DeleteEntity(u =>u.Id==1,u =>new User{Name="ok"});
         /// </summary>
         /// <typeparam name="T"></typeparam>
-        /// <param name="baseContext"></param>
+        /// <param name="  _baseContext"></param>
         /// <param name="exp"></param>
-        public static void DeleteEntity<T>(this BaseContext baseContext, Expression<Func<T, bool>> exp)
-           where T : BaseEntity
+        public void Delete(Expression<Func<T, bool>> exp)
         {
-            baseContext.Set<T>().Where(exp).Delete();
+            _baseContext.Set<T>().Where(exp).Delete();
         }
 
-        public static IQueryable<T> Filter<T>(this BaseContext baseContext, Expression<Func<T, bool>> exp)
-            where T : BaseEntity
+        public IQueryable<T> Filter(Expression<Func<T, bool>> exp)
+
         {
-            var dbSet = baseContext.Set<T>().AsNoTracking().AsQueryable();
+            var dbSet = _baseContext.Set<T>().AsNoTracking().AsQueryable();
             if (exp != null)
             {
                 dbSet = dbSet.Where(exp);
             }
             return dbSet;
         }
+
+        public void Dispose()
+        {
+            GC.Collect();
+            GC.SuppressFinalize(this);
+        }
+
+        public bool IsExist(Expression<Func<T, bool>> exp)
+        {
+            throw new NotImplementedException();
+        }
+
     }
 }

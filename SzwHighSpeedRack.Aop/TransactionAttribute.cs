@@ -13,9 +13,8 @@ namespace SzwHighSpeedRack.Aop
         AttributeTargets.Method, AllowMultiple = true, Inherited = true)]
     public class TransactionAttribute : Attribute
     {
-        public TransactionAttribute(bool enabled)
+        public TransactionAttribute()
         {
-            this.Enabled = enabled;
         }
 
         public bool Enabled { get; set; }

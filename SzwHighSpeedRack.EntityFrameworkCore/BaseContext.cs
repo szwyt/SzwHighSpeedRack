@@ -34,7 +34,7 @@ namespace SzwHighSpeedRack.EntityFrameworkCore
         /// <param name="modelBuilder">modelBuilder</param>
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            Assembly assembly = Assembly.LoadFrom(Directory.GetCurrentDirectory() + "\\SzwHighSpeedRack.Entity.dll");
+            Assembly assembly = Assembly.LoadFrom(AppDomain.CurrentDomain.BaseDirectory + "\\SzwHighSpeedRack.Entity.dll");
             modelBuilder.ApplyConfigurationsFromAssembly(assembly);
             base.OnModelCreating(modelBuilder);
         }

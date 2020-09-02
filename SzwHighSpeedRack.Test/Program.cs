@@ -8,6 +8,7 @@ using SzwHighSpeedRack.EntityFrameworkCore;
 using SzwHighSpeedRack.Entity;
 using SzwHighSpeedRack.Service;
 using SzwHighSpeedRack;
+using System.Collections.Generic;
 
 namespace SzwHighSpeedRack.Test
 {
@@ -17,11 +18,18 @@ namespace SzwHighSpeedRack.Test
         static void Main(string[] args)
         {
             var builder = new ContainerBuilder();
+            //注入泛型仓储
+            builder.RegisterGeneric(typeof(BaseRepository<>)).As(typeof(IBaseRepository<>));
             // 注册AOP
             builder.RegisterType<LogInterceptor>();
             builder.RegisterType<TransactionInterceptor>();
+            List<NamedParameter> ListNamedParameter = new List<NamedParameter>()
+            {
+               new NamedParameter("dbType", DbEnum.DbType.MySql),
+               new NamedParameter("connectionString", "Server=118.24.60.212; Port=3306; Uid=root; Pwd=123456; Database=szwHighspeedrack;SslMode=None"),
+            };
             //数据库对象注入
-            builder.RegisterType<DbContextFactory>().As<IDbFactory>();
+            builder.RegisterType<DbContextFactory>().As<IDbFactory>().WithParameters(ListNamedParameter).SingleInstance();
             //builder.RegisterType<MngAdminService>();
             // 如果AOP拦截的是类不是接口,那么里面需要拦截的方法必须为虚方法
             builder.RegisterAssemblyTypes(Assembly.GetAssembly(typeof(ManagerService)))
@@ -30,8 +38,12 @@ namespace SzwHighSpeedRack.Test
             _container = builder.Build();
             var iuser = _container.Resolve<MngAdminService>();
             var manager = _container.Resolve<ManagerService>();
-            var info = iuser.GetSiteCategoryInfo();
-            Console.WriteLine(info.ToJson());
+            //var info = iuser.GetSiteCategoryInfo();
+            try
+            {
+                Console.WriteLine(iuser.TransactionTest());
+            }
+            catch { }
             //manager.Test();
 
             //using (var db = DbContextFactory.CreateDbInstance(DbEnum.DbType.MySql, "Server=118.24.60.212; Port=3306; Uid=root; Pwd=123456; Database=szwHighspeedrack;SslMode=None"))

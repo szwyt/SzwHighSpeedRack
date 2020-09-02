@@ -11,24 +11,26 @@ using SzwHighSpeedRack;
 namespace SzwHighSpeedRack.Service
 {
     [Intercept(typeof(TransactionInterceptor))]
-    public partial class MngAdminService : BaseService
+    [Intercept(typeof(LogInterceptor))]
+    public partial class MngAdminService
     {
-        public MngAdminService(IDbFactory factory)
-            : base(factory)
+        private IBaseRepository<SiteCategory> _siteCategory;
+        public MngAdminService(IBaseRepository<SiteCategory> siteCategory)
         {
+            _siteCategory = siteCategory;
         }
 
         public virtual SiteCategoryDto GetSiteCategoryInfo(Expression<Func<SiteCategory, bool>> exp = null)
         {
-            return new EmitMapperExtension().Mapper<SiteCategory, SiteCategoryDto>(baseContext.FindSingle<SiteCategory>(f => f.Id == 1));
+            return new EmitMapperExtension().Mapper<SiteCategory, SiteCategoryDto>(_siteCategory.FindSingle(exp));
         }
 
-        //[Transaction(true)]
+        [Transaction(Enabled = true)]
         public virtual int TransactionTest()
         {
-            baseContext.AddEntity(new SiteCategory
+            _siteCategory.Add(new SiteCategory
             {
-                ContentTitle = "测试",
+                ContentTitle = "测试333",
                 Depth = 2,
                 HasModelContent = 20,
                 ModelId = 2,
@@ -36,10 +38,10 @@ namespace SzwHighSpeedRack.Service
                 Sequence = 2
             });
 
-            int a = 0;
-            var test = 10 / a;
+            //int a = 0;
+            //var test = 10 / a;
 
-            baseContext.DeleteEntity<SiteCategory>(w => w.Id == 101);
+            _siteCategory.Update(w => w.Id == 115, u => new SiteCategory { ContentTitle = "Hello" });
             return 1;
         }
     }

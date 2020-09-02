@@ -13,7 +13,7 @@ namespace SzwHighSpeedRack.Service
 
         public BaseService(IDbFactory dbFactory)
         {
-            baseContext = dbFactory.GetDbContext(DbEnum.DbType.MySql, "Server=118.24.60.212; Port=3306; Uid=root; Pwd=123456; Database=szwHighspeedrack;SslMode=None");
+            //baseContext = dbFactory.GetDbContext(DbEnum.DbType.MySql, "Server=118.24.60.212; Port=3306; Uid=root; Pwd=123456; Database=szwHighspeedrack;SslMode=None");
         }
 
         ~BaseService()
