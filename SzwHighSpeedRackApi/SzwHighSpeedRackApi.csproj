@@ -17,7 +17,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\SzwHighSpeedRack.Service\SzwHighSpeedRack.Service.csproj" />
-    <ProjectReference Include="..\SzwHighSpeedRack.Utility\SzwHighSpeedRack.csproj" />
   </ItemGroup>
 
   <ItemGroup>

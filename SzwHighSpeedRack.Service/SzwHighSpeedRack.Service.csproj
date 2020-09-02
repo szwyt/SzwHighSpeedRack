@@ -8,7 +8,6 @@
     <ProjectReference Include="..\SzwHighSpeedRack.Aop\SzwHighSpeedRack.Aop.csproj" />
     <ProjectReference Include="..\SzwHighSpeedRack.EntityFrameworkCore\SzwHighSpeedRack.EntityFrameworkCore.csproj" />
     <ProjectReference Include="..\SzwHighSpeedRack.Model\SzwHighSpeedRack.Entity.csproj" />
-    <ProjectReference Include="..\SzwHighSpeedRack.Utility\SzwHighSpeedRack.csproj" />
   </ItemGroup>
 
 </Project>

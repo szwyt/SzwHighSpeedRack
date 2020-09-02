@@ -6,9 +6,6 @@ namespace SzwHighSpeedRack.EntityFrameworkCore
 {
     using Microsoft.EntityFrameworkCore.Storage;
     using System;
-    using System.Collections.Generic;
-    using System.Text;
-    using SzwHighSpeedRack;
 
     /// <summary>
     /// DB工厂.
