@@ -79,8 +79,6 @@ namespace SzwHighSpeedRackApi.Controllers
         [AllowAnonymous]
         public string Test1(string contentTitle)
         {
-            int a = 0;
-            var test = 10 / a;
             return _mngAdminService.GetSiteCategoryInfo(f => f.ContentTitle == contentTitle).ToJson();
         }
 

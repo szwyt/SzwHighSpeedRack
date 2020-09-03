@@ -31,6 +31,7 @@ namespace SzwHighSpeedRackApi
                 LogModule.LogError(this.GetLogStr(filterContext.HttpContext, filterContext.Exception));
                 HttpResponse response = filterContext.HttpContext.Response;
                 response.ContentType = "application/json";
+                response.StatusCode = -1;
                 response.WriteAsync(new
                 {
                     Result = 0,

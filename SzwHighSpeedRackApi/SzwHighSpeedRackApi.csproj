@@ -10,19 +10,47 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="index.html" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="index.html" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="6.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="3.1.7" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="5.3.3" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\SzwHighSpeedRack.MiniProfiler\SzwHighSpeedRack.MiniProfiler.csproj" />
     <ProjectReference Include="..\SzwHighSpeedRack.Service\SzwHighSpeedRack.Service.csproj" />
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="ControllerName.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Controllers\ServiceTextTemplate.tt">
+      <LastGenOutput>ServiceTextTemplate.cs</LastGenOutput>
+      <Generator>TextTemplatingFileGenerator</Generator>
+    </None>
     <None Update="server.pfx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Controllers\ServiceTextTemplate.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>ServiceTextTemplate.tt</DependentUpon>
+    </Compile>
   </ItemGroup>
 
 

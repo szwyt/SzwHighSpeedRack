@@ -13,6 +13,7 @@ using System;
 using System.IO;
 using System.Reflection;
 using System.Text;
+using SzwHighSpeedRack.MiniProfiler;
 
 namespace SzwHighSpeedRackApi
 {
@@ -36,12 +37,14 @@ namespace SzwHighSpeedRackApi
             //将配置绑定到JwtSettings实例中
             var jwtSettings = new JwtSettings();
             Configuration.Bind("JwtSettings", jwtSettings);
-
+            
             services.AddControllers(o =>
             {
                 // 全局异常过滤
                 o.Filters.Add(typeof(GlobalExceptionsFilter));
             });
+
+            services.AddMiniProfilerSetup();
             // 策略授权。
             // 然后这么写 [Authorize(Policy = "Admin")]
             services.AddAuthorization(options =>
@@ -151,9 +154,11 @@ namespace SzwHighSpeedRackApi
                 endpoints.MapControllers();
             });
 
+            app.UseMiniProfiler();
             app.UseSwagger();
             app.UseSwaggerUI(c =>
             {
+                c.IndexStream = () => GetType().GetTypeInfo().Assembly.GetManifestResourceStream("SzwHighSpeedRackApi.index.html");
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "SzwHighSpeedRackApi v1");
                 c.DocExpansion(DocExpansion.None);
             });
