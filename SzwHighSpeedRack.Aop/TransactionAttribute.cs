@@ -17,6 +17,6 @@ namespace SzwHighSpeedRack.Aop
         {
         }
 
-        public bool Enabled { get; set; }
+        public bool IsOpenTransaction { get; set; }
     }
 }

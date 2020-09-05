@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <TargetFramework>netstandard2.1</TargetFramework>
     <RootNamespace>SzwHighSpeedRack</RootNamespace>
     <OutputType>Library</OutputType>
   </PropertyGroup>
@@ -14,6 +14,7 @@
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="3.1.7" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.2" />
     <PackageReference Include="PinYinConverterCore" Version="1.0.2" />
+    <PackageReference Include="System.ComponentModel.Annotations" Version="4.7.0" />
     <PackageReference Include="System.Net.Http" Version="4.3.4" />
     <PackageReference Include="System.Runtime.Extensions" Version="4.3.1" />
   </ItemGroup>

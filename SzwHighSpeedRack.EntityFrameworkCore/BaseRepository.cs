@@ -16,8 +16,8 @@ namespace SzwHighSpeedRack.EntityFrameworkCore
     public class BaseRepository<T> : IBaseRepository<T>, IDisposable
         where T : BaseEntity
     {
-        private readonly IDbFactory _dbFactory;
-        protected BaseContext _baseContext;
+        private IDbFactory _dbFactory;
+        private BaseContext _baseContext;
         public BaseRepository(IDbFactory dbFactory)
         {
             _dbFactory = dbFactory;
@@ -30,13 +30,12 @@ namespace SzwHighSpeedRack.EntityFrameworkCore
             return list != null & list.Count > 0;
         }
 
-        public void Add(T entity)
+        public void AddEntity(T entity)
         {
             _baseContext.Set<T>().Add(entity);
             _baseContext.SaveChanges();
         }
 
-       
         public void BatchAdd(List<T> entities)
         {
             _baseContext.Set<T>().AddRange(entities);
@@ -56,13 +55,13 @@ namespace SzwHighSpeedRack.EntityFrameworkCore
             _baseContext.SaveChanges();
         }
 
-        public void Delete(T entity)
+        public void DeleteEntity(T entity)
         {
             _baseContext.Set<T>().Remove(entity);
             _baseContext.SaveChanges();
         }
 
-        public void Update(T entity)
+        public void UpdateEntity(T entity)
         {
             _baseContext.Set<T>().Update(entity);
             _baseContext.SaveChanges();
@@ -93,7 +92,6 @@ namespace SzwHighSpeedRack.EntityFrameworkCore
             return Tuple.Create(data.Skip(pageSize * (pageIndex - 1)).Take(pageSize).ToList(), total);
         }
 
-        /// <returns>T</returns>
         public T FindSingle(Expression<Func<T, bool>> exp = null)
         {
             try

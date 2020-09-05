@@ -1,14 +1,11 @@
-﻿namespace SzwHighSpeedRack
-{
-    using System;
-    using System.Collections;
-    using System.Collections.Generic;
-    using System.ComponentModel;
-    using System.ComponentModel.DataAnnotations;
-    using System.Linq;
-    using System.Reflection;
-    using System.Threading.Tasks;
+﻿using System;
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Reflection;
 
+namespace SzwHighSpeedRack
+{
     /// <summary>
     /// 类型<see cref="Type"/>辅助扩展方法类
     /// </summary>

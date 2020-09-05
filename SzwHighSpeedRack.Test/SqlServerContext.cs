@@ -1,8 +1,8 @@
-﻿// <copyright file="BaseContext.cs" company="PlaceholderCompany">
+﻿// <copyright file="SqlServerContext.cs" company="PlaceholderCompany">
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
-namespace SzwHighSpeedRack.EntityFrameworkCore
+namespace SzwHighSpeedRack.Test
 {
     using System;
     using System.Collections.Generic;
@@ -10,24 +10,12 @@ namespace SzwHighSpeedRack.EntityFrameworkCore
     using System.Reflection;
     using System.Text;
     using Microsoft.EntityFrameworkCore;
-    using SzwHighSpeedRack.Entity;
 
     /// <summary>
-    /// 基类上下文.
+    /// SqlServerContext.
     /// </summary>
-    public class BaseContext : DbContext
+    public class SqlServerContext : DbContext
     {
-
-        public BaseContext(string connectionString)
-        {
-            this.ConnectionString = connectionString;
-        }
-
-        /// <summary>
-        /// Gets connectionString.
-        /// </summary>
-        protected string ConnectionString { get; set; }
-
         /// <summary>
         /// modelBuilder.
         /// </summary>
@@ -37,6 +25,11 @@ namespace SzwHighSpeedRack.EntityFrameworkCore
             Assembly assembly = Assembly.LoadFrom(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "SzwHighSpeedRack.Entity.dll"));
             modelBuilder.ApplyConfigurationsFromAssembly(assembly);
             base.OnModelCreating(modelBuilder);
+        }
+        /// <inheritdoc/>
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder.UseSqlServer(@"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=NFineBase;Integrated Security=True");
         }
     }
 }

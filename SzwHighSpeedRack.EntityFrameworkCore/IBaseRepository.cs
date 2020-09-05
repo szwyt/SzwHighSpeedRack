@@ -59,7 +59,7 @@ namespace SzwHighSpeedRack.EntityFrameworkCore
         /// 添加
         /// </summary>
         /// <param name="entity">实体</param>
-        void Add(T entity);
+        void AddEntity(T entity);
 
         /// <summary>
         /// 批量添加
@@ -71,7 +71,7 @@ namespace SzwHighSpeedRack.EntityFrameworkCore
         /// 修改
         /// </summary>
         /// <param name="entity">实体</param>
-        void Update(T entity);
+        void UpdateEntity(T entity);
 
         /// <summary>
         /// 批量修改
@@ -83,7 +83,7 @@ namespace SzwHighSpeedRack.EntityFrameworkCore
         /// 删除实体
         /// </summary>
         /// <param name="entity">实体</param>
-        void Delete(T entity);
+        void DeleteEntity(T entity);
 
         /// <summary>
         /// 批量删除

@@ -6,8 +6,6 @@
     using Microsoft.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-    /// <summary>
-    /// 表映射.
     /// </summary>
     public class SiteCategoryMap : IEntityTypeConfiguration<SiteCategory>
     {

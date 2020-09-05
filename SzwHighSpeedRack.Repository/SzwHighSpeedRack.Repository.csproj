@@ -6,7 +6,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\SzwHighSpeedRack.Aop\SzwHighSpeedRack.Aop.csproj" />
-    <ProjectReference Include="..\SzwHighSpeedRack.Repository\SzwHighSpeedRack.Repository.csproj" />
+    <ProjectReference Include="..\SzwHighSpeedRack.EntityFrameworkCore\SzwHighSpeedRack.EntityFrameworkCore.csproj" />
   </ItemGroup>
 
 </Project>

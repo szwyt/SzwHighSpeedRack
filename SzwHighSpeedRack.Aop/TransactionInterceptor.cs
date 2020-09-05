@@ -26,15 +26,15 @@ namespace SzwHighSpeedRack.Aop
         public void Intercept(IInvocation invocation)
         {
             Type type = invocation.TargetType;
-            bool enabled = true;
-            var props = invocation.Method.GetCustomAttributes(typeof(TransactionAttribute), true);
-            if (props != null && props.Length > 0)
+            bool isOpenTransaction = true;
+            var attributes = invocation.Method.GetCustomAttributes(typeof(TransactionAttribute), true);
+            if (attributes != null && attributes.Length > 0)
             {
-                TransactionAttribute attr = (TransactionAttribute)props.FirstOrDefault();
-                enabled = attr.Enabled;
+                TransactionAttribute attr = (TransactionAttribute)attributes.FirstOrDefault();
+                isOpenTransaction = attr.IsOpenTransaction;
             }
 
-            if (enabled)
+            if (isOpenTransaction)
             {
                 using (_dbFactory.BeginTran())
                 {

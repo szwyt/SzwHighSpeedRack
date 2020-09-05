@@ -74,12 +74,11 @@ namespace SzwHighSpeedRackApi.Controllers
         /// 集成jwt验证及在Swagger中实现添加Token(需要验证)
         /// </summary>
         /// <returns></returns>
-        [Authorize(Policy = "SystemOrAdmin")]
+        //[Authorize(Policy = "SystemOrAdmin")]
         [HttpGet("Test1/{contentTitle}")]
-        [AllowAnonymous]
         public string Test1(string contentTitle)
         {
-            return _mngAdminService.GetSiteCategoryInfo(f => f.ContentTitle == contentTitle).ToJson();
+            return _mngAdminService.GetList(f => f.ContentTitle == contentTitle).ToJson();
         }
 
 

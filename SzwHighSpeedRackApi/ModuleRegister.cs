@@ -2,6 +2,7 @@
 using Autofac.Extras.DynamicProxy;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
@@ -24,16 +25,26 @@ namespace SzwHighSpeedRackApi
             // 注册AOP
             builder.RegisterType<LogInterceptor>();
             builder.RegisterType<TransactionInterceptor>();
-
+            Assembly assemblyBaseRepository = Assembly.LoadFrom(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "SzwHighSpeedRack.Repository.dll"));
+            Assembly assemblyService = Assembly.LoadFrom(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "SzwHighSpeedRack.Service.dll"));
             //数据库对象注入
             List<NamedParameter> ListNamedParameter = new List<NamedParameter>()
             {
                new NamedParameter("dbType", DbEnum.DbType.MySql),
                new NamedParameter("connectionString", "Server=118.24.60.212; Port=3306; Uid=root; Pwd=123456; Database=szwHighspeedrack;SslMode=None"),
             };
+
             builder.RegisterType<DbContextFactory>().As<IDbFactory>().WithParameters(ListNamedParameter).SingleInstance();
+            builder.RegisterAssemblyTypes(assemblyBaseRepository)
+              .Where(u => u.Namespace == "SzwHighSpeedRack.Repository")
+              //.EnableClassInterceptors()
+              //.InstancePerDependency();
+              .AsImplementedInterfaces()
+              .InstancePerDependency()
+              .EnableInterfaceInterceptors();//引用Autofac.Extras.DynamicProxy;
             // 如果AOP拦截的是类不是接口,那么里面需要拦截的方法必须为虚方法
-            builder.RegisterAssemblyTypes(Assembly.GetAssembly(typeof(ManagerService)))
+            //builder.RegisterAssemblyTypes(Assembly.GetAssembly(typeof(MngAdminService)))
+            builder.RegisterAssemblyTypes(assemblyService)
                 .Where(u => u.Namespace == "SzwHighSpeedRack.Service")
              .EnableClassInterceptors();
         }

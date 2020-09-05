@@ -13,7 +13,6 @@ using System;
 using System.IO;
 using System.Reflection;
 using System.Text;
-using SzwHighSpeedRack.MiniProfiler;
 
 namespace SzwHighSpeedRackApi
 {
@@ -29,6 +28,7 @@ namespace SzwHighSpeedRackApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            //注入Http上下文
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             //将appsettings.json中的JwtSettings部分文件读取到JwtSettings中，这是给其他地方用的
             services.Configure<JwtSettings>(Configuration.GetSection("JwtSettings"));
@@ -37,14 +37,13 @@ namespace SzwHighSpeedRackApi
             //将配置绑定到JwtSettings实例中
             var jwtSettings = new JwtSettings();
             Configuration.Bind("JwtSettings", jwtSettings);
-            
+
             services.AddControllers(o =>
             {
                 // 全局异常过滤
                 o.Filters.Add(typeof(GlobalExceptionsFilter));
             });
 
-            services.AddMiniProfilerSetup();
             // 策略授权。
             // 然后这么写 [Authorize(Policy = "Admin")]
             services.AddAuthorization(options =>
@@ -87,9 +86,7 @@ namespace SzwHighSpeedRackApi
                         Version = "v1"
                     });
 
-                var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
-                var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
-                c.IncludeXmlComments(xmlPath, true); //添加控制器层注释（true表示显示控制器注释）
+                //c.OperationFilter<SwaggerOperationFilter>();
 
                 c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
                 {
@@ -106,7 +103,8 @@ namespace SzwHighSpeedRackApi
                     {
                         new OpenApiSecurityScheme
                         {
-                            Reference = new OpenApiReference {
+                            Reference = new OpenApiReference
+                            {
                                 Type = ReferenceType.SecurityScheme,
                                 Id = "Bearer"
                             }
@@ -114,6 +112,9 @@ namespace SzwHighSpeedRackApi
                         new string[] { }
                     }
                 });
+                var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+                c.IncludeXmlComments(xmlPath, true); //添加控制器层注释（true表示显示控制器注释）
             });
 
 
@@ -154,7 +155,6 @@ namespace SzwHighSpeedRackApi
                 endpoints.MapControllers();
             });
 
-            app.UseMiniProfiler();
             app.UseSwagger();
             app.UseSwaggerUI(c =>
             {

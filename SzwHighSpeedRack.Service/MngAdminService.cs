@@ -7,6 +7,7 @@ using SzwHighSpeedRack.Aop;
 using SzwHighSpeedRack.EntityFrameworkCore;
 using SzwHighSpeedRack.Entity;
 using SzwHighSpeedRack;
+using SzwHighSpeedRack.Repository;
 
 namespace SzwHighSpeedRack.Service
 {
@@ -14,21 +15,21 @@ namespace SzwHighSpeedRack.Service
     [Intercept(typeof(LogInterceptor))]
     public partial class MngAdminService
     {
-        private IBaseRepository<SiteCategory> _siteCategory;
-        public MngAdminService(IBaseRepository<SiteCategory> siteCategory)
+        private readonly IMngAdminRepository _mngAdminRepository;
+        public MngAdminService(IMngAdminRepository mngAdminRepository)
         {
-            _siteCategory = siteCategory;
+            _mngAdminRepository = mngAdminRepository;
         }
 
         public virtual SiteCategoryDto GetSiteCategoryInfo(Expression<Func<SiteCategory, bool>> exp = null)
         {
-            return new EmitMapperExtension().Mapper<SiteCategory, SiteCategoryDto>(_siteCategory.FindSingle(exp));
+            return new EmitMapperExtension().Mapper<SiteCategory, SiteCategoryDto>(_mngAdminRepository.FindSingle(exp));
         }
 
-        [Transaction(Enabled = true)]
+        [Transaction(IsOpenTransaction = true)]
         public virtual int TransactionTest()
         {
-            _siteCategory.Add(new SiteCategory
+            _mngAdminRepository.AddEntity(new SiteCategory
             {
                 ContentTitle = "测试333",
                 Depth = 2,
@@ -41,8 +42,13 @@ namespace SzwHighSpeedRack.Service
             //int a = 0;
             //var test = 10 / a;
 
-            _siteCategory.UpdateByExp(w => w.Id == 115, u => new SiteCategory { ContentTitle = "Hello" });
+            _mngAdminRepository.UpdateByExp(w => w.Id == 115, u => new SiteCategory { ContentTitle = "Hello1" });
             return 1;
+        }
+
+        public virtual List<SiteCategoryDto> GetList(Expression<Func<SiteCategory, bool>> exp = null) 
+        {
+            return new EmitMapperExtension().MapperList<SiteCategory, SiteCategoryDto>(_mngAdminRepository.FindList(exp));
         }
     }
 }

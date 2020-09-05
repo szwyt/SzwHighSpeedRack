@@ -14,14 +14,4 @@ namespace SzwHighSpeedRackApi.Controllers
             _logger = logger;
         }
     }
-    public partial class UserController : ControllerBase
-    {
-        private JwtSettings _jwtSettings;
-        ILogger<UserController> _logger;
-        public UserController(JwtSettings config, ILogger<UserController> logger)
-        {
-            _jwtSettings = config;
-            _logger = logger;
-        }
-    }
 }
