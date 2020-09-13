@@ -1,4 +1,4 @@
-﻿namespace SzwHighSpeedRack.Entity
+namespace SzwHighSpeedRack.Entity
 {
     using System;
     using System.Collections.Generic;
@@ -6,5 +6,10 @@
 
     public class SiteCategoryDto : SiteCategory
     {
+        
     }
 }
+
+
+
+

@@ -27,7 +27,7 @@ namespace SzwHighSpeedRack
 
         public ObjectMapperManager OMM { get; set; }
 
-        private DefaultMapConfig OwnDefaultMapConfigs { get; set; }
+        public DefaultMapConfig OwnDefaultMapConfigs { get; set; }
 
         public void SetConvertUsing<TFrom, To>(Func<TFrom, To> converter)
         {

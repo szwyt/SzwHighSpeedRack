@@ -18,17 +18,14 @@ namespace SzwHighSpeedRackApi.Controllers
     public class LoginController : RackBaseApiController
     {
         private JwtSettings _jwtSettings;
-        private MngAdminService _mngAdminService;
 
         /// <summary>
         /// 构造函数
         /// </summary>
         /// <param name="jwtSettingsAccesser"></param>
-        /// <param name="mngAdminService"></param>
-        public LoginController(IOptions<JwtSettings> jwtSettingsAccesser, MngAdminService mngAdminService)
+        public LoginController(IOptions<JwtSettings> jwtSettingsAccesser)
         {
             _jwtSettings = jwtSettingsAccesser.Value;
-            _mngAdminService = mngAdminService;
         }
 
 
@@ -67,18 +64,6 @@ namespace SzwHighSpeedRackApi.Controllers
                 token_type = "Bearer"
             };
             return result;
-        }
-
-
-        /// <summary>
-        /// 集成jwt验证及在Swagger中实现添加Token(需要验证)
-        /// </summary>
-        /// <returns></returns>
-        //[Authorize(Policy = "SystemOrAdmin")]
-        [HttpGet("Test1/{contentTitle}")]
-        public string Test1(string contentTitle)
-        {
-            return _mngAdminService.GetList(f => f.ContentTitle == contentTitle).ToJson();
         }
 
 

@@ -8,6 +8,7 @@ using SzwHighSpeedRack.EntityFrameworkCore;
 using SzwHighSpeedRack.Entity;
 using SzwHighSpeedRack;
 using SzwHighSpeedRack.Repository;
+using EmitMapper.MappingConfiguration;
 
 namespace SzwHighSpeedRack.Service
 {
@@ -15,40 +16,33 @@ namespace SzwHighSpeedRack.Service
     [Intercept(typeof(LogInterceptor))]
     public partial class MngAdminService
     {
-        private readonly IMngAdminRepository _mngAdminRepository;
-        public MngAdminService(IMngAdminRepository mngAdminRepository)
+        private readonly ISiteCategoryRepository _siteCategoryRepository;
+        private readonly IPdProductRepository _pdProductRepository;
+        public MngAdminService(ISiteCategoryRepository siteCategoryRepository, IPdProductRepository pdProductRepository)
         {
-            _mngAdminRepository = mngAdminRepository;
+            _siteCategoryRepository = siteCategoryRepository;
+            _pdProductRepository = pdProductRepository;
         }
-
-        public virtual SiteCategoryDto GetSiteCategoryInfo(Expression<Func<SiteCategory, bool>> exp = null)
+        [TransactionAttribute(IsOpenTransaction = true)]
+        public virtual void TranTest()
         {
-            return new EmitMapperExtension().Mapper<SiteCategory, SiteCategoryDto>(_mngAdminRepository.FindSingle(exp));
-        }
+            //_siteCategoryRepository.AddEntity(new SiteCategory
+            //{
+            //    ContentTitle = "44",
+            //    HasModelContent = 11,
+            //    Sequence = 11,
+            //    Depth = 1,
+            //    ParId = 1,
+            //    ModelId = 1
+            //});
 
-        [Transaction(IsOpenTransaction = true)]
-        public virtual int TransactionTest()
-        {
-            _mngAdminRepository.AddEntity(new SiteCategory
+            _siteCategoryRepository.UpdateByExp(w => w.ModelId == 1, s => new SiteCategory
             {
-                ContentTitle = "测试333",
-                Depth = 2,
-                HasModelContent = 20,
-                ModelId = 2,
-                ParId = 2,
-                Sequence = 2
+                ContentTitle = "修改11"
             });
-
-            //int a = 0;
-            //var test = 10 / a;
-
-            _mngAdminRepository.UpdateByExp(w => w.Id == 115, u => new SiteCategory { ContentTitle = "Hello1" });
-            return 1;
-        }
-
-        public virtual List<SiteCategoryDto> GetList(Expression<Func<SiteCategory, bool>> exp = null) 
-        {
-            return new EmitMapperExtension().MapperList<SiteCategory, SiteCategoryDto>(_mngAdminRepository.FindList(exp));
+            int i = 0;
+            int b = 10 / i;
+            _pdProductRepository.DeleteByExp(w => w.Id == 2);
         }
     }
 }

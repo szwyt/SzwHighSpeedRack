@@ -4,22 +4,15 @@
         <name>SzwHighSpeedRackApi</name>
     </assembly>
     <members>
-        <member name="M:SzwHighSpeedRackApi.Controllers.LoginController.#ctor(Microsoft.Extensions.Options.IOptions{SzwHighSpeedRackApi.JwtSettings},SzwHighSpeedRack.Service.MngAdminService)">
+        <member name="M:SzwHighSpeedRackApi.Controllers.LoginController.#ctor(Microsoft.Extensions.Options.IOptions{SzwHighSpeedRackApi.JwtSettings})">
             <summary>
             构造函数
             </summary>
             <param name="jwtSettingsAccesser"></param>
-            <param name="mngAdminService"></param>
         </member>
         <member name="M:SzwHighSpeedRackApi.Controllers.LoginController.Token">
             <summary>
             获取Token令牌
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:SzwHighSpeedRackApi.Controllers.LoginController.Test1(System.String)">
-            <summary>
-            集成jwt验证及在Swagger中实现添加Token(需要验证)
             </summary>
             <returns></returns>
         </member>
