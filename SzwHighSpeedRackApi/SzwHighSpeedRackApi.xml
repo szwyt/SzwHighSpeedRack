@@ -4,11 +4,12 @@
         <name>SzwHighSpeedRackApi</name>
     </assembly>
     <members>
-        <member name="M:SzwHighSpeedRackApi.Controllers.LoginController.#ctor(Microsoft.Extensions.Options.IOptions{SzwHighSpeedRackApi.JwtSettings})">
+        <member name="M:SzwHighSpeedRackApi.Controllers.LoginController.#ctor(Microsoft.Extensions.Options.IOptions{SzwHighSpeedRackApi.JwtSettings},SzwHighSpeedRack.Repository.IPdProductRepository)">
             <summary>
-            构造函数
+            
             </summary>
             <param name="jwtSettingsAccesser"></param>
+            <param name="pdProductRepository"></param>
         </member>
         <member name="M:SzwHighSpeedRackApi.Controllers.LoginController.Token">
             <summary>

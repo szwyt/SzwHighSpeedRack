@@ -31,7 +31,7 @@ namespace SzwHighSpeedRackApi
             List<NamedParameter> ListNamedParameter = new List<NamedParameter>()
             {
                new NamedParameter("dbType", DbEnum.DbType.MySql),
-               new NamedParameter("connectionString", "Server=118.24.60.212; Port=3306; Uid=root; Pwd=123456; Database=szwHighspeedrack;SslMode=None"),
+               new NamedParameter("connectionString", "Server=118.24.60.212; Port=3306; Uid=root; Pwd=123456; Database=xyqms_base;SslMode=None"),
             };
 
             builder.RegisterType<DbContextFactory>().As<IDbFactory>().WithParameters(ListNamedParameter).SingleInstance();

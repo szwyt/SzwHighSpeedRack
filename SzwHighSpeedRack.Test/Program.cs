@@ -67,7 +67,7 @@ namespace SzwHighSpeedRack.Test
             catch (Exception ex)
             {
 
-                throw;
+                throw ex;
             }
             #endregion
 

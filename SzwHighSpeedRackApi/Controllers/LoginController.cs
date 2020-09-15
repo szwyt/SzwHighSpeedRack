@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using SzwHighSpeedRack;
+using SzwHighSpeedRack.Repository;
 using SzwHighSpeedRack.Service;
 
 namespace SzwHighSpeedRackApi.Controllers
@@ -18,14 +19,16 @@ namespace SzwHighSpeedRackApi.Controllers
     public class LoginController : RackBaseApiController
     {
         private JwtSettings _jwtSettings;
-
+        private IPdProductRepository _pdProductRepository;
         /// <summary>
-        /// 构造函数
+        /// 
         /// </summary>
         /// <param name="jwtSettingsAccesser"></param>
-        public LoginController(IOptions<JwtSettings> jwtSettingsAccesser)
+        /// <param name="pdProductRepository"></param>
+        public LoginController(IOptions<JwtSettings> jwtSettingsAccesser, IPdProductRepository pdProductRepository)
         {
             _jwtSettings = jwtSettingsAccesser.Value;
+            _pdProductRepository = pdProductRepository;
         }
 
 
@@ -66,6 +69,12 @@ namespace SzwHighSpeedRackApi.Controllers
             return result;
         }
 
+        [HttpGet]
+        [AllowAnonymous]
+        public object Get()
+        {
+            return _pdProductRepository.FindSingle().ToJson();
+        }
 
     }
 }
