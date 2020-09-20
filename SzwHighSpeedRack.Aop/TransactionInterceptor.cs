@@ -27,10 +27,10 @@ namespace SzwHighSpeedRack.Aop
         {
             Type type = invocation.TargetType;
             bool isOpenTransaction = true;
-            var attributes = invocation.Method.GetCustomAttributes(typeof(TransactionAttribute), true);
-            if (attributes != null && attributes.Length > 0)
+            var attributes = invocation.Method.GetCustomAttribute(typeof(TransactionAttribute), true);
+            if (attributes != null)
             {
-                TransactionAttribute attr = (TransactionAttribute)attributes.FirstOrDefault();
+                TransactionAttribute attr = (TransactionAttribute)attributes;
                 isOpenTransaction = attr.IsOpenTransaction;
             }
 

@@ -9,6 +9,10 @@
     <OutputPath></OutputPath>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DocumentationFile>C:\Users\szw\source\repos\SzwHighSpeedRack\SzwHighSpeedRackApi\SzwHighSpeedRackApi.xml</DocumentationFile>
+  </PropertyGroup>
+
   <ItemGroup>
     <None Remove="index.html" />
   </ItemGroup>

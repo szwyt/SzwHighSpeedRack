@@ -30,8 +30,8 @@ namespace SzwHighSpeedRackApi
             //数据库对象注入
             List<NamedParameter> ListNamedParameter = new List<NamedParameter>()
             {
-               new NamedParameter("dbType", DbEnum.DbType.MySql),
-               new NamedParameter("connectionString", "Server=118.24.60.212; Port=3306; Uid=root; Pwd=123456; Database=xyqms_base;SslMode=None"),
+                new NamedParameter("dbType", DbEnum.DbType.MySql),
+                new NamedParameter("connectionString", "Server=127.0.0.1; Port=3306; Uid=root; Pwd=Aa000000; Database=xyqms_base;SslMode=None"),
             };
 
             builder.RegisterType<DbContextFactory>().As<IDbFactory>().WithParameters(ListNamedParameter).SingleInstance();

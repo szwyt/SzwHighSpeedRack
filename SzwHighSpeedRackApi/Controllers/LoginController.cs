@@ -69,11 +69,11 @@ namespace SzwHighSpeedRackApi.Controllers
             return result;
         }
 
-        [HttpGet]
+        [HttpPost]
         [AllowAnonymous]
-        public object Get()
+        public object Get([FromBody] string id)
         {
-            return _pdProductRepository.FindSingle().ToJson();
+            return _pdProductRepository.FindSingle(w => w.Id == Convert.ToInt32(id)).ToJson();
         }
 
     }

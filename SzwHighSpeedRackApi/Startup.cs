@@ -121,7 +121,7 @@ namespace SzwHighSpeedRackApi
             #region 跨域
             services.AddCors(options =>
                 options.AddPolicy("AllowSameDomain",
-                builder => builder.AllowAnyHeader().AllowAnyMethod().AllowCredentials().WithOrigins(new[] { "https://localhost:5001" }))
+                builder => builder.AllowAnyHeader().AllowAnyMethod().AllowCredentials().WithOrigins(new[] { "https://localhost:5001", "http://localhost:500" }))
             );
             #endregion
 
@@ -142,7 +142,7 @@ namespace SzwHighSpeedRackApi
 
             app.UseCors("AllowSameDomain");
 
-            app.UseHttpsRedirection();
+            //app.UseHttpsRedirection();
 
             app.UseRouting();
             //身份授权认证
