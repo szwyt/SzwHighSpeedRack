@@ -23,7 +23,7 @@
       "nativeDebugging": false
     },
     "SzwHighSpeedRackApi": {
-      "commandName": "IISExpress",
+      "commandName": "Project",
       "launchBrowser": true,
       "launchUrl": "swagger/index.html",
       "environmentVariables": {

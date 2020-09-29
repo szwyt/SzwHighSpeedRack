@@ -38,6 +38,13 @@ namespace SzwHighSpeedRackApi
             var jwtSettings = new JwtSettings();
             Configuration.Bind("JwtSettings", jwtSettings);
 
+            //#region 跨域
+            //services.AddCors(options =>
+            //    options.AddPolicy("AllowSameDomain",
+            //    builder => builder.AllowAnyHeader().AllowAnyMethod().AllowCredentials().WithOrigins(new[] { "http://localhost:5001" }))
+            //);
+            //#endregion
+
             services.AddControllers(o =>
             {
                 // 全局异常过滤
@@ -117,15 +124,24 @@ namespace SzwHighSpeedRackApi
                 c.IncludeXmlComments(xmlPath, true); //添加控制器层注释（true表示显示控制器注释）
             });
 
-
-            #region 跨域
+            //跨域
             services.AddCors(options =>
-                options.AddPolicy("AllowSameDomain",
-                builder => builder.AllowAnyHeader().AllowAnyMethod().AllowCredentials().WithOrigins(new[] { "https://localhost:5001", "http://localhost:500" }))
-            );
-            #endregion
-
-
+            {
+                options.AddDefaultPolicy(builder =>
+                {
+                    builder
+                    //允许任何来源的主机访问
+                    //TODO: 新的 CORS 中间件已经阻止允许任意 Origin，即设置 AllowAnyOrigin 也不会生效
+                    //AllowAnyOrigin()
+                    //设置允许访问的域
+                    //TODO: 目前.NET Core 3.1 有 bug, 暂时通过 SetIsOriginAllowed 解决
+                    //.WithOrigins(Configuration["CorsConfig:Origin"])
+                    .SetIsOriginAllowed(t => true)
+                    .AllowAnyMethod()
+                    .AllowAnyHeader()
+                    .AllowCredentials();
+                });
+            });
         }
 
         public void ConfigureContainer(ContainerBuilder containerBuilder)
@@ -140,11 +156,9 @@ namespace SzwHighSpeedRackApi
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseCors("AllowSameDomain");
-
             //app.UseHttpsRedirection();
-
             app.UseRouting();
+            app.UseCors();
             //身份授权认证
             app.UseAuthentication();
             //需要放在 app.UseAuthorization 的前面

@@ -26,20 +26,21 @@ namespace SzwHighSpeedRack.Service
         [TransactionAttribute(IsOpenTransaction = true)]
         public virtual void TranTest()
         {
-            //_siteCategoryRepository.AddEntity(new SiteCategory
-            //{
-            //    ContentTitle = "44",
-            //    HasModelContent = 11,
-            //    Sequence = 11,
-            //    Depth = 1,
-            //    ParId = 1,
-            //    ModelId = 1
-            //});
-
-            _siteCategoryRepository.UpdateByExp(w => w.ModelId == 1, s => new SiteCategory
+            SiteCategory siteCategory = new SiteCategory
             {
-                ContentTitle = "修改11"
-            });
+                ContentTitle = "测试add",
+                HasModelContent = 11,
+                Sequence = 11,
+                Depth = 1,
+                ParId = 1,
+                ModelId = 1
+            };
+            _siteCategoryRepository.AddEntity(siteCategory);
+
+            //_siteCategoryRepository.UpdateByExp(w => w.ModelId == 1, s => new SiteCategory
+            //{
+            //    ContentTitle = "修改11"
+            //});
             int i = 0;
             int b = 10 / i;
             _pdProductRepository.DeleteByExp(w => w.Id == 2);

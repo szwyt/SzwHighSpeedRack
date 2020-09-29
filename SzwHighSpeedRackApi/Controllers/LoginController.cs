@@ -69,12 +69,18 @@ namespace SzwHighSpeedRackApi.Controllers
             return result;
         }
 
-        [HttpPost]
+        [HttpGet]
         [AllowAnonymous]
-        public object Get([FromBody] string id)
+        public object Get([FromQuery] int[] ids)
         {
-            return _pdProductRepository.FindSingle(w => w.Id == Convert.ToInt32(id)).ToJson();
+            return _pdProductRepository.FindList(w => ids.Contains(w.Id)).ToJson();
         }
 
+        [HttpGet("TestPublish")]
+        [AllowAnonymous]
+        public object TestPublish([FromQuery] int[] ids)
+        {
+            return "success";
+        }
     }
 }

@@ -59,7 +59,7 @@ namespace SzwHighSpeedRack.EntityFrameworkCore
         /// 添加
         /// </summary>
         /// <param name="entity">实体</param>
-        void AddEntity(T entity);
+        T AddEntity(T entity);
 
         /// <summary>
         /// 批量添加

@@ -113,10 +113,11 @@ namespace SzwHighSpeedRack.EntityFrameworkCore
         /// 添加
         /// </summary>
         /// <param name="entity">实体</param>
-        public void AddEntity(T entity)
+        public T AddEntity(T entity)
         {
             _baseContext.Set<T>().Add(entity);
             _baseContext.SaveChanges();
+            return entity;
         }
 
         /// <summary>
