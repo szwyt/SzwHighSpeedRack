@@ -13,6 +13,7 @@ using System;
 using System.IO;
 using System.Reflection;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace SzwHighSpeedRackApi
 {
@@ -175,6 +176,13 @@ namespace SzwHighSpeedRackApi
                 c.IndexStream = () => GetType().GetTypeInfo().Assembly.GetManifestResourceStream("SzwHighSpeedRackApi.index.html");
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "SzwHighSpeedRackApi v1");
                 c.DocExpansion(DocExpansion.None);
+            });
+
+            //可以支持虚拟路径或者index.html这类起始页.
+            app.Run(ctx =>
+            {
+                ctx.Response.Redirect("/swagger/"); 
+                return Task.FromResult(0);
             });
         }
     }
