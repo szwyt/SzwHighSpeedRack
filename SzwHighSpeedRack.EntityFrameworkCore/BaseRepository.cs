@@ -4,13 +4,11 @@
 
 namespace SzwHighSpeedRack.EntityFrameworkCore
 {
+    using Microsoft.EntityFrameworkCore;
     using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Linq.Expressions;
-    using System.Text;
-    using Microsoft.EntityFrameworkCore;
-    using SzwHighSpeedRack.Entity;
     using Z.EntityFramework.Plus;
 
     public class BaseRepository<T> : IBaseRepository<T>, IDisposable
@@ -18,6 +16,7 @@ namespace SzwHighSpeedRack.EntityFrameworkCore
     {
         private IDbFactory _dbFactory;
         private BaseContext _baseContext;
+
         public BaseRepository(IDbFactory dbFactory)
         {
             _dbFactory = dbFactory;
@@ -128,7 +127,6 @@ namespace SzwHighSpeedRack.EntityFrameworkCore
         {
             _baseContext.Set<T>().AddRange(entities);
             _baseContext.SaveChanges();
-
         }
 
         /// <summary>
@@ -215,6 +213,5 @@ namespace SzwHighSpeedRack.EntityFrameworkCore
             GC.Collect();
             GC.SuppressFinalize(this);
         }
-
     }
 }

@@ -4,12 +4,11 @@
 
 namespace SzwHighSpeedRack
 {
+    using EmitMapper;
+    using EmitMapper.MappingConfiguration;
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using System.Text;
-    using EmitMapper;
-    using EmitMapper.MappingConfiguration;
 
     /// <summary>
     /// 对象转换扩展.

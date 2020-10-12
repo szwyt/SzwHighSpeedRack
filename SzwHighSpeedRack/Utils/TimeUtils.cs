@@ -9,7 +9,7 @@ namespace SzwHighSpeedRack
     {
         public static DateTime GetUnixStartTime()
         {
-            return TimeZoneInfo.ConvertTime(new DateTime(1970, 1, 1,8,0,0), TimeZoneInfo.Local); // 当地时区
+            return TimeZoneInfo.ConvertTime(new DateTime(1970, 1, 1, 8, 0, 0), TimeZoneInfo.Local); // 当地时区
         }
 
         public static long GetCurrentUnixTime()
@@ -43,6 +43,5 @@ namespace SzwHighSpeedRack
             TimeSpan ts = dateTime.ToUniversalTime() - start;
             return System.Convert.ToInt32(ts.TotalMinutes);
         }
-
     }
 }

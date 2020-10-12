@@ -5,10 +5,8 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using System.Threading.Tasks;
 using SzwHighSpeedRack.Aop;
 using SzwHighSpeedRack.EntityFrameworkCore;
-using SzwHighSpeedRack.Service;
 
 namespace SzwHighSpeedRackApi
 {

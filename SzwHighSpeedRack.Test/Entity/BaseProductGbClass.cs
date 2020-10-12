@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace SzwHighSpeedRack.Test.Entity
+﻿namespace SzwHighSpeedRack.Test.Entity
 {
     public partial class BaseProductGbClass
     {

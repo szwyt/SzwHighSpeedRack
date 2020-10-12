@@ -5,7 +5,7 @@ using System.Text;
 namespace SzwHighSpeedRack
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     public static class StringUtils
     {
@@ -19,7 +19,6 @@ namespace SzwHighSpeedRack
         /// <returns>拼接后的字符串</returns>
         public static string Implode<T>(this IEnumerable<T> source, Func<T, string> toString, string splitter)
         {
-
             StringBuilder result = new StringBuilder();
             splitter = splitter ?? string.Empty;
             foreach (T item in source)
@@ -33,7 +32,6 @@ namespace SzwHighSpeedRack
                 resultStr = resultStr.Remove(resultStr.Length - splitter.Length, splitter.Length);
             }
             return resultStr;
-
         }
     }
 }

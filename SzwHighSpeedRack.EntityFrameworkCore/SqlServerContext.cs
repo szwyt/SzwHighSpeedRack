@@ -4,9 +4,6 @@
 
 namespace SzwHighSpeedRack.EntityFrameworkCore
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Text;
     using Microsoft.EntityFrameworkCore;
 
     /// <summary>
@@ -14,7 +11,10 @@ namespace SzwHighSpeedRack.EntityFrameworkCore
     /// </summary>
     public class SqlServerContext : BaseContext
     {
-        public SqlServerContext(string connectionString) : base(connectionString) { }
+        public SqlServerContext(string connectionString) : base(connectionString)
+        {
+        }
+
         /// <inheritdoc/>
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

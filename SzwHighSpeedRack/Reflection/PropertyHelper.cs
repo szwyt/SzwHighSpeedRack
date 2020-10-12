@@ -8,7 +8,6 @@ namespace SzwHighSpeedRack
     using System.Collections.Generic;
     using System.Reflection;
     using System.Reflection.Emit;
-    using System.Text;
 
     /// <summary>
     /// 反射属性助手
@@ -25,6 +24,7 @@ namespace SzwHighSpeedRack
         /// get缓存池.
         /// </summary>
         private static Dictionary<PropertyInfo, DynamicMethodHelper> getPool = new Dictionary<PropertyInfo, DynamicMethodHelper>();
+
         private static object lockhelper = new object();
 
         /// <summary>

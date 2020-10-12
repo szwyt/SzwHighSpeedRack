@@ -29,6 +29,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\SzwHighSpeedRack.Service\SzwHighSpeedRack.Service.csproj" />
+    <ProjectReference Include="..\SzwHighSpeedRack.Test\SzwHighSpeedRack.Test.csproj" />
   </ItemGroup>
 
   <ItemGroup>

@@ -1,26 +1,25 @@
 ﻿using Autofac;
 using Autofac.Extras.DynamicProxy;
 using System;
+using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using SzwHighSpeedRack.Aop;
 using SzwHighSpeedRack.EntityFrameworkCore;
-using SzwHighSpeedRack.Entity;
-using SzwHighSpeedRack.Service;
-using SzwHighSpeedRack;
-using System.Collections.Generic;
-using System.IO;
 using SzwHighSpeedRack.Repository;
-using Microsoft.EntityFrameworkCore;
+using SzwHighSpeedRack.Service;
 
 namespace SzwHighSpeedRack.Test
 {
-    class Program
+    internal class Program
     {
         private static IContainer _container;
-        static void Main(string[] args)
+
+        private static void Main(string[] args)
         {
             #region 注入测试
+
             var builder = new ContainerBuilder();
             //注入泛型仓储
             builder.RegisterGeneric(typeof(BaseRepository<>)).As(typeof(IBaseRepository<>)).InstancePerDependency();
@@ -47,7 +46,6 @@ namespace SzwHighSpeedRack.Test
               .InstancePerDependency()
               .EnableInterfaceInterceptors();//引用Autofac.Extras.DynamicProxy;
 
-
             // 如果AOP拦截的是类不是接口,那么里面需要拦截的方法必须为虚方法
             builder.RegisterAssemblyTypes(assemblyService)
              .Where(u => u.Namespace == "SzwHighSpeedRack.Service")
@@ -66,10 +64,10 @@ namespace SzwHighSpeedRack.Test
             }
             catch (Exception ex)
             {
-
                 throw ex;
             }
-            #endregion
+
+            #endregion 注入测试
 
             //Console.WriteLine("=========================================================");
             //using (SzwHighSpeedRack.Test.Context.MySqlContext db = new SzwHighSpeedRack.Test.Context.MySqlContext())

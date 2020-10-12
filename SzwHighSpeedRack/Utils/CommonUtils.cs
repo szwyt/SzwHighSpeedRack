@@ -30,15 +30,15 @@ namespace SzwHighSpeedRack
             D d = Activator.CreateInstance<D>(); //构造新实例
             try
             {
-                var Types = s.GetType();//获得类型  
+                var Types = s.GetType();//获得类型
                 var Typed = typeof(D);
-                foreach (PropertyInfo sp in Types.GetProperties())//获得类型的属性字段  
+                foreach (PropertyInfo sp in Types.GetProperties())//获得类型的属性字段
                 {
                     foreach (PropertyInfo dp in Typed.GetProperties())
                     {
-                        if (dp.Name == sp.Name && dp.PropertyType == sp.PropertyType && dp.Name != "Error" && dp.Name != "Item")//判断属性名是否相同  
+                        if (dp.Name == sp.Name && dp.PropertyType == sp.PropertyType && dp.Name != "Error" && dp.Name != "Item")//判断属性名是否相同
                         {
-                            dp.SetValue(d, sp.GetValue(s, null), null);//获得s对象属性的值复制给d对象的属性  
+                            dp.SetValue(d, sp.GetValue(s, null), null);//获得s对象属性的值复制给d对象的属性
                         }
                     }
                 }

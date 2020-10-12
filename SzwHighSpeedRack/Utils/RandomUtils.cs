@@ -7,7 +7,7 @@ namespace SzwHighSpeedRack
 {
     /// <summary>
     /// 随机数操作
-    /// 作者：史梓威 
+    /// 作者：史梓威
     /// 时间：20190429
     /// </summary>
     public class RandomUtils

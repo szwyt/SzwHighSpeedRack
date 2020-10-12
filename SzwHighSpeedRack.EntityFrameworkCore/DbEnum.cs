@@ -4,10 +4,6 @@
 
 namespace SzwHighSpeedRack.EntityFrameworkCore
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Text;
-
     /// <summary>
     /// 数据库类.
     /// </summary>

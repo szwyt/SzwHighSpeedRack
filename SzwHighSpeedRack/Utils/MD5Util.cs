@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Security.Cryptography;
 using System.Text;
-using XYQMS.Utility.Utils;
 
 namespace SzwHighSpeedRack
 {
@@ -11,7 +10,7 @@ namespace SzwHighSpeedRack
     public class MD5Util
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="argString"></param>
         /// <returns></returns>

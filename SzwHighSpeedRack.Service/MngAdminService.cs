@@ -1,14 +1,7 @@
 ﻿using Autofac.Extras.DynamicProxy;
-using System;
-using System.Collections.Generic;
-using System.Linq.Expressions;
-using System.Text;
 using SzwHighSpeedRack.Aop;
-using SzwHighSpeedRack.EntityFrameworkCore;
 using SzwHighSpeedRack.Entity;
-using SzwHighSpeedRack;
 using SzwHighSpeedRack.Repository;
-using EmitMapper.MappingConfiguration;
 
 namespace SzwHighSpeedRack.Service
 {
@@ -18,11 +11,13 @@ namespace SzwHighSpeedRack.Service
     {
         private readonly ISiteCategoryRepository _siteCategoryRepository;
         private readonly IPdProductRepository _pdProductRepository;
+
         public MngAdminService(ISiteCategoryRepository siteCategoryRepository, IPdProductRepository pdProductRepository)
         {
             _siteCategoryRepository = siteCategoryRepository;
             _pdProductRepository = pdProductRepository;
         }
+
         [TransactionAttribute(IsOpenTransaction = true)]
         public virtual void TranTest()
         {

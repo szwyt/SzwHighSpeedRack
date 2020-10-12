@@ -1,15 +1,9 @@
-using System;
-using System.Collections.Generic;
-using System.Text;
 using SzwHighSpeedRack.Entity;
 using SzwHighSpeedRack.EntityFrameworkCore;
+
 namespace SzwHighSpeedRack.Repository
 {
-    public interface IPdStockOutDetailRepository :IBaseRepository<PdStockOutDetail>
+    public interface IPdStockOutDetailRepository : IBaseRepository<PdStockOutDetail>
     {
     }
 }
-
-
-
-

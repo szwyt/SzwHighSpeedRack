@@ -134,17 +134,17 @@ namespace SzwHighSpeedRack
                 }
             }
         }
-        
+
         /// <summary>
         /// 获取文本文件的编码方式
         /// </summary>
         /// <param name="fileName"> 文件名 例如：path = @"D:\test.txt"</param>
         /// <returns>返回编码方式</returns>
-        public static Encoding GetEncoding(string fileName )
+        public static Encoding GetEncoding(string fileName)
         {
             return GetEncoding(fileName, Encoding.Default);
         }
-        
+
         /// <summary>
         /// 获取文本流的编码方式
         /// </summary>
@@ -155,7 +155,7 @@ namespace SzwHighSpeedRack
             //Encoding.Default 系统默认的编码方式
             return GetEncoding(fs, Encoding.Default);
         }
-        
+
         /// <summary>
         /// 获取一个文本流的编码方式
         /// </summary>

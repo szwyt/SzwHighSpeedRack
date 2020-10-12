@@ -4,10 +4,8 @@
 
 namespace SzwHighSpeedRack
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Text;
     using Newtonsoft.Json;
+    using System;
 
     /// <summary>
     /// 序列化,反序列化.

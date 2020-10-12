@@ -5,9 +5,6 @@
 namespace SzwHighSpeedRack.EntityFrameworkCore
 {
     using Microsoft.EntityFrameworkCore.Storage;
-    using System;
-    using System.Collections.Generic;
-    using System.Text;
 
     /// <summary>
     /// DB.
@@ -31,13 +28,14 @@ namespace SzwHighSpeedRack.EntityFrameworkCore
         /// 提交事务
         /// </summary>
         void CommitTran();
+
         /// <summary>
         /// 回滚事务
         /// </summary>
         void RollbackTran();
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <returns></returns>
         int SaveChange();

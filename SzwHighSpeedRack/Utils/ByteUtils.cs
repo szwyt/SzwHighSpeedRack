@@ -16,6 +16,7 @@ namespace SzwHighSpeedRack
             }
             return result;
         }
+
         private string HexStringToString(string hs, Encoding encode)
         {
             //以%分割字符串，并去掉空字符
@@ -110,20 +111,20 @@ namespace SzwHighSpeedRack
             {
                 hex += "20";//空格
             }
-            // 需要将 hex 转换成 byte 数组。 
+            // 需要将 hex 转换成 byte 数组。
             byte[] bytes = new byte[hex.Length / 2];
 
             for (int i = 0; i < bytes.Length; i++)
             {
                 try
                 {
-                    // 每两个字符是一个 byte。 
+                    // 每两个字符是一个 byte。
                     bytes[i] = byte.Parse(hex.Substring(i * 2, 2),
                     System.Globalization.NumberStyles.HexNumber);
                 }
                 catch
                 {
-                    // Rethrow an exception with custom message. 
+                    // Rethrow an exception with custom message.
                     throw new ArgumentException("hex is not a valid hex number!", "hex");
                 }
             }
@@ -142,7 +143,7 @@ namespace SzwHighSpeedRack
 
             fileStream.Seek(0, SeekOrigin.Begin);
 
-            byte[] binary = new byte[fileStream.Length]; //创建文件长度的buffer 
+            byte[] binary = new byte[fileStream.Length]; //创建文件长度的buffer
             fileStream.Read(binary, 0, (int)fileStream.Length);
 
             fileStream.Close();
@@ -153,6 +154,5 @@ namespace SzwHighSpeedRack
 
             return binary;
         }
-
     }
 }

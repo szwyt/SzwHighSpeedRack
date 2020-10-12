@@ -12,7 +12,7 @@ namespace SzwHighSpeedRack
         {
         }
 
-        #region ========加密======== 
+        #region ========加密========
 
         /// <summary>
         /// 加密
@@ -23,12 +23,13 @@ namespace SzwHighSpeedRack
         {
             return Encrypt(Text, DefaultKey);
         }
-        /// <summary> 
-        /// 加密数据 
-        /// </summary> 
-        /// <param name="Text"></param> 
-        /// <param name="sKey"></param> 
-        /// <returns></returns> 
+
+        /// <summary>
+        /// 加密数据
+        /// </summary>
+        /// <param name="Text"></param>
+        /// <param name="sKey"></param>
+        /// <returns></returns>
         public static string Encrypt(string Text, string sKey)
         {
             DESCryptoServiceProvider des = new DESCryptoServiceProvider();
@@ -49,10 +50,9 @@ namespace SzwHighSpeedRack
             return ret.ToString();
         }
 
-        #endregion
+        #endregion ========加密========
 
-        #region ========解密======== 
-
+        #region ========解密========
 
         /// <summary>
         /// 解密
@@ -63,12 +63,13 @@ namespace SzwHighSpeedRack
         {
             return Decrypt(Text, DefaultKey);
         }
-        /// <summary> 
-        /// 解密数据 
-        /// </summary> 
-        /// <param name="Text"></param> 
-        /// <param name="sKey"></param> 
-        /// <returns></returns> 
+
+        /// <summary>
+        /// 解密数据
+        /// </summary>
+        /// <param name="Text"></param>
+        /// <param name="sKey"></param>
+        /// <returns></returns>
         public static string Decrypt(string Text, string sKey)
         {
             DESCryptoServiceProvider des = new DESCryptoServiceProvider();
@@ -91,7 +92,6 @@ namespace SzwHighSpeedRack
             return Encoding.Default.GetString(ms.ToArray());
         }
 
-        #endregion
-
+        #endregion ========解密========
     }
 }

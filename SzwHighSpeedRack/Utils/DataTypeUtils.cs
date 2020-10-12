@@ -4,12 +4,13 @@ namespace XYQMS.Utility.Utils
 {
     /// <summary>
     /// 数据类型转换工具
-    /// 作者：陶望青 
+    /// 作者：陶望青
     /// 时间：20190429
     /// </summary>
     public static class DataTypeUtils
     {
         #region 01.字符串转换为Int型
+
         public static int? ToInt(this string str)
         {
             int ret;
@@ -17,9 +18,11 @@ namespace XYQMS.Utility.Utils
                 return ret;
             return null;
         }
-        #endregion
+
+        #endregion 01.字符串转换为Int型
 
         #region 02.字符串转换为bool型
+
         public static bool? ToBoolean(this string str)
         {
             bool ret;
@@ -27,9 +30,11 @@ namespace XYQMS.Utility.Utils
                 return ret;
             return null;
         }
-        #endregion
+
+        #endregion 02.字符串转换为bool型
 
         #region 03.字符串转换为Guid型
+
         public static Guid? ToGuid(this string str)
         {
             if (string.IsNullOrEmpty(str)) return null;
@@ -38,9 +43,11 @@ namespace XYQMS.Utility.Utils
                 return g;
             return null;
         }
-        #endregion
+
+        #endregion 03.字符串转换为Guid型
 
         #region 04.字符串转换为Decimal型
+
         public static decimal? ToDecimal(this string str)
         {
             if (string.IsNullOrEmpty(str)) return null;
@@ -49,9 +56,11 @@ namespace XYQMS.Utility.Utils
                 return d;
             return null;
         }
-        #endregion
+
+        #endregion 04.字符串转换为Decimal型
 
         #region 05.字符串转换为Double型
+
         public static double? ToDouble(this string str)
         {
             if (string.IsNullOrEmpty(str)) return null;
@@ -76,9 +85,11 @@ namespace XYQMS.Utility.Utils
                 return result;
             return Math.Round(result, digits.Value, MidpointRounding.AwayFromZero);
         }
-        #endregion
+
+        #endregion 05.字符串转换为Double型
 
         #region 06.将value的值转换成另外一种类型
+
         /// <summary>
         /// 将value的值转换成另外一种类型
         /// </summary>
@@ -222,9 +233,11 @@ namespace XYQMS.Utility.Utils
             }
             return (T)Convert.ChangeType(getValue, t);
         }
-        #endregion
+
+        #endregion 06.将value的值转换成另外一种类型
 
         #region 07.数据精度
+
         /// <summary>
         /// 根据指定精度截断数值
         /// </summary>
@@ -253,9 +266,11 @@ namespace XYQMS.Utility.Utils
             int item = (int)Math.Pow(10, decimals);
             return decimal.Truncate(value * item) / item;
         }
-        #endregion
+
+        #endregion 07.数据精度
 
         #region 08.字符串转换为DateTime型
+
         public static DateTime? ToDateTime(this string str)
         {
             if (string.IsNullOrEmpty(str)) return null;
@@ -264,6 +279,7 @@ namespace XYQMS.Utility.Utils
                 return d;
             return null;
         }
-        #endregion
+
+        #endregion 08.字符串转换为DateTime型
     }
 }

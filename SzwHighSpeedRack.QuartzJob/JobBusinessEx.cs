@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Quartz;
+using System;
 using System.Linq;
-using System.Reflection;
-using System.Text;
-using Quartz;
 
 namespace SzwHighSpeedRack.QuartzJob
 {
@@ -30,6 +27,6 @@ namespace SzwHighSpeedRack.QuartzJob
                 LogModule.LogError(DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss") + "->" + ex.Message + "");
                 throw new Exception(ex.Message);
             }
-        }        
+        }
     }
 }

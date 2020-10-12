@@ -3,11 +3,10 @@ using Quartz.Impl;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Xml.Serialization;
-using System.Xml;
 using System.IO;
-using SzwHighSpeedRack;
+using System.Linq;
+using System.Xml;
+using System.Xml.Serialization;
 
 namespace SzwHighSpeedRack.QuartzJob
 {
@@ -16,6 +15,7 @@ namespace SzwHighSpeedRack.QuartzJob
         private static IScheduler scheduler;
         public static List<JobManager> dbJobManagerList { get; set; }
         public static string xmlPath = Directory.GetCurrentDirectory() + "\\JobConfig.xml";
+
         public static async void Start()
         {
             //初始化数据
@@ -38,11 +38,11 @@ namespace SzwHighSpeedRack.QuartzJob
                     }
                     catch
                     {
-
                     }
                 } while (startState == false);
             }
         }
+
         public static void Stop()
         {
             LogModule.LogWarm(DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss") + "->scheduler开始关闭");
@@ -80,7 +80,6 @@ namespace SzwHighSpeedRack.QuartzJob
                 ReadOnlyDictionary<IJobDetail, IReadOnlyCollection<ITrigger>> triggersAndJobs = new ReadOnlyDictionary<IJobDetail, IReadOnlyCollection<ITrigger>>(keyValuePairs);
                 await IScheduler.ScheduleJobs(triggersAndJobs, false);
                 LogModule.LogWarm(DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss") + "->scheduler加载JobTasks完成");
-
             }
             catch (Exception ex)
             {

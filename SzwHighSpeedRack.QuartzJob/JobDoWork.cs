@@ -9,21 +9,20 @@ namespace SzwHighSpeedRack.QuartzJob
     {
         public JobDoWork()
         {
-
         }
+
         public void zuoye(JobManager job)
         {
             try
             {
                 Console.WriteLine("JobManager:" + job.TriggerName + "开始执行" + DateTime.Now);
-                
+
                 Console.WriteLine("JobManager:" + job.TriggerName + "执行成功" + DateTime.Now);
             }
             catch (Exception ex)
             {
                 Console.WriteLine(job.TriggerName + "------------>" + ex.Message);
             }
-
         }
 
         public void zuoye1(JobManager job)
@@ -38,7 +37,6 @@ namespace SzwHighSpeedRack.QuartzJob
             {
                 Console.WriteLine(job.TriggerName + "------------>" + ex.Message);
             }
-
         }
     }
 }

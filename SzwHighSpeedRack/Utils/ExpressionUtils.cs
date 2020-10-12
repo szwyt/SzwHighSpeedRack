@@ -7,13 +7,12 @@ namespace SzwHighSpeedRack
 {
     /// <summary>
     /// linq的扩展操作工具类
-    /// 作者：史梓威 
+    /// 作者：史梓威
     /// 创建时间：2019-05-23
     /// </summary>
     /// <typeparam name="T"></typeparam>
     public static class ExpressionUtils
     {
-
         /// <summary>
         ///     以特定的条件运行组合两个Expression表达式
         /// </summary>

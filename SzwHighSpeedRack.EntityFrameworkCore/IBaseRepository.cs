@@ -6,9 +6,7 @@ namespace SzwHighSpeedRack.EntityFrameworkCore
 {
     using System;
     using System.Collections.Generic;
-    using System.Data;
     using System.Linq.Expressions;
-    using System.Text;
 
     public interface IBaseRepository<T>
         where T : class

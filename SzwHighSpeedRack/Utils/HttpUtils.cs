@@ -12,11 +12,12 @@ using System.Threading.Tasks;
 namespace SzwHighSpeedRack
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     public class HttpUtils
     {
         #region Get方法
+
         /// <summary>
         /// 使用Get方法获取字符串结果（没有加入Cookie）
         /// </summary>
@@ -29,6 +30,7 @@ namespace SzwHighSpeedRack
             var ret = encoding.GetString(data);
             return ret;
         }
+
         /// <summary>
         /// Http Get 同步方法
         /// </summary>
@@ -80,7 +82,6 @@ namespace SzwHighSpeedRack
                             }
                         }
                     }
-
                 }
             }
             catch (Exception e)
@@ -90,9 +91,11 @@ namespace SzwHighSpeedRack
             }
             return responseText;
         }
-        #endregion
+
+        #endregion Get方法
 
         #region POST方法
+
         /// <summary>
         /// POST 同步
         /// </summary>
@@ -136,7 +139,6 @@ namespace SzwHighSpeedRack
         /// <returns></returns>
         public static async Task<string> HttpPostAsync(string url, Dictionary<string, string> formData = null, Encoding encoding = null, int timeOut = 10000)
         {
-
             HttpClientHandler handler = new HttpClientHandler();
 
             HttpClient client = new HttpClient(handler);
@@ -155,15 +157,16 @@ namespace SzwHighSpeedRack
             hc.Headers.Add("KeepAlive", "true");
             hc.Headers.Add("content-type", "application/x-www-form-urlencoded; charset=UTF-8");
 
-
             var r = await client.PostAsync(url, hc);
             byte[] tmp = await r.Content.ReadAsByteArrayAsync();
 
             return encoding.GetString(tmp);
         }
-        #endregion
+
+        #endregion POST方法
 
         #region 其他方法
+
         /// <summary>
         /// 填充表单信息的Stream
         /// </summary>
@@ -221,7 +224,7 @@ namespace SzwHighSpeedRack
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="url">请求的url</param>
         /// <returns></returns>
@@ -248,7 +251,7 @@ namespace SzwHighSpeedRack
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="url">请求的url</param>
         /// <returns></returns>
@@ -269,7 +272,7 @@ namespace SzwHighSpeedRack
 
             int actual = 0;
 
-            //先保存到内存流中MemoryStream  
+            //先保存到内存流中MemoryStream
             using (MemoryStream ms = new MemoryStream())
             {
                 while ((actual = streamReceive.Read(buffer, 0, 1024)) > 0)
@@ -277,7 +280,7 @@ namespace SzwHighSpeedRack
                     ms.Write(buffer, 0, actual);
                 }
                 ms.Position = 0;
-                //再从内存流中读取到byte数组中  
+                //再从内存流中读取到byte数组中
                 buffer = ms.ToArray();
             }
             streamReceive.Close();
@@ -285,6 +288,7 @@ namespace SzwHighSpeedRack
             response.Close();
             return buffer;
         }
-        #endregion
+
+        #endregion 其他方法
     }
 }

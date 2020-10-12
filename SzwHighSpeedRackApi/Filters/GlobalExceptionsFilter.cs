@@ -1,15 +1,8 @@
-﻿using Autofac.Extras.DynamicProxy;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.Filters;
-using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using SzwHighSpeedRack;
-using SzwHighSpeedRack.Aop;
 
 namespace SzwHighSpeedRackApi
 {
@@ -52,6 +45,7 @@ namespace SzwHighSpeedRackApi
             string reqMethond = httpContext.Request.Method;
             return new { getAbsoluteUri, referer, cookie, reqMethond, exception }.ToJson();
         }
+
         private static string GetAbsoluteUri(HttpRequest request)
         {
             return new StringBuilder()

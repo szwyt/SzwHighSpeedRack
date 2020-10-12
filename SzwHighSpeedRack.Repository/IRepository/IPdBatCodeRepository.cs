@@ -1,15 +1,9 @@
-using System;
-using System.Collections.Generic;
-using System.Text;
 using SzwHighSpeedRack.Entity;
 using SzwHighSpeedRack.EntityFrameworkCore;
+
 namespace SzwHighSpeedRack.Repository
 {
-    public interface IPdBatCodeRepository :IBaseRepository<PdBatCode>
+    public interface IPdBatCodeRepository : IBaseRepository<PdBatCode>
     {
     }
 }
-
-
-
-

@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 using System.Xml.Serialization;
 
 namespace SzwHighSpeedRack.QuartzJob
@@ -11,6 +9,7 @@ namespace SzwHighSpeedRack.QuartzJob
         [XmlArray("JobManagers"), XmlArrayItem("JobManager")]
         public List<JobManager> JobManagers { get; set; } = new List<JobManager>();
     }
+
     [XmlRoot("JobManager")]
     public class JobManager
     {
@@ -18,16 +17,20 @@ namespace SzwHighSpeedRack.QuartzJob
         /// 描述
         /// </summary>
         public string Description { get; set; }
+
         /// <summary>
         /// 名称
         /// </summary>
         public string JobName { get; set; }
+
         public string JobKey { get; set; }
         public string JobValue { get; set; }
+
         /// <summary>
         /// 触发器名字
         /// </summary>
         public string TriggerName { get; set; }
+
         /// <summary>
         /// Cron表达式
         /// </summary>

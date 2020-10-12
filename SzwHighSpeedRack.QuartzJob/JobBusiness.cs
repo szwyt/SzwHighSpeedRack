@@ -9,6 +9,7 @@ namespace SzwHighSpeedRack.QuartzJob
     {
         private static Type jobDoWorkType;
         private static object jobDoWorkObj;
+
         public virtual void TaskRunBusiness(JobManager job)
         {
             //由于是分布类，如果用typeof()获取类型,方法会调用不到
@@ -24,6 +25,7 @@ namespace SzwHighSpeedRack.QuartzJob
             //通过反射动态调用方法
             mi.Invoke(jobDoWorkObj, new object[] { job });
         }
+
         public Task Execute(IJobExecutionContext context)
         {
             ExecuteJobBusiness(context);

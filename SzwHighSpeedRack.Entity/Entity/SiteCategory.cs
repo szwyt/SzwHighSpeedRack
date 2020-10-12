@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace SzwHighSpeedRack.Entity
+﻿namespace SzwHighSpeedRack.Entity
 {
     public partial class SiteCategory
     {

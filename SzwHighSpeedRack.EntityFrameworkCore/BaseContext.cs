@@ -4,20 +4,16 @@
 
 namespace SzwHighSpeedRack.EntityFrameworkCore
 {
+    using Microsoft.EntityFrameworkCore;
     using System;
-    using System.Collections.Generic;
     using System.IO;
     using System.Reflection;
-    using System.Text;
-    using Microsoft.EntityFrameworkCore;
-    using SzwHighSpeedRack.Entity;
 
     /// <summary>
     /// 基类上下文.
     /// </summary>
     public class BaseContext : DbContext
     {
-
         public BaseContext(string connectionString)
         {
             this.ConnectionString = connectionString;

@@ -15,6 +15,7 @@ namespace SzwHighSpeedRack
         }
 
         #region 01.字符串转换为List，去除重复项
+
         /// <summary>
         /// 字符串转换为List，去除重复项
         /// 使用：list = ToList(str);
@@ -38,9 +39,11 @@ namespace SzwHighSpeedRack
             var list = GetList(str, splits);
             return list == null ? null : list.ToList();
         }
-        #endregion
+
+        #endregion 01.字符串转换为List，去除重复项
 
         #region 02.字符串转换为数组，去除重复项
+
         /// <summary>
         /// 字符串转换为数组，去除重复项
         /// 使用：list = ToArray(str);
@@ -64,9 +67,11 @@ namespace SzwHighSpeedRack
             var list = GetList(str, splits);
             return list == null ? null : list.ToArray();
         }
-        #endregion
+
+        #endregion 02.字符串转换为数组，去除重复项
 
         #region 03.排除字符串内的重复项
+
         /// <summary>
         /// 排除字符串内的重复项
         /// <example>
@@ -103,9 +108,11 @@ namespace SzwHighSpeedRack
             str = string.Join(",", list);
             return str;
         }
-        #endregion
+
+        #endregion 03.排除字符串内的重复项
 
         #region 04.返回去重去空后的结果集
+
         /// <summary>
         /// 返回去重去空后的结果集
         /// </summary>
@@ -124,9 +131,11 @@ namespace SzwHighSpeedRack
             }
             return str.Split(splits, StringSplitOptions.RemoveEmptyEntries).Distinct();
         }
-        #endregion
+
+        #endregion 04.返回去重去空后的结果集
 
         #region 05.去除数组里面的空值
+
         /// <summary>
         /// 去除数组里面的空值
         /// </summary>
@@ -142,9 +151,11 @@ namespace SzwHighSpeedRack
             var list = args.Where(t => t != null && !"".Equals(t)).ToList();
             return list.ToArray<T>();
         }
-        #endregion
+
+        #endregion 05.去除数组里面的空值
 
         #region 06.去除数组里面的重复值
+
         /// <summary>
         /// 去除数组里面的重复值
         /// </summary>
@@ -167,9 +178,11 @@ namespace SzwHighSpeedRack
             }
             return list.ToArray<T>();
         }
-        #endregion
+
+        #endregion 06.去除数组里面的重复值
 
         #region 07.去除数组里面的空值和重复值
+
         /// <summary>
         /// 去除数组里面的空值和重复值
         /// </summary>
@@ -193,14 +206,17 @@ namespace SzwHighSpeedRack
             }
             return list.ToArray<T>();
         }
-        #endregion
+
+        #endregion 07.去除数组里面的空值和重复值
 
         #region 08.克隆List
+
         public static List<T> Clone<T>(List<T> list)
         {
             if (list == null || list.Count <= 0) return null;
             return new List<T>(list.ToArray());
         }
+
         public static T[] Clone<T>(T[] list)
         {
             if (list == null || list.Length <= 0) return null;
@@ -208,31 +224,39 @@ namespace SzwHighSpeedRack
             Array.Copy(list, 0, array2, 0, list.Length);
             return array2;
         }
-        #endregion
+
+        #endregion 08.克隆List
 
         #region 10.空集合
+
         public static List<T> EmptyList<T>()
         {
             return Enumerable.Empty<T>().ToList();
         }
+
         public static IEnumerable<T> IEmptyList<T>()
         {
             return Enumerable.Empty<T>();
         }
-        #endregion
+
+        #endregion 10.空集合
 
         #region 11.获取字典
+
         public static string Get(this Dictionary<string, string> dic, string key)
         {
             return dic.ContainsKey(key) ? dic[key] : string.Empty;
         }
-        #endregion
+
+        #endregion 11.获取字典
 
         #region 12.转换为字符
+
         public static string ToString<T>(this IEnumerable<string> list, string separator)
         {
             return string.Join(separator, list);
         }
-        #endregion
+
+        #endregion 12.转换为字符
     }
 }

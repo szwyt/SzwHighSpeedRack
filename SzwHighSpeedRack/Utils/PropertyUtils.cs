@@ -23,6 +23,7 @@ namespace SzwHighSpeedRack
             }
             return null;
         }
+
         /// <summary>
         /// 获取对象的属性值
         /// </summary>

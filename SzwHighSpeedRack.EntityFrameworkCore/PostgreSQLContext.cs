@@ -1,8 +1,5 @@
 ﻿namespace SzwHighSpeedRack.EntityFrameworkCore
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Text;
     using Microsoft.EntityFrameworkCore;
 
     /// <summary>
@@ -10,7 +7,10 @@
     /// </summary>
     public class PostgreSQLContext : BaseContext
     {
-        public PostgreSQLContext(string connectionString) : base(connectionString) { }
+        public PostgreSQLContext(string connectionString) : base(connectionString)
+        {
+        }
+
         /// <inheritdoc/>
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

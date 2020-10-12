@@ -8,7 +8,7 @@ namespace SzwHighSpeedRack
 {
     /// <summary>
     /// 枚举工具类
-    /// 作者：史字威 
+    /// 作者：史字威
     /// 时间：20190429
     /// </summary>
     public static class EnumUtils

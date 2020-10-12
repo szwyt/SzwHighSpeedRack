@@ -1,36 +1,38 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
-using System.Security.Claims;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
+using System;
+using System.IdentityModel.Tokens.Jwt;
+using System.Linq;
+using System.Security.Claims;
+using System.Text;
 using SzwHighSpeedRack;
 using SzwHighSpeedRack.Repository;
-using SzwHighSpeedRack.Service;
 
 namespace SzwHighSpeedRackApi.Controllers
 {
     public class LoginController : RackBaseApiController
     {
-        private JwtSettings _jwtSettings;
-        private IPdProductRepository _pdProductRepository;
+        private readonly JwtSettings _jwtSettings;
+        private readonly IPdProductRepository _pdProductRepository;
+        private readonly IHttpContextAccessor _httpContextAccessor;
+
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="jwtSettingsAccesser"></param>
         /// <param name="pdProductRepository"></param>
-        public LoginController(IOptions<JwtSettings> jwtSettingsAccesser, IPdProductRepository pdProductRepository)
+        /// <param name="httpContextAccessor"></param>
+        public LoginController(IOptions<JwtSettings> jwtSettingsAccesser, IPdProductRepository pdProductRepository, IHttpContextAccessor httpContextAccessor)
         {
             _jwtSettings = jwtSettingsAccesser.Value;
             _pdProductRepository = pdProductRepository;
+            _httpContextAccessor = httpContextAccessor;
         }
-
 
         /// <summary>
         /// 获取Token令牌
@@ -40,47 +42,59 @@ namespace SzwHighSpeedRackApi.Controllers
         [AllowAnonymous]
         public object Token()
         {
-            var tokenHandler = new JwtSecurityTokenHandler();
-            var key = Encoding.UTF8.GetBytes(_jwtSettings.SecurityKey);
+            var now = DateTime.Now;
             var authTime = DateTime.UtcNow;//授权时间
             var expiresAt = authTime.AddHours(_jwtSettings.ExpireSeconds);//过期时间
-            var tokenDescripor = new SecurityTokenDescriptor
-            {
-                Audience = _jwtSettings.Audience,
-                Issuer = _jwtSettings.Issuer,
-                Subject = new ClaimsIdentity(
-                    new Claim[]
+            var key = Encoding.UTF8.GetBytes(_jwtSettings.SecurityKey);
+            SigningCredentials sign = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature);
+            // 实例化JwtSecurityToken
+            var claims = new Claim[]
                     {
+                        new Claim(ClaimTypes.Name, "AdminName"),
                         new Claim(ClaimTypes.Role, "Admin"),
                         //new Claim(ClaimTypes.Role,"System")
-                    }),
-                Expires = expiresAt,
-                //对称秘钥SymmetricSecurityKey
-                //签名证书(秘钥，加密算法)SecurityAlgorithms
-                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
-            };
-            var token = tokenHandler.CreateToken(tokenDescripor);
-            var tokenString = tokenHandler.WriteToken(token);
+                    };
+            var jwt = new JwtSecurityToken(
+                issuer: _jwtSettings.Issuer,
+                audience: _jwtSettings.Audience,
+                claims: claims,
+                notBefore: now,
+                expires: expiresAt,
+                signingCredentials: sign
+            );
+            var tokenString = new JwtSecurityTokenHandler().WriteToken(jwt);
             var result = new
             {
                 Authorization = tokenString,
                 token_type = "Bearer"
             };
+            this.HttpContext.SignInAsync(JwtBearerDefaults.AuthenticationScheme, new ClaimsPrincipal(new ClaimsIdentity(claims)));
             return result;
         }
 
         [HttpGet]
-        [AllowAnonymous]
         public object Get([FromQuery] int[] ids)
         {
             return _pdProductRepository.FindList(w => ids.Contains(w.Id)).ToJson();
         }
 
         [HttpGet("TestPublish")]
-        [AllowAnonymous]
-        public object TestPublish([FromQuery] int[] ids)
+        public object TestPublish()
         {
-            return "success";
+            Claim UserName = _httpContextAccessor.HttpContext?.User?.Claims.FirstOrDefault(f => f.Type == ClaimTypes.Name);
+            Claim role = _httpContextAccessor.HttpContext?.User?.Claims.FirstOrDefault(f => f.Type == ClaimTypes.Role);
+            return new
+            {
+                name = UserName.Value,
+                role = role.Value,
+                IsAuthenticated = _httpContextAccessor.HttpContext.User.Identity.IsAuthenticated
+            };
+        }
+
+        [HttpGet("Logout")]
+        public void Logout()
+        {
+            this.HttpContext.SignOutAsync(JwtBearerDefaults.AuthenticationScheme);
         }
     }
 }

@@ -14,16 +14,19 @@ namespace SzwHighSpeedRack.EntityFrameworkCore
     {
         // 定义一个标识确保线程同步
         private static readonly object Locker = new object();
+
         protected BaseContext baseContext;
         private DbEnum.DbType _dbType;
         private string _connectionString;
         private IDbContextTransaction dbContextTransaction;
+
         public DbContextFactory(DbEnum.DbType dbType, string connectionString)
         {
             _dbType = dbType;
             _connectionString = connectionString;
             baseContext = GetDbContext();
         }
+
         /// <summary>
         /// 创建DB.
         /// </summary>

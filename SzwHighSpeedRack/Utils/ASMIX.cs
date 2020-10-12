@@ -112,7 +112,6 @@ namespace SzwHighSpeedRack
                     {
                         newNum = startindex + remainderNew;
                     }
-
                 }
 
                 newIntAarray.Add(newNum);
@@ -175,7 +174,6 @@ namespace SzwHighSpeedRack
                     {
                         oldNum = endindex - remainderNew;
                     }
-
                 }
 
                 oldIntAarray.Add(oldNum);

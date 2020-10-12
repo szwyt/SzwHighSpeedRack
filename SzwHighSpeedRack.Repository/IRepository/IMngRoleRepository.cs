@@ -1,15 +1,9 @@
-using System;
-using System.Collections.Generic;
-using System.Text;
 using SzwHighSpeedRack.Entity;
 using SzwHighSpeedRack.EntityFrameworkCore;
+
 namespace SzwHighSpeedRack.Repository
 {
-    public interface IMngRoleRepository :IBaseRepository<MngRole>
+    public interface IMngRoleRepository : IBaseRepository<MngRole>
     {
     }
 }
-
-
-
-

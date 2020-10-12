@@ -1,16 +1,13 @@
 ﻿using Castle.DynamicProxy;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using SzwHighSpeedRack;
 
 namespace SzwHighSpeedRack.Aop
 {
     public class LogInterceptor : IInterceptor
     {
         /// <summary>
-        /// 实例化IInterceptor唯一方法 
+        /// 实例化IInterceptor唯一方法
         /// </summary>
         /// <param name="invocation">包含被拦截方法的信息</param>
         public void Intercept(IInvocation invocation)

@@ -8,8 +8,6 @@
 
 namespace SzwHighSpeedRack
 {
-    using System;
-
     public static class BooleanExtensions
     {
         /// <summary>

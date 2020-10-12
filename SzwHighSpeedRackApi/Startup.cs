@@ -61,7 +61,6 @@ namespace SzwHighSpeedRackApi
                 options.AddPolicy("Admin", policy => policy.RequireRole("Admin").Build());
                 options.AddPolicy("SystemOrAdmin", policy => policy.RequireRole("Admin", "System"));//或的关系
                 options.AddPolicy("SystemAndAdmin", policy => policy.RequireRole("Admin").RequireRole("System"));//且的关系
-
             });
             //添加身份验证
             services.AddAuthentication(options =>
@@ -83,7 +82,6 @@ namespace SzwHighSpeedRackApi
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSettings.SecurityKey))
                 };
             });
-
 
             services.AddSwaggerGen(c =>
             {
@@ -149,6 +147,7 @@ namespace SzwHighSpeedRackApi
         {
             containerBuilder.RegisterModule<ModuleRegister>();
         }
+
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
@@ -181,7 +180,7 @@ namespace SzwHighSpeedRackApi
             //可以支持虚拟路径或者index.html这类起始页.
             app.Run(ctx =>
             {
-                ctx.Response.Redirect("/swagger/"); 
+                ctx.Response.Redirect("/swagger/");
                 return Task.FromResult(0);
             });
         }
