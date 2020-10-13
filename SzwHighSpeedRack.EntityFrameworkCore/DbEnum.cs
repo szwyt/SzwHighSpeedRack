@@ -20,11 +20,6 @@ namespace SzwHighSpeedRack.EntityFrameworkCore
             SqlLite,
 
             /// <summary>
-            /// SqlLit.
-            /// </summary>
-            SqlLit,
-
-            /// <summary>
             /// MySql.
             /// </summary>
             MySql,

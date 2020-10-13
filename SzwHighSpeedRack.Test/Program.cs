@@ -29,7 +29,7 @@ namespace SzwHighSpeedRack.Test
             List<NamedParameter> ListNamedParameter = new List<NamedParameter>()
             {
                new NamedParameter("dbType", DbEnum.DbType.MySql),
-               new NamedParameter("connectionString", "Server=127.0.0.1; Port=3306; Uid=root; Pwd=Aa000000; Database=xyqms_base;SslMode=None"),
+               new NamedParameter("connectionString", "Server=127.0.0.1; Port=3306; Uid=root; Pwd=Aa000000; SslMode=None;Database=xyqms_base"),
             };
 
             //数据库对象注入

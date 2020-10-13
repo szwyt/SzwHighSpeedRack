@@ -25,6 +25,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SzwHighSpeedRack.Entity", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SzwHighSpeedRack.Repository", "SzwHighSpeedRack.Repository\SzwHighSpeedRack.Repository.csproj", "{5B2636C0-4E41-4991-A511-8630C8ABBEE6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SzwHighSpeedRackT4", "SzwHighSpeedRackT4\SzwHighSpeedRackT4.csproj", "{303FE9AC-EF3D-4B56-9908-0B43BC43D227}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -67,6 +69,10 @@ Global
 		{5B2636C0-4E41-4991-A511-8630C8ABBEE6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5B2636C0-4E41-4991-A511-8630C8ABBEE6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5B2636C0-4E41-4991-A511-8630C8ABBEE6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{303FE9AC-EF3D-4B56-9908-0B43BC43D227}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{303FE9AC-EF3D-4B56-9908-0B43BC43D227}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{303FE9AC-EF3D-4B56-9908-0B43BC43D227}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{303FE9AC-EF3D-4B56-9908-0B43BC43D227}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -81,6 +87,7 @@ Global
 		{AC9AA0A4-173E-489F-87E2-83B583897784} = {35252EBD-E01C-47CA-861D-BE84579DDFB3}
 		{5C0F2A13-C1CE-415E-85DA-8150E54E0918} = {35252EBD-E01C-47CA-861D-BE84579DDFB3}
 		{5B2636C0-4E41-4991-A511-8630C8ABBEE6} = {35252EBD-E01C-47CA-861D-BE84579DDFB3}
+		{303FE9AC-EF3D-4B56-9908-0B43BC43D227} = {7846743C-4E42-4CB1-ACC5-30BADE18CA05}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		VisualSVNWorkingCopyRoot = .

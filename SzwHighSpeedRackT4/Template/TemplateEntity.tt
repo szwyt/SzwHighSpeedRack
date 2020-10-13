@@ -1,0 +1,15 @@
+﻿using System;
+using System.Collections.Generic;
+namespace SzwHighSpeedRack.Entity
+{
+    public partial class <#= TemplateModel.EntityName #>
+    {
+		<# foreach(EntityClassPropertyModel property in TemplateModel.EntityList){ #>
+	   public <#= property.PropertyType#> <#= property.PropertyName#> { get; set; }
+			<#;}#>
+    }
+}
+<#@ template debug="false" hostspecific="false" language="C#" #>
+<#@ output extension=".txt" #>
+<#@ import namespace="SzwHighSpeedRackT4" #>
+<#@ parameter type="SzwHighSpeedRackT4.TemplateModel" name="TemplateModel" #>

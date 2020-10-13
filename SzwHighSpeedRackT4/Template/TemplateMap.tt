@@ -1,0 +1,20 @@
+﻿namespace SzwHighSpeedRack.Entity
+{
+    using System;
+    using System.Collections.Generic;
+    using System.Text;
+    using Microsoft.EntityFrameworkCore;
+    using Microsoft.EntityFrameworkCore.Metadata.Builders;
+
+    public class <#= TemplateModel.EntityName #>Map : IEntityTypeConfiguration<<#= TemplateModel.EntityName #>>
+    {
+        public void Configure(EntityTypeBuilder<<#= TemplateModel.EntityName #>> builder)
+        {
+            builder.ToTable("<#= TemplateModel.EntityName #>").HasKey(x => x.Id);
+        }
+    }
+}
+<#@ template debug="false" hostspecific="false" language="C#" #>
+<#@ output extension=".txt" #>
+<#@ import namespace="SzwHighSpeedRackT4" #>
+<#@ parameter type="SzwHighSpeedRackT4.TemplateModel" name="TemplateModel" #>
