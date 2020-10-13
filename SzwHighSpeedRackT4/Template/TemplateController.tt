@@ -1,0 +1,73 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Linq.Expressions;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using SzwHighSpeedRack.Entity;
+using SzwHighSpeedRack.Service;
+
+namespace SzwHighSpeedRackApi.Controllers
+{
+    [AllowAnonymous]
+    public class <#= TemplateModel.EntityName #>Controller : RackBaseApiController
+    {
+        private IBaseService<<#= TemplateModel.EntityName #>> <#= TemplateModel.EntityName #>Service;
+
+        public <#= TemplateModel.EntityName #>Controller(IBaseService<<#= TemplateModel.EntityName #>> <#= TemplateModel.EntityName #>Service)
+        {
+            this.<#= TemplateModel.EntityName #>Service = <#= TemplateModel.EntityName #>Service;
+        }
+
+        [HttpGet("{id}")]
+        public MessageModel<<#= TemplateModel.EntityName #>> Get(int id)
+        {
+            <#= TemplateModel.EntityName #> model = <#= TemplateModel.EntityName #>Service.FindSingle(f => f.Id == id);
+            bool flag = model == null;
+            return new MessageModel<<#= TemplateModel.EntityName #>>
+            {
+                success = !flag,
+                msg = !flag ? "查询成功" : $"没有id为{id}的数据",
+                model = !flag ? model : new <#= TemplateModel.EntityName #>()
+            };
+        }
+
+        [HttpPost]
+        public MessageModel<string> Post([FromBody] <#= TemplateModel.EntityName #> model)
+        {
+            <#= TemplateModel.EntityName #>Service.AddEntity(model);
+            return new MessageModel<string>
+            {
+                success = true,
+                msg = "添加成功"
+            };
+        }
+
+        [HttpDelete("{id}")]
+        public MessageModel<string> Delete(int id)
+        {
+            <#= TemplateModel.EntityName #>Service.DeleteByExp(f => f.Id == id);
+            return new MessageModel<string>
+            {
+                success = true,
+                msg = "删除成功"
+            };
+        }
+
+        [HttpPatch()]
+        public MessageModel<PageModel<<#= TemplateModel.EntityName #>>> HttpPatch(int pageIndex = 1, int pageSize = 10)
+        {
+            MessageModel<PageModel<<#= TemplateModel.EntityName #>>> messageModel = new MessageModel<PageModel<<#= TemplateModel.EntityName #>>>();
+            Expression<Func<<#= TemplateModel.EntityName #>, bool>> exp = null;
+            messageModel.model = <#= TemplateModel.EntityName #>Service.Page<int>(pageIndex, pageSize, p => p.Id, exp, true);
+            messageModel.success = true;
+            messageModel.msg = "查询成功";
+            return messageModel;
+        }
+    }
+}
+<#@ template debug="false" hostspecific="false" language="C#" #>
+<#@ output extension=".txt" #>
+<#@ import namespace="SzwHighSpeedRackT4" #>
+<#@ parameter type="SzwHighSpeedRackT4.TemplateModel" name="TemplateModel" #>

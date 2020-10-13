@@ -9,6 +9,7 @@ namespace SzwHighSpeedRack.EntityFrameworkCore
     using System.Collections.Generic;
     using System.Linq;
     using System.Linq.Expressions;
+    using SzwHighSpeedRack.Entity;
     using Z.EntityFramework.Plus;
 
     public class BaseRepository<T> : IBaseRepository<T>, IDisposable
@@ -78,7 +79,7 @@ namespace SzwHighSpeedRack.EntityFrameworkCore
         /// <param name="wherelambda">条件</param>
         /// <param name="isorder">是否升序</param>
         /// <returns>list<T></returns>
-        public Tuple<List<T>, int> Page<TKey>(int pageIndex = 1, int pageSize = 10, Expression<Func<T, TKey>> orderBy = null, Expression<Func<T, bool>> exp = null, bool isOrder = true)
+        public PageModel<T> Page<TKey>(int pageIndex = 1, int pageSize = 10, Expression<Func<T, TKey>> orderBy = null, Expression<Func<T, bool>> exp = null, bool isOrder = true)
 
         {
             if (pageIndex < 1)
@@ -95,7 +96,14 @@ namespace SzwHighSpeedRack.EntityFrameworkCore
             }
 
             int total = data.Count();
-            return Tuple.Create(data.Skip(pageSize * (pageIndex - 1)).Take(pageSize).ToList(), total);
+            return new PageModel<T>
+            {
+                dataCount = total,
+                pageCount = (Math.Ceiling(total.ObjToDecimal() / pageSize.ObjToDecimal())).ObjToInt(),
+                pageIndex = pageIndex,
+                PageSize = pageSize,
+                data = data.Skip(pageSize * (pageIndex - 1)).Take(pageSize).ToList()
+            };
         }
 
         /// <summary>

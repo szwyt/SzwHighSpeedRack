@@ -62,7 +62,9 @@ namespace SzwHighSpeedRackT4
         {
             try
             {
+                //每一次点击连接,清空listbox
                 ListBoxModel = new ObservableCollection<ListBoxModel>();
+
                 DataTable dt = new DataTable();
                 if (keyValueModel.Key == (int)DbEnum.DbType.MySql)
                 {
@@ -123,7 +125,7 @@ namespace SzwHighSpeedRackT4
                 });
             }
 
-            //默认选择中第一行
+            //默认选择中第二行
             keyValueModel = dbList[1];
 
             //读取链接字符串

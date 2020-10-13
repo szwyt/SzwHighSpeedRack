@@ -121,6 +121,11 @@
     <Compile Include="Model\KeyValue.cs" />
     <Compile Include="Model\ListBoxModel.cs" />
     <Compile Include="Model\TemplateModel.cs" />
+    <Compile Include="Template\TemplateController.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TemplateController.tt</DependentUpon>
+    </Compile>
     <Compile Include="Util\CreateCode.cs" />
     <Compile Include="Util\TextTemplatingEngineHost.cs" />
     <Compile Include="Util\ToolsEx.cs" />
@@ -175,6 +180,11 @@
     <Content Include="DLL\Microsoft.VisualStudio.TextTemplating.10.0.dll" />
     <Content Include="DLL\Microsoft.VisualStudio.TextTemplating.Interfaces.10.0.dll" />
     <Content Include="DLL\MySql.Data.dll" />
+    <Content Include="Template\TemplateController.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>TemplateController.cs</LastGenOutput>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Template\TemplateEntity.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>TemplateEntity.txt</LastGenOutput>

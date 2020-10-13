@@ -1,10 +1,7 @@
-﻿using System;
-using System.Text;
-using Microsoft.VisualStudio.TextTemplating;
+﻿using Microsoft.VisualStudio.TextTemplating;
 using System.IO;
-using System.CodeDom.Compiler;
-using System.Windows.Forms;
 using System.Linq;
+using System.Text;
 
 namespace SzwHighSpeedRackT4
 {

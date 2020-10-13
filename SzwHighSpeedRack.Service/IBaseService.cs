@@ -1,15 +1,12 @@
-﻿// <copyright file="IBaseRepository.cs" company="PlaceholderCompany">
-// Copyright (c) PlaceholderCompany. All rights reserved.
-// </copyright>
+﻿using System;
+using System.Collections.Generic;
+using System.Linq.Expressions;
+using System.Text;
+using SzwHighSpeedRack.Entity;
 
-namespace SzwHighSpeedRack.EntityFrameworkCore
+namespace SzwHighSpeedRack.Service
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq.Expressions;
-    using SzwHighSpeedRack.Entity;
-
-    public interface IBaseRepository<T>
+    public interface IBaseService<T>
         where T : class
     {
         /// <summary>

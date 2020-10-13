@@ -7,6 +7,7 @@ using System.Linq;
 using System.Reflection;
 using SzwHighSpeedRack.Aop;
 using SzwHighSpeedRack.EntityFrameworkCore;
+using SzwHighSpeedRack.Service;
 
 namespace SzwHighSpeedRackApi
 {
@@ -20,6 +21,7 @@ namespace SzwHighSpeedRackApi
         {
             //注入泛型仓储
             builder.RegisterGeneric(typeof(BaseRepository<>)).As(typeof(IBaseRepository<>));
+            builder.RegisterGeneric(typeof(BaseService<>)).As(typeof(IBaseService<>));
             // 注册AOP
             builder.RegisterType<LogInterceptor>();
             builder.RegisterType<TransactionInterceptor>();
