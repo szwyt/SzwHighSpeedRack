@@ -33,9 +33,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="ControllerName.txt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
     <None Update="server.pfx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

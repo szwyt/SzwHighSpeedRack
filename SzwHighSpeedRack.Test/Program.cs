@@ -23,6 +23,7 @@ namespace SzwHighSpeedRack.Test
             var builder = new ContainerBuilder();
             //注入泛型仓储
             builder.RegisterGeneric(typeof(BaseRepository<>)).As(typeof(IBaseRepository<>)).InstancePerDependency();
+            builder.RegisterGeneric(typeof(BaseService<>)).As(typeof(IBaseService<>));
             // 注册AOP
             builder.RegisterType<LogInterceptor>();
             builder.RegisterType<TransactionInterceptor>();

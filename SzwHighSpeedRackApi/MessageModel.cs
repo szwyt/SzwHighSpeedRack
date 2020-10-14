@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace SzwHighSpeedRackApi
+﻿namespace SzwHighSpeedRackApi
 {
     /// <summary>
     /// 通用返回信息类

@@ -121,11 +121,6 @@
     <Compile Include="Model\KeyValue.cs" />
     <Compile Include="Model\ListBoxModel.cs" />
     <Compile Include="Model\TemplateModel.cs" />
-    <Compile Include="Template\TemplateController.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>TemplateController.tt</DependentUpon>
-    </Compile>
     <Compile Include="Util\CreateCode.cs" />
     <Compile Include="Util\TextTemplatingEngineHost.cs" />
     <Compile Include="Util\ToolsEx.cs" />
@@ -180,6 +175,11 @@
     <Content Include="DLL\Microsoft.VisualStudio.TextTemplating.10.0.dll" />
     <Content Include="DLL\Microsoft.VisualStudio.TextTemplating.Interfaces.10.0.dll" />
     <Content Include="DLL\MySql.Data.dll" />
+    <Content Include="Template1\TemplateDto.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>TemplateDto.txt</LastGenOutput>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Template\TemplateController.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>
       <LastGenOutput>TemplateController.cs</LastGenOutput>
@@ -190,24 +190,6 @@
       <LastGenOutput>TemplateEntity.txt</LastGenOutput>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Resource Include="Template\TemplateMap.txt">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>TemplateMap.tt</DependentUpon>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Template\ITemplateRepository.txt">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ITemplateRepository.tt</DependentUpon>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Template\TemplateEntity.txt">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>TemplateEntity.tt</DependentUpon>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
     <Content Include="Template\ITemplateRepository.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>ITemplateRepository.txt</LastGenOutput>
@@ -223,22 +205,11 @@
       <LastGenOutput>TemplateRepository.txt</LastGenOutput>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Resource Include="Template\TemplateRepository.txt">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>TemplateRepository.tt</DependentUpon>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
     <Content Include="Template\TemplateDto.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>TemplateDto.txt</LastGenOutput>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Resource Include="Template\TemplateDto.txt">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>TemplateDto.tt</DependentUpon>
-    </Resource>
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

@@ -30,6 +30,8 @@ namespace SzwHighSpeedRackT4
 
         private BaseSqlHelper BaseSqlHelper { get; set; }
 
+        private string BaseDirectoryPath = System.AppDomain.CurrentDomain.BaseDirectory;
+
         public MainViewModel()
         {
             // 命令不能为私有属性否则调用出错
@@ -132,6 +134,48 @@ namespace SzwHighSpeedRackT4
             connStr = ToolsEx.ConfigValue("ConnStr");
 
             InitBaseSqlHelper();
+
+            //初始化模板下拉框数据
+            InitTemplate();
+        }
+
+        private void InitTemplate()
+        {
+            DirectoryInfo folder = new DirectoryInfo(BaseDirectoryPath);
+            List<DirectoryInfo> listDic = folder.GetDirectories().Where(w => w.Name.ToUpper().Contains("Template".ToUpper())).ToList();
+            if (listDic.Count > 0)
+            {
+                foreach (var item in listDic)
+                {
+                    TemplateList.Add(new KeyValue
+                    {
+                        Value = item.Name
+                    });
+                }
+
+                TemplateInfo = TemplateList[0];
+
+                ChangeTemplate();
+            }
+        }
+
+        private void ChangeTemplate()
+        {
+            ListBoxModelTemplate = new ObservableCollection<ListBoxModel>();
+            string templatePath = Path.Combine(BaseDirectoryPath, TemplateInfo.Value);
+            DirectoryInfo templateFile = new DirectoryInfo(templatePath);
+            List<FileInfo> fileList = templateFile.GetFiles("*.tt").ToList();
+            if (fileList != null && fileList.Count > 0)
+            {
+                foreach (var item in fileList)
+                {
+                    ListBoxModelTemplate.Add(new ListBoxModel
+                    {
+                        IsCheck = true,
+                        TableName = item.Name
+                    });
+                }
+            }
         }
 
         /// <summary>
@@ -158,10 +202,12 @@ namespace SzwHighSpeedRackT4
                 {
                     DataTable dtTable = BaseSqlHelper.ExecuteDataTable(connStr, BaseSqlHelper.SelectTableColumName.Replace("@TableName", o.TableName));
                     TemplateModel templateModel = new TemplateModel(dtTable);
-                    string path = Path.Combine(System.AppDomain.CurrentDomain.BaseDirectory, "Template");
-                    CreateCode.CreatT4Class(templateModel, selectFilePath, path);
+
+                    string path = Path.Combine(BaseDirectoryPath, TemplateInfo.Value);
+                    CreateCode.CreatT4Class(templateModel, selectFilePath, path, ListBoxModelTemplate.Where(w => w.IsCheck == true).ToList());
                 });
             });
+
             System.Windows.MessageBox.Show("生成成功", "温馨提示", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
@@ -249,7 +295,7 @@ namespace SzwHighSpeedRackT4
         private KeyValue keyValueModel = new KeyValue();
 
         /// <summary>
-        /// 切换下拉框
+        /// 切换数据库类型下拉框
         /// </summary>
         public KeyValue KeyValueModel
         {
@@ -261,6 +307,49 @@ namespace SzwHighSpeedRackT4
             {
                 keyValueModel = value;
                 InitBaseSqlHelper();
+                RaisePropertyChanged();
+            }
+        }
+
+        private ObservableCollection<KeyValue> templateList = new ObservableCollection<KeyValue>();
+
+        public ObservableCollection<KeyValue> TemplateList
+        {
+            get { return templateList; }
+            set
+            {
+                templateList = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        private KeyValue templateInfo = new KeyValue();
+
+        /// <summary>
+        /// 切换模板下拉框
+        /// </summary>
+        public KeyValue TemplateInfo
+        {
+            get
+            {
+                return templateInfo;
+            }
+            set
+            {
+                templateInfo = value;
+                ChangeTemplate();
+                RaisePropertyChanged();
+            }
+        }
+
+        private ObservableCollection<ListBoxModel> listBoxModelTemplate = new ObservableCollection<ListBoxModel>();
+
+        public ObservableCollection<ListBoxModel> ListBoxModelTemplate
+        {
+            get { return listBoxModelTemplate; }
+            set
+            {
+                listBoxModelTemplate = value;
                 RaisePropertyChanged();
             }
         }
