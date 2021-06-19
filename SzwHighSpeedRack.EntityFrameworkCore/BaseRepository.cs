@@ -208,7 +208,7 @@ namespace SzwHighSpeedRack.EntityFrameworkCore
         public IQueryable<T> Filter(Expression<Func<T, bool>> exp)
 
         {
-            var dbSet = _baseContext.Set<T>().AsNoTracking().AsQueryable();
+            var dbSet = _baseContext.Set<T>().AsNoTracking();
             if (exp != null)
             {
                 dbSet = dbSet.Where(exp);
