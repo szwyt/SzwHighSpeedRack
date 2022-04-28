@@ -9,7 +9,7 @@
         Title="SzwHighSpeedRack代码生成器"
         WindowState="Normal"
         ResizeMode="CanMinimize"
-        Height="600" Width="900" FontSize="12" FontFamily="微软雅黑">
+        Height="650" Width="900" FontSize="12" FontFamily="微软雅黑">
     <Grid>
         <Grid.Resources>
             <Style TargetType="DockPanel">
@@ -28,7 +28,7 @@
             </Style>
         </Grid.Resources>
         <Grid.RowDefinitions>
-            <RowDefinition Height="500" />
+            <RowDefinition Height="550" />
             <RowDefinition />
         </Grid.RowDefinitions>
         <Grid Grid.Row="0" Grid.Column="0">
@@ -51,6 +51,11 @@
                     <Label Content="代码保存路径:" />
                     <TextBox Text="{Binding SelectFilePath}" Width="600" />
                     <Button Margin="10 0 0 0" Content="选择" Width="50" Height="30" Command="{Binding SelectedFileTaskCommand}" />
+                </DockPanel>
+                <DockPanel>
+                    <Label Content="根据表名搜索:" />
+                    <TextBox Text="{Binding SelectTable}" Width="600" />
+                    <Button Margin="10 0 0 0" Content="查询" Width="50" Height="30" Command="{Binding SelectedTableTaskCommand}" />
                 </DockPanel>
                 <DockPanel>
                     <Label Content="数据库表名:" />

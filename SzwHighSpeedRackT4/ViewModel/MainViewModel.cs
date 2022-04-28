@@ -7,6 +7,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.IO;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Forms;
@@ -28,6 +29,11 @@ namespace SzwHighSpeedRackT4
         public RelayCommand ConnectTaskCommand { get; set; }
         public RelayCommand CheckAllTaskCommand { get; set; }
 
+        /// <summary>
+        //  查询表名
+        /// </summary>
+        public RelayCommand SelectedTableTaskCommand { get; set; }
+
         private BaseSqlHelper BaseSqlHelper { get; set; }
 
         private string BaseDirectoryPath = System.AppDomain.CurrentDomain.BaseDirectory;
@@ -36,6 +42,7 @@ namespace SzwHighSpeedRackT4
         {
             // 命令不能为私有属性否则调用出错
             SelectedFileTaskCommand = new RelayCommand(SelectedFileTask);
+            SelectedTableTaskCommand = new RelayCommand(SelectedTableTask);
             GenerateCodeTaskCommand = new RelayCommand(GenerateCodeTask);
             ConnectTaskCommand = new RelayCommand(ConnectTask);
             CheckAllTaskCommand = new RelayCommand(CheckAllTask);
@@ -128,7 +135,7 @@ namespace SzwHighSpeedRackT4
             }
 
             //默认选择中第二行
-            keyValueModel = dbList[1];
+            keyValueModel = dbList[0];
 
             //读取链接字符串
             connStr = ToolsEx.ConfigValue("ConnStr");
@@ -232,6 +239,21 @@ namespace SzwHighSpeedRackT4
             }
         }
 
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public void SelectedTableTask()
+        {
+            if (!string.IsNullOrWhiteSpace(selectTable)) 
+            {
+                var str = selectTable.Split(new char[] {',',',',' '});
+                ListBoxModel = new ObservableCollection<ListBoxModel>(ListBoxModel.Where(w => str.Contains(w.TableName)));
+                IsCheck = true;
+                CheckAllTask();
+            }
+        }
+
         private string connStr;
 
         public string ConnStr
@@ -252,6 +274,18 @@ namespace SzwHighSpeedRackT4
             set
             {
                 selectFilePath = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        private string selectTable;
+
+        public string SelectTable
+        {
+            get { return selectTable; }
+            set
+            {
+                selectTable = value;
                 RaisePropertyChanged();
             }
         }

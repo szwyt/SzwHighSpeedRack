@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-namespace SzwHighSpeedRack.Entity
+using System.Text;
+namespace CACEM.ECP.API.Entities
 {
     public partial class <#= TemplateModel.EntityName #>
     {

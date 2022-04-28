@@ -9,8 +9,8 @@ namespace SzwHighSpeedRackT4
     {
         public TemplateModel(DataTable dt)
         {
-            this.ClassName = dt.TableName.Replace("_", string.Empty);
-            this.EntityName = dt.TableName.Replace("_", string.Empty);
+            this.ClassName = dt.TableName.Replace("_", string.Empty).Replace("_", string.Empty);
+            this.EntityName = dt.TableName.Replace("_", string.Empty).Replace("_", string.Empty);
 
             if (dt != null && dt.Columns.Count > 0)
             {
