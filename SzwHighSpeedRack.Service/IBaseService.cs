@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
+using System.Threading.Tasks;
 using SzwHighSpeedRack.Entity;
 
 namespace SzwHighSpeedRack.Service
@@ -13,7 +14,7 @@ namespace SzwHighSpeedRack.Service
         /// </summary>
         /// <param name="exp">条件</param>
         /// <returns>T</returns>
-        T FindSingle(Expression<Func<T, bool>> exp = null);
+        Task<T> FindSingleAsync(Expression<Func<T, bool>> exp = null);
 
         /// <summary>
         /// 按条件判断是否存在对象
@@ -21,14 +22,14 @@ namespace SzwHighSpeedRack.Service
         /// </summary>
         /// <param name="exp">条件</param>
         /// <returns>bool</returns>
-        bool IsExist(Expression<Func<T, bool>> exp);
+        Task<bool> IsExistAsync(Expression<Func<T, bool>> exp);
 
         /// <summary>
         /// 按条件查询返回集合
         /// </summary>
         /// <param name="exp">条件</param>
         /// <returns>集合</returns>
-        List<T> FindList(Expression<Func<T, bool>> exp = null);
+        Task<List<T>> FindListAsync(Expression<Func<T, bool>> exp = null);
 
         /// <summary>
         /// 分页
@@ -41,62 +42,62 @@ namespace SzwHighSpeedRack.Service
         /// <param name="wherelambda">条件</param>
         /// <param name="isorder">是否升序</param>
         /// <returns>list<T></returns>
-        PageModel<T> Page<TKey>(int pageIndex = 1, int pageSize = 10, Expression<Func<T, TKey>> orderBy = null, Expression<Func<T, bool>> exp = null, bool isOrder = true);
+        Task<PageModel<T>>  PageAsync<TKey>(int pageIndex = 1, int pageSize = 10, Expression<Func<T, TKey>> orderBy = null, Expression<Func<T, bool>> exp = null, bool isOrder = true);
 
         /// <summary>
         /// 按条件查询总条数
         /// </summary>
         /// <param name="exp">条件</param>
         /// <returns>集合</returns>
-        int GetCount(Expression<Func<T, bool>> exp = null);
+        Task<int> GetCountAsync(Expression<Func<T, bool>> exp = null);
 
         /// <summary>
         /// 添加
         /// </summary>
         /// <param name="entity">实体</param>
-        T AddEntity(T entity);
+        Task<T> AddEntityAsync(T entity);
 
         /// <summary>
         /// 批量添加
         /// </summary>
         /// <param name="entities">List<T></param>
-        void BatchAdd(List<T> entities);
+        Task<int> BatchAddAsync(List<T> entities);
 
         /// <summary>
         /// 修改
         /// </summary>
         /// <param name="entity">实体</param>
-        void UpdateEntity(T entity);
+        Task<int> UpdateEntityAsync(T entity);
 
         /// <summary>
         /// 批量修改
         /// </summary>
         /// <param name="entities">List<T></param>
-        void BatchUpdate(List<T> entities);
+        Task<int> BatchUpdateAsync(List<T> entities);
 
         /// <summary>
         /// 删除实体
         /// </summary>
         /// <param name="entity">实体</param>
-        void DeleteEntity(T entity);
+        Task<int> DeleteEntityAsync(T entity);
 
         /// <summary>
         /// 批量删除
         /// </summary>
         /// <param name="entities">List<T></param>
-        void BatchDelete(List<T> entities);
+        Task<int> BatchDeleteAsync(List<T> entities);
 
         /// <summary>
         ///  实现按需要只更新部分更新 如：Update(u =>u.Id==1,u =>new User{Name="ok"});
         /// </summary>
         /// <param name="where">更新条件</param>
         /// <param name="entity">更新后的实体</param>
-        void UpdateByExp(Expression<Func<T, bool>> where, Expression<Func<T, T>> entity);
+        Task<int> UpdateByExpAsync(Expression<Func<T, bool>> where, Expression<Func<T, T>> entity);
 
         /// <summary>
         /// 删除
         /// </summary>
         /// <param name="exp">条件</param>
-        void DeleteByExp(Expression<Func<T, bool>> exp);
+        Task<int> DeleteByExpAsync(Expression<Func<T, bool>> exp);
     }
 }

@@ -6,6 +6,7 @@ using SzwHighSpeedRack.Entity;
 using SzwHighSpeedRack.Service;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
+using System.Threading.Tasks;
 
 namespace SzwHighSpeedRackApi.Controllers
 {
@@ -20,22 +21,22 @@ namespace SzwHighSpeedRackApi.Controllers
         }
 
         [HttpGet("{id}")]
-        public MessageModel<MngAdmin> Get(int id)
+        public async Task<MessageModel<MngAdmin>> Get(int id)
         {
-            var model = MngAdminService.FindList(i => EF.Functions.JsonContains(i.GroupManage, id.ToString(), "$"));
-            bool flag = model != null;
+            var model = await MngAdminService.FindListAsync(i => EF.Functions.JsonContains(i.GroupManage, id.ToString(), "$"));
+            bool flag = model.FirstOrDefault() != null;
             return new MessageModel<MngAdmin>
             {
                 success = flag,
                 msg = flag ? "查询成功" : $"没有id为{id}的数据",
-                //model = flag ? model : new MngAdmin()
+                model = flag ? model.FirstOrDefault() : new MngAdmin()
             };
         }
 
         [HttpPost]
-        public MessageModel<string> Post([FromBody] MngAdmin model)
+        public async Task<MessageModel<string>> Post([FromBody] MngAdmin model)
         {
-            MngAdminService.AddEntity(model);
+           await MngAdminService.AddEntityAsync(model);
             return new MessageModel<string>
             {
                 success = true,
@@ -44,9 +45,9 @@ namespace SzwHighSpeedRackApi.Controllers
         }
 
         [HttpDelete("{id}")]
-        public MessageModel<string> Delete(int id)
+        public async Task<MessageModel<string>> Delete(int id)
         {
-            MngAdminService.DeleteByExp(f => f.Id == id);
+           await MngAdminService.DeleteByExpAsync(f => f.Id == id);
             return new MessageModel<string>
             {
                 success = true,
@@ -55,11 +56,11 @@ namespace SzwHighSpeedRackApi.Controllers
         }
 
         [HttpPatch()]
-        public MessageModel<PageModel<MngAdmin>> HttpPatch(int pageIndex = 1, int pageSize = 10)
+        public async Task<MessageModel<PageModel<MngAdmin>>> HttpPatch(int pageIndex = 1, int pageSize = 10)
         {
             MessageModel<PageModel<MngAdmin>> messageModel = new MessageModel<PageModel<MngAdmin>>();
             Expression<Func<MngAdmin, bool>> exp = null;
-            messageModel.model = MngAdminService.Page(pageIndex, pageSize, p => p.Id, exp, true);
+            messageModel.model = await MngAdminService.PageAsync(pageIndex, pageSize, p => p.Id, exp, true);
             messageModel.success = true;
             messageModel.msg = "查询成功";
             return messageModel;

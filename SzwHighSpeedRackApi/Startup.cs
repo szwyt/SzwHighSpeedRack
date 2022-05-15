@@ -155,12 +155,6 @@ namespace SzwHighSpeedRackApi
 
             });
 
-            //services.AddDbContext<MySqlContext>(opt => 
-            //{
-            //    //opt.UseMySql("Server=127.0.0.1; Port=3306; Uid=root; Pwd=Aa000000; Database=warranty_base;SslMode=None", ServerVersion.Parse("8.0.27-mysql"));
-            //    opt.UseMySql(databaseConfiguration, serverVersion);
-            //});
-            //services.AddScoped<BaseContext, MySqlContext>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
         }
 
@@ -197,12 +191,13 @@ namespace SzwHighSpeedRackApi
                 c.IndexStream = () => GetType().GetTypeInfo().Assembly.GetManifestResourceStream("SzwHighSpeedRackApi.index.html");
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "SzwHighSpeedRackApi v1");
                 c.DocExpansion(DocExpansion.None);
+                c.RoutePrefix = string.Empty;//这里主要是不需要再输入swagger这个默认前缀
             });
 
             //可以支持虚拟路径或者index.html这类起始页.
             app.Run(ctx =>
             {
-                ctx.Response.Redirect("/swagger/");
+                ctx.Response.Redirect("/index.html");
                 return Task.FromResult(0);
             });
         }

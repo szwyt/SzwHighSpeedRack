@@ -4,12 +4,11 @@
         <name>SzwHighSpeedRackApi</name>
     </assembly>
     <members>
-        <member name="M:SzwHighSpeedRackApi.Controllers.LoginController.#ctor(Microsoft.Extensions.Options.IOptions{SzwHighSpeedRackApi.JwtSettings},SzwHighSpeedRack.Repository.IPdProductRepository,Microsoft.AspNetCore.Http.IHttpContextAccessor)">
+        <member name="M:SzwHighSpeedRackApi.Controllers.LoginController.#ctor(Microsoft.Extensions.Options.IOptions{SzwHighSpeedRackApi.JwtSettings},Microsoft.AspNetCore.Http.IHttpContextAccessor)">
              <summary>
             
              </summary>
              <param name="jwtSettingsAccesser"></param>
-             <param name="pdProductRepository"></param>
              <param name="httpContextAccessor"></param>
         </member>
         <member name="M:SzwHighSpeedRackApi.Controllers.LoginController.Token">
@@ -17,6 +16,18 @@
             获取Token令牌
             </summary>
             <returns></returns>
+        </member>
+        <member name="T:SzwHighSpeedRackApi.Filters.SwaggerFileUploadFilter">
+            <summary>
+            Swagger 上传文件过滤器
+            </summary>
+        </member>
+        <member name="M:SzwHighSpeedRackApi.Filters.SwaggerFileUploadFilter.Apply(Microsoft.OpenApi.Models.OpenApiOperation,Swashbuckle.AspNetCore.SwaggerGen.OperationFilterContext)">
+            <summary>
+            应用过滤器
+            </summary>
+            <param name="operation"></param>
+            <param name="context"></param>
         </member>
         <member name="P:SzwHighSpeedRackApi.JwtSettings.SecurityKey">
             <summary>

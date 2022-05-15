@@ -5,7 +5,7 @@
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DocumentationFile>SzwHighSpeedRack\SzwHighSpeedRackApi\SzwHighSpeedRackApi.xml</DocumentationFile>
+    <DocumentationFile>SzwHighSpeedRackApi.xml</DocumentationFile>
     <OutputPath></OutputPath>
   </PropertyGroup>
 

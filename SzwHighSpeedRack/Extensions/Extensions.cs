@@ -2,6 +2,10 @@
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+
 namespace SzwHighSpeedRack
 {
     /// <summary>
@@ -17,6 +21,18 @@ namespace SzwHighSpeedRack
         public static string SafeString(this object input)
         {
             return input == null ? string.Empty : input.ToString().Trim();
+        }
+
+
+        /// <summary>
+        /// 判断集合是否为空
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="ts"></param>
+        /// <returns></returns>
+        public static bool IsNullOrEmpty<T>(this IEnumerable<T> ts)
+        {
+            return (ts == null || ts.Count() == 0);
         }
     }
 }

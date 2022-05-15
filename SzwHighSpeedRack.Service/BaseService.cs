@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
+using System.Threading.Tasks;
 using SzwHighSpeedRack.Entity;
 using SzwHighSpeedRack.EntityFrameworkCore;
 
@@ -16,69 +17,69 @@ namespace SzwHighSpeedRack.Service
             _baseRepository = baseRepository;
         }
 
-        public T AddEntity(T entity)
+        public async Task<T> AddEntityAsync(T entity)
         {
-            return _baseRepository.AddEntity(entity);
+            return await _baseRepository.AddEntityAsync(entity);
         }
 
-        public void BatchAdd(List<T> entities)
+        public async Task<int> BatchAddAsync(List<T> entities)
         {
-            _baseRepository.BatchAdd(entities);
+            return await _baseRepository.BatchAddAsync(entities);
         }
 
-        public void BatchDelete(List<T> entities)
+        public async Task<int> BatchDeleteAsync(List<T> entities)
         {
-            _baseRepository.BatchDelete(entities);
+            return await _baseRepository.BatchDeleteAsync(entities);
         }
 
-        public void BatchUpdate(List<T> entities)
+        public async Task<int> BatchUpdateAsync(List<T> entities)
         {
-            _baseRepository.BatchUpdate(entities);
+            return await _baseRepository.BatchUpdateAsync(entities);
         }
 
-        public void DeleteByExp(Expression<Func<T, bool>> exp)
+        public async Task<int> DeleteByExpAsync(Expression<Func<T, bool>> exp)
         {
-            _baseRepository.DeleteByExp(exp);
+            return await _baseRepository.DeleteByExpAsync(exp);
         }
 
-        public void DeleteEntity(T entity)
+        public async Task<int> DeleteEntityAsync(T entity)
         {
-            _baseRepository.DeleteEntity(entity);
+            return await _baseRepository.DeleteEntityAsync(entity);
         }
 
-        public List<T> FindList(Expression<Func<T, bool>> exp = null)
+        public async Task<List<T>> FindListAsync(Expression<Func<T, bool>> exp = null)
         {
-            return _baseRepository.FindList(exp);
+            return await _baseRepository.FindListAsync(exp);
         }
 
-        public T FindSingle(Expression<Func<T, bool>> exp = null)
+        public async Task<T> FindSingleAsync(Expression<Func<T, bool>> exp = null)
         {
-            return _baseRepository.FindSingle(exp);
+            return await _baseRepository.FindSingleAsync(exp);
         }
 
-        public int GetCount(Expression<Func<T, bool>> exp = null)
+        public async Task<int> GetCountAsync(Expression<Func<T, bool>> exp = null)
         {
-            return _baseRepository.GetCount(exp);
+            return await _baseRepository.GetCountAsync(exp);
         }
 
-        public bool IsExist(Expression<Func<T, bool>> exp)
+        public async Task<bool> IsExistAsync(Expression<Func<T, bool>> exp)
         {
-            return _baseRepository.IsExist(exp);
+            return await _baseRepository.IsExistAsync(exp);
         }
 
-        public PageModel<T> Page<TKey>(int pageIndex = 1, int pageSize = 10, Expression<Func<T, TKey>> orderBy = null, Expression<Func<T, bool>> exp = null, bool isOrder = true)
+        public async Task<PageModel<T>> PageAsync<TKey>(int pageIndex = 1, int pageSize = 10, Expression<Func<T, TKey>> orderBy = null, Expression<Func<T, bool>> exp = null, bool isOrder = true)
         {
-            return _baseRepository.Page<TKey>(pageIndex, pageSize, orderBy, exp, isOrder);
+            return await _baseRepository.PageAsync(pageIndex, pageSize, orderBy, exp, isOrder);
         }
 
-        public void UpdateByExp(Expression<Func<T, bool>> where, Expression<Func<T, T>> entity)
+        public async Task<int> UpdateByExpAsync(Expression<Func<T, bool>> where, Expression<Func<T, T>> entity)
         {
-            _baseRepository.UpdateByExp(where, entity);
+            return await _baseRepository.UpdateByExpAsync(where, entity);
         }
 
-        public void UpdateEntity(T entity)
+        public async Task<int> UpdateEntityAsync(T entity)
         {
-            _baseRepository.UpdateEntity(entity);
+            return await _baseRepository.UpdateEntityAsync(entity);
         }
     }
 }
