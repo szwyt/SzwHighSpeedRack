@@ -4,6 +4,8 @@ using System;
 using System.Linq.Expressions;
 using SzwHighSpeedRack.Entity;
 using SzwHighSpeedRack.Service;
+using System.Linq;
+using Microsoft.EntityFrameworkCore;
 
 namespace SzwHighSpeedRackApi.Controllers
 {
@@ -20,13 +22,13 @@ namespace SzwHighSpeedRackApi.Controllers
         [HttpGet("{id}")]
         public MessageModel<MngAdmin> Get(int id)
         {
-            MngAdmin model = MngAdminService.FindSingle(f => f.Id == id);
-            bool flag = model != null || model.Id > 0;
+            var model = MngAdminService.FindList(i => EF.Functions.JsonContains(i.GroupManage, id.ToString(), "$"));
+            bool flag = model != null;
             return new MessageModel<MngAdmin>
             {
                 success = flag,
                 msg = flag ? "查询成功" : $"没有id为{id}的数据",
-                model = flag ? model : new MngAdmin()
+                //model = flag ? model : new MngAdmin()
             };
         }
 
@@ -57,7 +59,7 @@ namespace SzwHighSpeedRackApi.Controllers
         {
             MessageModel<PageModel<MngAdmin>> messageModel = new MessageModel<PageModel<MngAdmin>>();
             Expression<Func<MngAdmin, bool>> exp = null;
-            messageModel.model = MngAdminService.Page<int>(pageIndex, pageSize, p => p.Id, exp, true);
+            messageModel.model = MngAdminService.Page(pageIndex, pageSize, p => p.Id, exp, true);
             messageModel.success = true;
             messageModel.msg = "查询成功";
             return messageModel;

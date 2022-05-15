@@ -64,43 +64,43 @@ namespace SzwHighSpeedRack.EntityFrameworkCore
         /// 批量添加
         /// </summary>
         /// <param name="entities">List<T></param>
-        void BatchAdd(List<T> entities);
+        int BatchAdd(List<T> entities);
 
         /// <summary>
         /// 修改
         /// </summary>
         /// <param name="entity">实体</param>
-        void UpdateEntity(T entity);
+        int UpdateEntity(T entity);
 
         /// <summary>
         /// 批量修改
         /// </summary>
         /// <param name="entities">List<T></param>
-        void BatchUpdate(List<T> entities);
+        int BatchUpdate(List<T> entities);
 
         /// <summary>
         /// 删除实体
         /// </summary>
         /// <param name="entity">实体</param>
-        void DeleteEntity(T entity);
+        int DeleteEntity(T entity);
 
         /// <summary>
         /// 批量删除
         /// </summary>
         /// <param name="entities">List<T></param>
-        void BatchDelete(List<T> entities);
+        int BatchDelete(List<T> entities);
 
         /// <summary>
         ///  实现按需要只更新部分更新 如：Update(u =>u.Id==1,u =>new User{Name="ok"});
         /// </summary>
         /// <param name="where">更新条件</param>
         /// <param name="entity">更新后的实体</param>
-        void UpdateByExp(Expression<Func<T, bool>> where, Expression<Func<T, T>> entity);
+        int UpdateByExp(Expression<Func<T, bool>> where, Expression<Func<T, T>> entity);
 
         /// <summary>
         /// 删除
         /// </summary>
         /// <param name="exp">条件</param>
-        void DeleteByExp(Expression<Func<T, bool>> exp);
+        int DeleteByExp(Expression<Func<T, bool>> exp);
     }
 }

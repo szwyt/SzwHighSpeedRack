@@ -18,19 +18,16 @@ namespace SzwHighSpeedRackApi.Controllers
     public class LoginController : RackBaseApiController
     {
         private readonly JwtSettings _jwtSettings;
-        private readonly IPdProductRepository _pdProductRepository;
         private readonly IHttpContextAccessor _httpContextAccessor;
 
         /// <summary>
         ///
         /// </summary>
         /// <param name="jwtSettingsAccesser"></param>
-        /// <param name="pdProductRepository"></param>
         /// <param name="httpContextAccessor"></param>
-        public LoginController(IOptions<JwtSettings> jwtSettingsAccesser, IPdProductRepository pdProductRepository, IHttpContextAccessor httpContextAccessor)
+        public LoginController(IOptions<JwtSettings> jwtSettingsAccesser, IHttpContextAccessor httpContextAccessor)
         {
             _jwtSettings = jwtSettingsAccesser.Value;
-            _pdProductRepository = pdProductRepository;
             _httpContextAccessor = httpContextAccessor;
         }
 
@@ -70,12 +67,6 @@ namespace SzwHighSpeedRackApi.Controllers
             };
             this.HttpContext.SignInAsync(JwtBearerDefaults.AuthenticationScheme, new ClaimsPrincipal(new ClaimsIdentity(claims)));
             return result;
-        }
-
-        [HttpGet]
-        public object Get([FromQuery] int[] ids)
-        {
-            return _pdProductRepository.FindList(w => ids.Contains(w.Id)).ToJson();
         }
 
         [HttpGet("TestPublish")]

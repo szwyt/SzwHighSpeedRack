@@ -27,14 +27,7 @@ namespace SzwHighSpeedRackApi
             builder.RegisterType<TransactionInterceptor>();
             Assembly assemblyBaseRepository = Assembly.LoadFrom(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "SzwHighSpeedRack.Repository.dll"));
             Assembly assemblyService = Assembly.LoadFrom(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "SzwHighSpeedRack.Service.dll"));
-            //数据库对象注入
-            List<NamedParameter> ListNamedParameter = new List<NamedParameter>()
-            {
-                new NamedParameter("dbType", DbEnum.DbType.MySql),
-                new NamedParameter("connectionString", "Server=127.0.0.1; Port=3306; Uid=root; Pwd=Aa000000; Database=xyqms_base;SslMode=None"),
-            };
-
-            builder.RegisterType<DbContextFactory>().As<IDbFactory>().WithParameters(ListNamedParameter).SingleInstance();
+            
             builder.RegisterAssemblyTypes(assemblyBaseRepository)
               .Where(u => u.Namespace == "SzwHighSpeedRack.Repository")
               //.EnableClassInterceptors()

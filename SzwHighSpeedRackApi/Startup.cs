@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -14,6 +15,7 @@ using System.IO;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using SzwHighSpeedRack.EntityFrameworkCore;
 
 namespace SzwHighSpeedRackApi
 {
@@ -141,7 +143,27 @@ namespace SzwHighSpeedRackApi
                     .AllowCredentials();
                 });
             });
+
+            var serverVersion = new MariaDbServerVersion(new Version(8, 0, 27));
+            string connectionString = "Server=127.0.0.1; Port=3306; Uid=root; Pwd=Aa000000; Database=warranty_base;SslMode=None";
+            services.AddChimp<MySqlContext>(options =>
+            {
+                options.UseMySql(connectionString, serverVersion, m =>
+                {
+                    m.UseNewtonsoftJson(MySqlCommonJsonChangeTrackingOptions.FullHierarchyOptimizedFast);
+                });
+
+            });
+
+            //services.AddDbContext<MySqlContext>(opt => 
+            //{
+            //    //opt.UseMySql("Server=127.0.0.1; Port=3306; Uid=root; Pwd=Aa000000; Database=warranty_base;SslMode=None", ServerVersion.Parse("8.0.27-mysql"));
+            //    opt.UseMySql(databaseConfiguration, serverVersion);
+            //});
+            //services.AddScoped<BaseContext, MySqlContext>();
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
         }
+
 
         public void ConfigureContainer(ContainerBuilder containerBuilder)
         {
@@ -183,6 +205,17 @@ namespace SzwHighSpeedRackApi
                 ctx.Response.Redirect("/swagger/");
                 return Task.FromResult(0);
             });
+        }
+    }
+
+    public static class ServiceCollectionExtension
+    {
+        public static IServiceCollection AddChimp<T>(this IServiceCollection services,
+           Action<DbContextOptionsBuilder> options) where T : BaseContext
+        {
+            services.AddDbContext<T>(options);
+            services.AddScoped<BaseContext, T>();
+            return services;
         }
     }
 }

@@ -4,12 +4,11 @@
         <name>SzwHighSpeedRackApi</name>
     </assembly>
     <members>
-        <member name="M:SzwHighSpeedRackApi.Controllers.LoginController.#ctor(Microsoft.Extensions.Options.IOptions{SzwHighSpeedRackApi.JwtSettings},SzwHighSpeedRack.Repository.IPdProductRepository,Microsoft.AspNetCore.Http.IHttpContextAccessor)">
+        <member name="M:SzwHighSpeedRackApi.Controllers.LoginController.#ctor(Microsoft.Extensions.Options.IOptions{SzwHighSpeedRackApi.JwtSettings},Microsoft.AspNetCore.Http.IHttpContextAccessor)">
              <summary>
             
              </summary>
              <param name="jwtSettingsAccesser"></param>
-             <param name="pdProductRepository"></param>
              <param name="httpContextAccessor"></param>
         </member>
         <member name="M:SzwHighSpeedRackApi.Controllers.LoginController.Token">

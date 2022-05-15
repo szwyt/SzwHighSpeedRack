@@ -11,14 +11,12 @@ namespace SzwHighSpeedRack.Aop
     /// 创建时间：2019-05-08
     /// </summary>
     public class TransactionInterceptor : IInterceptor
-    {
-        private IDbFactory _dbFactory;
-        private BaseContext _baseContext;
+    {      
+        private readonly IUnitOfWork _unitOfWork;
 
-        public TransactionInterceptor(IDbFactory dbFactory)
+        public TransactionInterceptor(IUnitOfWork unitOfWork)
         {
-            _dbFactory = dbFactory;
-            _baseContext = dbFactory.GetDbContext();
+            _unitOfWork = unitOfWork;
         }
 
         public void Intercept(IInvocation invocation)
@@ -34,16 +32,16 @@ namespace SzwHighSpeedRack.Aop
 
             if (isOpenTransaction)
             {
-                using (_dbFactory.BeginTran())
+                using (var tran = _unitOfWork.BeginTransaction())
                 {
                     try
                     {
                         invocation.Proceed();
-                        _dbFactory.CommitTran();
+                        tran.Commit();
                     }
                     catch (Exception)
                     {
-                        _dbFactory.RollbackTran();
+                        tran.Rollback();
                     }
                 }
             }

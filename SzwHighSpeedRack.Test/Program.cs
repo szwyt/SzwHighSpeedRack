@@ -21,7 +21,7 @@ namespace SzwHighSpeedRack.Test
         {
             #region 注入测试
 
-            var oracleStr = "Data Source=(DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=47.100.100.22)(PORT=1521))(CONNECT_DATA=(SERVER=DEDICATED)(SERVICE_NAME=orcl)));Persist Security Info=True;User Id=YF_HEALTHY;Password=yyyy;";
+            //var oracleStr = "Data Source=(DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=47.100.100.22)(PORT=1521))(CONNECT_DATA=(SERVER=DEDICATED)(SERVICE_NAME=orcl)));Persist Security Info=True;User Id=YF_HEALTHY;Password=yyyy;";
             var builder = new ContainerBuilder();
             //注入泛型仓储
             builder.RegisterGeneric(typeof(BaseRepository<>)).As(typeof(IBaseRepository<>)).InstancePerDependency();
@@ -35,13 +35,13 @@ namespace SzwHighSpeedRack.Test
                new NamedParameter("connectionString", "Server=127.0.0.1; Port=3306; Uid=root; Pwd=Aa000000; SslMode=None;Database=xyqms_base"),
             };
 
-            List<NamedParameter> ListNamedParameters = new List<NamedParameter>()
-            {
-               new NamedParameter("dbType", DbEnum.DbType.Oracle),
-               new NamedParameter("connectionString", "Data Source=(DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=47.100.100.22)(PORT=1521))(CONNECT_DATA=(SERVER=DEDICATED)(SERVICE_NAME=orcl)));Persist Security Info=True;User Id=YF_HEALTHY;Password=yyyy;"),
-            };
+            //List<NamedParameter> ListNamedParameters = new List<NamedParameter>()
+            //{
+            //   new NamedParameter("dbType", DbEnum.DbType.Oracle),
+            //   new NamedParameter("connectionString", "Data Source=(DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=47.100.100.22)(PORT=1521))(CONNECT_DATA=(SERVER=DEDICATED)(SERVICE_NAME=orcl)));Persist Security Info=True;User Id=YF_HEALTHY;Password=yyyy;"),
+            //};
             //数据库对象注入
-            builder.RegisterType<DbContextFactory>().As<IDbFactory>().WithParameters(ListNamedParameters).SingleInstance();
+            //builder.RegisterType<DbContextFactory>().As<IDbFactory>().WithParameters(ListNamedParameter).SingleInstance();
 
             Assembly assemblyBaseRepository = Assembly.LoadFrom(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "SzwHighSpeedRack.Repository.dll"));
             Assembly assemblyService = Assembly.LoadFrom(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "SzwHighSpeedRack.Service.dll"));
@@ -65,31 +65,31 @@ namespace SzwHighSpeedRack.Test
             _container = builder.Build();
             //IPdProductRepository iuser = _container.Resolve<IPdProductRepository>();
             //MngAdminService iusers = _container.Resolve<MngAdminService>();
-            var iusers = _container.Resolve<IBaseRepository<YFSYS_MENU>>();
-            try
-            {
-                using (OracleContext oracleContext = new OracleContext(oracleStr))
-                {
-                    var info = oracleContext.Set<YFSYS_MENU>().FirstOrDefault(f => f.Id == 10001);
-                    //iusers.TranTest();
-                    Console.WriteLine(info.ToJson());
-                };
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
+            //var iusers = _container.Resolve<IBaseRepository<YFSYS_MENU>>();
+            //try
+            //{
+            //    using (OracleContext oracleContext = new OracleContext(oracleStr))
+            //    {
+            //        var info = oracleContext.Set<YFSYS_MENU>().FirstOrDefault(f => f.Id == 10001);
+            //        //iusers.TranTest();
+            //        Console.WriteLine(info.ToJson());
+            //    };
+            //}
+            //catch (Exception ex)
+            //{
+            //    throw ex;
+            //}
 
             #endregion 注入测试
 
             //Console.WriteLine("=========================================================");
             //using (SzwHighSpeedRack.Test.Context.MySqlContext db = new SzwHighSpeedRack.Test.Context.MySqlContext())
             //{
-            //using (var baseContext = DbContextFactory.CreateDbInstance(DbEnum.DbType.MySql, "Server=127.0.0.1; Port=3306; Uid=root; Pwd=Aa000000; Database=xyqms_base;SslMode=None"))
-            //{
-            //    var list = baseContext.Set<MngAdmin>().ToList();
-            //    Console.WriteLine(list.ToJson());
-            //}
+            //    using (var baseContext = DbContextFactory.CreateDbInstance(DbEnum.DbType.MySql, "Server=127.0.0.1; Port=3306; Uid=root; Pwd=Aa000000; Database=xyqms_base;SslMode=None"))
+            //    {
+            //        var list = baseContext.Set<MngAdmin>().ToList();
+            //        Console.WriteLine(list.ToJson());
+            //    }
             //}
 
             Console.ReadKey();

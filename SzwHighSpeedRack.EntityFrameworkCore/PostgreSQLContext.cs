@@ -7,14 +7,14 @@
     /// </summary>
     public class PostgreSQLContext : BaseContext
     {
-        public PostgreSQLContext(string connectionString) : base(connectionString)
+        public PostgreSQLContext(DbContextOptions options) : base(options)
         {
         }
-
         /// <inheritdoc/>
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseNpgsql(this.ConnectionString);
+            //optionsBuilder.UseNpgsql(this.ConnectionString);
+            base.OnConfiguring(optionsBuilder);
         }
     }
 }

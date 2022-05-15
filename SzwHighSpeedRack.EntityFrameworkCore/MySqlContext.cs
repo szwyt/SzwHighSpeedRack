@@ -11,14 +11,13 @@ namespace SzwHighSpeedRack.EntityFrameworkCore
     /// </summary>
     public class MySqlContext : BaseContext
     {
-        public MySqlContext(string connectionString) : base(connectionString)
+        public MySqlContext(DbContextOptions options) : base(options)
         {
         }
-
-        /// <inheritdoc/>
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseMySQL(this.ConnectionString);
+            //optionsBuilder.UseMySQL(this.ConnectionString);
+            base.OnConfiguring(optionsBuilder);
         }
     }
 }

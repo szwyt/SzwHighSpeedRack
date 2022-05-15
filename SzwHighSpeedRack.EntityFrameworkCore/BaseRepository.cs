@@ -15,13 +15,12 @@ namespace SzwHighSpeedRack.EntityFrameworkCore
     public class BaseRepository<T> : IBaseRepository<T>, IDisposable
         where T : class
     {
-        private IDbFactory _dbFactory;
-        private BaseContext _baseContext;
-
-        public BaseRepository(IDbFactory dbFactory)
+        private readonly BaseContext _baseContext;
+        private readonly IUnitOfWork _unitOfWork;
+        public BaseRepository(BaseContext context, IUnitOfWork unitOfWork)
         {
-            _dbFactory = dbFactory;
-            _baseContext = _dbFactory.GetDbContext();
+            _baseContext = context;
+            _unitOfWork= unitOfWork;
         }
 
         /// <summary>
@@ -123,7 +122,7 @@ namespace SzwHighSpeedRack.EntityFrameworkCore
         public T AddEntity(T entity)
         {
             _baseContext.Set<T>().Add(entity);
-            _baseContext.SaveChanges();
+            _unitOfWork.SaveChanges();
             return entity;
         }
 
@@ -131,50 +130,50 @@ namespace SzwHighSpeedRack.EntityFrameworkCore
         /// 批量添加
         /// </summary>
         /// <param name="entities">List<T></param>
-        public void BatchAdd(List<T> entities)
+        public int BatchAdd(List<T> entities)
         {
             _baseContext.Set<T>().AddRange(entities);
-            _baseContext.SaveChanges();
+            return _unitOfWork.SaveChanges();
         }
 
         /// <summary>
         /// 修改
         /// </summary>
         /// <param name="entity">实体</param>
-        public void UpdateEntity(T entity)
+        public int UpdateEntity(T entity)
         {
             _baseContext.Set<T>().Update(entity);
-            _baseContext.SaveChanges();
+            return _unitOfWork.SaveChanges();
         }
 
         /// <summary>
         /// 批量修改
         /// </summary>
         /// <param name="entities">List<T></param>
-        public void BatchUpdate(List<T> entities)
+        public int BatchUpdate(List<T> entities)
         {
             _baseContext.Set<T>().UpdateRange(entities);
-            _baseContext.SaveChanges();
+            return _unitOfWork.SaveChanges();
         }
 
         /// <summary>
         /// 删除实体
         /// </summary>
         /// <param name="entity">实体</param>
-        public void DeleteEntity(T entity)
+        public int DeleteEntity(T entity)
         {
             _baseContext.Set<T>().Remove(entity);
-            _baseContext.SaveChanges();
+            return _unitOfWork.SaveChanges();
         }
 
         /// <summary>
         /// 批量删除
         /// </summary>
         /// <param name="entities">List<T></param>
-        public void BatchDelete(List<T> entities)
+        public int BatchDelete(List<T> entities)
         {
             _baseContext.Set<T>().RemoveRange(entities);
-            _baseContext.SaveChanges();
+            return _unitOfWork.SaveChanges();
         }
 
         /// <summary>
@@ -182,7 +181,7 @@ namespace SzwHighSpeedRack.EntityFrameworkCore
         /// </summary>
         /// <param name="where">更新条件</param>
         /// <param name="entity">更新后的实体</param>
-        public void UpdateByExp(Expression<Func<T, bool>> where, Expression<Func<T, T>> entity)
+        public int UpdateByExp(Expression<Func<T, bool>> where, Expression<Func<T, T>> entity)
         {
             if (where != null)
             {
@@ -192,6 +191,7 @@ namespace SzwHighSpeedRack.EntityFrameworkCore
             {
                 _baseContext.Set<T>().Update(entity);
             }
+            return _unitOfWork.SaveChanges();
         }
 
         /// <summary>
@@ -200,9 +200,10 @@ namespace SzwHighSpeedRack.EntityFrameworkCore
         /// <typeparam name="T"></typeparam>
         /// <param name="  _baseContext"></param>
         /// <param name="exp"></param>
-        public void DeleteByExp(Expression<Func<T, bool>> exp)
+        public int DeleteByExp(Expression<Func<T, bool>> exp)
         {
             _baseContext.Set<T>().Where(exp).Delete();
+            return _unitOfWork.SaveChanges();
         }
 
         public IQueryable<T> Filter(Expression<Func<T, bool>> exp)

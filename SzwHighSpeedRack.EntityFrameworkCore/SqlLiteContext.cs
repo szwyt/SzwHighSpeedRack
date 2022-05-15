@@ -11,14 +11,14 @@ namespace SzwHighSpeedRack.EntityFrameworkCore
     /// </summary>
     public class SqlLiteContext : BaseContext
     {
-        public SqlLiteContext(string connectionString) : base(connectionString)
+        public SqlLiteContext(DbContextOptions options) : base(options)
         {
         }
-
         /// <inheritdoc/>
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlite(this.ConnectionString);
+            //optionsBuilder.UseSqlite(this.ConnectionString);
+            base.OnConfiguring(optionsBuilder);
         }
     }
 }
