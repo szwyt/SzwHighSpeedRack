@@ -2,12 +2,17 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Microsoft.Net.Http.Headers;
+using MiniRazor;
 using PuppeteerSharp;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net.Http;
+using System.Text;
 using System.Threading.Tasks;
+using Zhulong.Library.Common.Extensions;
 
 namespace SzwHighSpeedRackApi.Controllers
 {
@@ -17,48 +22,126 @@ namespace SzwHighSpeedRackApi.Controllers
         {
             "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
         };
-
+        private IHttpClientFactory _httpClientFactory;
         private readonly ILogger<WeatherForecastController> _logger;
         private readonly IWebHostEnvironment _hostEnvironment;
-        public WeatherForecastController(ILogger<WeatherForecastController> logger, IWebHostEnvironment hostEnvironment)
+        public WeatherForecastController(ILogger<WeatherForecastController> logger, IWebHostEnvironment hostEnvironment, IHttpClientFactory httpclient)
         {
             _logger = logger;
             _hostEnvironment = hostEnvironment;
+            _httpClientFactory = httpclient;
         }
 
         [HttpGet]
-        public IEnumerable<WeatherForecast> Get()
+        [AllowAnonymous]
+        public async Task Get()
         {
-            var rng = new Random();
-            return Enumerable.Range(1, 5).Select(index => new WeatherForecast
+            var httpClient = _httpClientFactory.CreateClient();
+            var httpResponseMessage = await httpClient.GetAsync("http://www.nhcet.com/result/resultList.jsp?sign=result#");
+            if (httpResponseMessage.IsSuccessStatusCode)
             {
-                Date = DateTime.Now.AddDays(index),
-                TemperatureC = rng.Next(-20, 55)
-            }).ToArray();
+                using var contentStream =
+                    await httpResponseMessage.Content.ReadAsStreamAsync();
+
+            }
         }
 
         [AllowAnonymous]
-        [HttpGet, Route("page2imgs")]
-        public async Task<string> PageToImages([FromQuery] string url)
+        [HttpGet, Route("Url2imgs")]
+        public async Task<string> Url2imgs([FromQuery] string url)
         {
-            string fileName = $"Files/{Guid.NewGuid().ToString()}.png";
-            string outputFile = $"{_hostEnvironment.ContentRootPath}/{fileName}";
-            //using var browserFetcher = new BrowserFetcher();
-            //await browserFetcher.DownloadAsync();
+            string chromePath = Path.Combine(_hostEnvironment.ContentRootPath, ".local-chromium", "Win64-970485", "chrome-win");
+            // 如果不存在chrome就下载一个
+            if (!Directory.Exists(chromePath))
+            {
+                using var browserFetcher = new BrowserFetcher();
+                await browserFetcher.DownloadAsync();
+            }
+
             await using var browser = await Puppeteer.LaunchAsync(
                 new LaunchOptions
                 {
                     Headless = true,
-                    ExecutablePath = Path.Combine(_hostEnvironment.ContentRootPath, ".local-chromium", "Win64-970485", "chrome-win", "chrome.exe")
+                    ExecutablePath = Path.Combine(chromePath, "chrome.exe")
                 });
             await using var page = await browser.NewPageAsync();
             await page.SetViewportAsync(new ViewPortOptions
             {
-                Width = 1200,
-                Height = 1500
+                Width = 1920,
+                //Height = 1500
             });
-            await page.GoToAsync($"{url}");
-            await page.ScreenshotAsync(outputFile);
+            var list = await System.IO.File.ReadAllLinesAsync($"{Path.Combine(AppContext.BaseDirectory, "siteurl.txt")}");
+            await Task.Run(async () =>
+            {
+                foreach (var item in list)
+                {
+                    try
+                    {
+                        if (!item.IsURL()) continue;
+                        string fileName = $"Files/{Guid.NewGuid()}.Jpeg";
+                        string outputFile = $"{_hostEnvironment.ContentRootPath}/{fileName}";
+                        var result = await page.GoToAsync($"{item}", 3000);
+                        if (result != null && result.Status == System.Net.HttpStatusCode.OK)
+                        {
+                            // 这里可查看后缀
+                            await page.ScreenshotAsync($"{outputFile}", new ScreenshotOptions()
+                            {
+                                Type = ScreenshotType.Jpeg,
+                                Quality = 100,
+                                FullPage = true,
+                                OmitBackground = true
+                            });
+                        }
+                        else
+                        {
+                            outputFile = "没有图片";
+                        }
+                        Console.WriteLine(outputFile);
+                    }
+                    catch { }
+                }
+            });
+
+            //return $"{Request.Host}/{fileName}";
+            return url;
+        }
+
+        [AllowAnonymous]
+        [HttpGet, Route("Html2imgs")]
+        public async Task<string> Html2imgs([FromQuery] string html)
+        {
+            string fileName = $"Files/{Guid.NewGuid()}.png";
+            string outputFile = $"{_hostEnvironment.ContentRootPath}/{fileName}";
+            string chromePath = Path.Combine(_hostEnvironment.ContentRootPath, ".local-chromium", "Win64-970485", "chrome-win");
+            // 如果不存在chrome就下载一个
+            if (!Directory.Exists(chromePath))
+            {
+                using var browserFetcher = new BrowserFetcher();
+                await browserFetcher.DownloadAsync();
+            }
+
+            await using var browser = await Puppeteer.LaunchAsync(
+                new LaunchOptions
+                {
+                    Headless = true,
+                    ExecutablePath = Path.Combine(chromePath, "chrome.exe")
+                });
+            await using var page = await browser.NewPageAsync();
+
+            StringBuilder sb = new StringBuilder();
+            await using TextWriter writer = new StringWriter(sb);
+            string templateSource = await System.IO.File.ReadAllTextAsync($"{Path.Combine(AppContext.BaseDirectory, "Templates", "TemplateFoo.cshtml")}");
+            TemplateDescriptor descriptor = Razor.Compile(templateSource);
+            await descriptor.RenderAsync(writer, new List<string> { "John", "小史" });
+            html = sb.ToString();
+            await page.SetContentAsync(html);
+            // 这里可查看后缀
+            await page.ScreenshotAsync($"{outputFile}", new ScreenshotOptions()
+            {
+                Type = ScreenshotType.Png,
+                FullPage = true,
+                OmitBackground = true
+            });
             return $"{Request.Host}/{fileName}";
         }
     }

@@ -1,0 +1,21 @@
+﻿@using System.Collections.Generic;
+@inherits MiniRazor.TemplateBase<List<string>>
+@namespace RazorDemo.Templates
+
+<html>
+
+<head>
+    <title>Hello @Model</title>
+</head>
+
+<body style="height:500px;width:1000px">
+    @{
+        foreach (var item in Model)
+        {
+            <h1>@item</h1>
+        }
+    }
+<img src="https://ecep.oss-cn-beijing.aliyuncs.com/2022/06/0005c6975a9b4ffdbfc8aed88c887f7e.jpg" height="200" width="200" />
+</body>
+
+</html>

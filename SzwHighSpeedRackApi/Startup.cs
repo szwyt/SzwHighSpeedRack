@@ -14,7 +14,6 @@ using Swashbuckle.AspNetCore.SwaggerUI;
 using System;
 using System.IO;
 using System.Reflection;
-using System.Text;
 using System.Threading.Tasks;
 using SzwHighSpeedRack.EntityFrameworkCore;
 
@@ -82,7 +81,7 @@ namespace SzwHighSpeedRackApi
                     //颁发给谁
                     ValidAudience = jwtSettings.Audience,
                     //这里的key要进行加密
-                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSettings.SecurityKey))
+                    IssuerSigningKey = new SymmetricSecurityKey(System.Text.UTF8Encoding.UTF8.GetBytes(jwtSettings.SecurityKey))
                 };
             });
 
@@ -157,6 +156,7 @@ namespace SzwHighSpeedRackApi
             });
 
             services.AddScoped<IUnitOfWork, UnitOfWork>();
+            services.AddHttpClient();
         }
 
 
