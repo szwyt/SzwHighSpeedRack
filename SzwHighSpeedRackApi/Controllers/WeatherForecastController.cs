@@ -67,8 +67,8 @@ namespace SzwHighSpeedRackApi.Controllers
             await using var page = await browser.NewPageAsync();
             await page.SetViewportAsync(new ViewPortOptions
             {
-                Width = 1920,
-                //Height = 1500
+                Width = 1024,
+                Height = 768
             });
             var list = await System.IO.File.ReadAllLinesAsync($"{Path.Combine(AppContext.BaseDirectory, "siteurl.txt")}");
             await Task.Run(async () =>
@@ -78,7 +78,7 @@ namespace SzwHighSpeedRackApi.Controllers
                     try
                     {
                         if (!item.IsURL()) continue;
-                        string fileName = $"Files/{Guid.NewGuid()}.Jpeg";
+                        string fileName = $"Files/{Guid.NewGuid()}.Png";
                         string outputFile = $"{_hostEnvironment.ContentRootPath}/{fileName}";
                         var result = await page.GoToAsync($"{item}", 3000);
                         if (result != null && result.Status == System.Net.HttpStatusCode.OK)
@@ -86,7 +86,7 @@ namespace SzwHighSpeedRackApi.Controllers
                             // 这里可查看后缀
                             await page.ScreenshotAsync($"{outputFile}", new ScreenshotOptions()
                             {
-                                Type = ScreenshotType.Jpeg,
+                                Type = ScreenshotType.Png,
                                 Quality = 100,
                                 FullPage = true,
                                 OmitBackground = true
@@ -102,7 +102,6 @@ namespace SzwHighSpeedRackApi.Controllers
                 }
             });
 
-            //return $"{Request.Host}/{fileName}";
             return url;
         }
 
