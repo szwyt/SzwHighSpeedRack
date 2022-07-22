@@ -5,6 +5,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Net.Http.Headers;
 using MiniRazor;
 using PuppeteerSharp;
+using PuppeteerSharp.Media;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -65,44 +66,120 @@ namespace SzwHighSpeedRackApi.Controllers
                     ExecutablePath = Path.Combine(chromePath, "chrome.exe")
                 });
             await using var page = await browser.NewPageAsync();
+            var width = await page.WaitForFunctionAsync("() => window.innerWidth");
+            var innerHeight = await page.WaitForFunctionAsync("() => window.innerHeight");
             await page.SetViewportAsync(new ViewPortOptions
             {
-                Width = 1024,
-                Height = 768
+                Width = 1920,
+                Height = 1080,
             });
             var list = await System.IO.File.ReadAllLinesAsync($"{Path.Combine(AppContext.BaseDirectory, "siteurl.txt")}");
             await Task.Run(async () =>
             {
-                foreach (var item in list)
+                for (int i = 2523; i < list.Count(); i++)
                 {
+
                     try
                     {
+                        var item = list[i];
                         if (!item.IsURL()) continue;
-                        string fileName = $"Files/{Guid.NewGuid()}.Png";
-                        string outputFile = $"{_hostEnvironment.ContentRootPath}/{fileName}";
-                        var result = await page.GoToAsync($"{item}", 3000);
+
+                        var result = await page.GoToAsync($"{item}");
+                        await page.WaitForTimeoutAsync(3000);
+                        int j = i + 1;
                         if (result != null && result.Status == System.Net.HttpStatusCode.OK)
                         {
-                            // 这里可查看后缀
-                            await page.ScreenshotAsync($"{outputFile}", new ScreenshotOptions()
+                            string fileName = $"Files/{j}.Png";
+                            string outputFile = $"{_hostEnvironment.ContentRootPath}/{fileName}";
+                            ////将页面保存为图片
+                            //using (var stream = await page.ScreenshotStreamAsync(new ScreenshotOptions
+                            //{
+                            //    //Clip = new PuppeteerSharp.Media.Clip
+                            //    //{
+                            //    //    X = 0,
+                            //    //    Y = 0,
+                            //    //    Width = await width1.JsonValueAsync<decimal>(),
+                            //    //    Height = await innerHeight1.JsonValueAsync<decimal>(),
+                            //    //    Scale = 1
+                            //    //}
+                            //    FullPage = true,
+                            //}))
+                            //{
+
+                            //    byte[] srcBuf = new byte[stream.Length];
+                            //    stream.Read(srcBuf, 0, srcBuf.Length);
+                            //    stream.Seek(0, SeekOrigin.Begin);
+                            //    using (FileStream fs = new FileStream($"{outputFile}", FileMode.Create, FileAccess.Write))
+                            //    {
+                            //        fs.Write(srcBuf, 0, srcBuf.Length);
+                            //    }
+                            //}
+
+                            var buffer = await result.BufferAsync();
+                            if (buffer.Length > 10 * 1024)
                             {
-                                Type = ScreenshotType.Png,
-                                Quality = 100,
-                                FullPage = true,
-                                OmitBackground = true
-                            });
+                                await page.ScreenshotAsync($"{outputFile}", new ScreenshotOptions()
+                                {
+                                    Type = ScreenshotType.Png,
+                                    FullPage = true,
+                                });
+                                Console.WriteLine($"{j}----------------->" + outputFile);
+                            }
+                            else
+                                Console.WriteLine($"{j}----------------->" + "buffer is big data");
                         }
                         else
                         {
-                            outputFile = "没有图片";
+                            Console.WriteLine($"{j}----------------->" + "没有生成图片");
                         }
-                        Console.WriteLine(outputFile);
                     }
-                    catch { }
+                    catch
+                    {
+                        var k = i + 1;
+                        Console.WriteLine($"{k}----------------->" + "error");
+                    }
                 }
             });
 
             return url;
+        }
+
+        [AllowAnonymous]
+        [HttpGet, Route("Url2img")]
+        public async Task<string> Url2img([FromQuery] string url)
+        {
+            string chromePath = Path.Combine(_hostEnvironment.ContentRootPath, ".local-chromium", "Win64-970485", "chrome-win");
+            string fileName = $"Files/{Guid.NewGuid()}.Png";
+            string outputFile = $"{_hostEnvironment.ContentRootPath}/{fileName}";
+            // 如果不存在chrome就下载一个
+            if (!Directory.Exists(chromePath))
+            {
+                using var browserFetcher = new BrowserFetcher();
+                await browserFetcher.DownloadAsync();
+            }
+
+            await using var browser = await Puppeteer.LaunchAsync(
+                new LaunchOptions
+                {
+                    Headless = true,
+                    ExecutablePath = Path.Combine(chromePath, "chrome.exe")
+                });
+            await using var page = await browser.NewPageAsync();
+            await page.SetViewportAsync(new ViewPortOptions
+            {
+                Width = 1920,
+                Height = 1080,
+            });
+
+            var result = await page.GoToAsync(url);
+            await page.WaitForTimeoutAsync(3000);
+            var buffer = await result.BufferAsync();
+            await page.ScreenshotAsync($"{outputFile}", new ScreenshotOptions()
+            {
+                Type = ScreenshotType.Png,
+                FullPage = true,
+            });
+            return $"{Request.Host}/{fileName}";
         }
 
         [AllowAnonymous]
@@ -141,6 +218,50 @@ namespace SzwHighSpeedRackApi.Controllers
                 FullPage = true,
                 OmitBackground = true
             });
+            return $"{Request.Host}/{fileName}";
+        }
+
+        [AllowAnonymous]
+        [HttpGet, Route("Url2Pdf")]
+        public async Task<string> Url2Pdf([FromQuery] string url)
+        {
+            string chromePath = Path.Combine(_hostEnvironment.ContentRootPath, ".local-chromium", "Win64-970485", "chrome-win");
+            string fileName = $"Files/{Guid.NewGuid()}.pdf";
+            string outputFile = $"{_hostEnvironment.ContentRootPath}/{fileName}";
+            // 如果不存在chrome就下载一个
+            if (!Directory.Exists(chromePath))
+            {
+                using var browserFetcher = new BrowserFetcher();
+                await browserFetcher.DownloadAsync();
+            }
+
+            await using var browser = await Puppeteer.LaunchAsync(
+                new LaunchOptions
+                {
+                    Headless = true,
+                    ExecutablePath = Path.Combine(chromePath, "chrome.exe")
+                });
+            await using var page = await browser.NewPageAsync();
+            await page.SetViewportAsync(new ViewPortOptions
+            {
+                Width = 1920,
+                Height = 1080,
+            });
+
+            var result = await page.GoToAsync(url);
+            await page.WaitForTimeoutAsync(3000);
+            PdfOptions pdfOptions = new PdfOptions();
+            pdfOptions.DisplayHeaderFooter = false; //是否显示页眉页脚
+            pdfOptions.FooterTemplate = "";   //页脚文本
+            pdfOptions.Format = new PaperFormat(11.27m, 30m);  //pdf纸张格式 英寸为单位 
+            pdfOptions.Format = PaperFormat.A4;
+            pdfOptions.PrintBackground = true; // false pdf文件为灰白色，一些背景色也显示出来； true 页面为彩色
+            pdfOptions.HeaderTemplate = "";   //页眉文本
+            pdfOptions.Landscape = false;     //纸张方向 false-垂直 true-水平
+            pdfOptions.MarginOptions = new MarginOptions() { Bottom = "0px", Left = "0px", Right = "0px", Top = "0px" }; //纸张边距，需要设置带单位的值，默认值是None
+            pdfOptions.Scale = 1m;            //PDF缩放，从0-1
+            await page.PdfAsync(outputFile, pdfOptions);
+
             return $"{Request.Host}/{fileName}";
         }
     }

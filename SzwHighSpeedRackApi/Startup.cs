@@ -10,12 +10,15 @@ using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using PuppeteerSharp;
 using Swashbuckle.AspNetCore.SwaggerUI;
 using System;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 using SzwHighSpeedRack.EntityFrameworkCore;
+using Zhulong.Library.Common.Extensions;
 
 namespace SzwHighSpeedRackApi
 {
@@ -166,7 +169,7 @@ namespace SzwHighSpeedRackApi
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public async void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
             {
@@ -204,12 +207,16 @@ namespace SzwHighSpeedRackApi
                 c.RoutePrefix = string.Empty;//这里主要是不需要再输入swagger这个默认前缀
             });
 
-            //可以支持虚拟路径或者index.html这类起始页.
+            //抓图
+
+            //可以支持虚拟路径或者index.html这类起始页
             app.Run(ctx =>
             {
                 ctx.Response.Redirect("/index.html");
                 return Task.FromResult(0);
             });
+
+            
         }
     }
 
@@ -221,6 +228,77 @@ namespace SzwHighSpeedRackApi
             services.AddDbContext<T>(options);
             services.AddScoped<BaseContext, T>();
             return services;
+        }
+
+        public static async Task<string> Url2imgs(IWebHostEnvironment _hostEnvironment)
+        {
+            string chromePath = Path.Combine(_hostEnvironment.ContentRootPath, ".local-chromium", "Win64-970485", "chrome-win");
+            // 如果不存在chrome就下载一个
+            if (!Directory.Exists(chromePath))
+            {
+                using var browserFetcher = new BrowserFetcher();
+                await browserFetcher.DownloadAsync();
+            }
+
+            await using var browser = await Puppeteer.LaunchAsync(
+                new LaunchOptions
+                {
+                    Headless = true,
+                    ExecutablePath = Path.Combine(chromePath, "chrome.exe")
+                });
+            await using var page = await browser.NewPageAsync();
+            var width = await page.WaitForFunctionAsync("() => window.innerWidth");
+            var innerHeight = await page.WaitForFunctionAsync("() => window.innerHeight");
+            await page.SetViewportAsync(new ViewPortOptions
+            {
+                Width = 1920,
+                Height = 1080,
+            });
+            var list = await System.IO.File.ReadAllLinesAsync($"{Path.Combine(AppContext.BaseDirectory, "siteurl.txt")}");
+            await Task.Run(async () =>
+            {
+                for (int i = 3151; i < list.Count(); i++)
+                {
+
+                    try
+                    {
+                        var item = list[i];
+                        if (!item.IsURL()) continue;
+
+                        var result = await page.GoToAsync($"{item}");
+                        await page.WaitForTimeoutAsync(3000);
+                        int j = i + 1;
+                        if (result != null && result.Status == System.Net.HttpStatusCode.OK)
+                        {
+                            string fileName = $"Files/{j}.Png";
+                            string outputFile = $"{_hostEnvironment.ContentRootPath}/{fileName}";
+                            var buffer = await result.BufferAsync();
+                            if (buffer.Length > 10 * 1024)
+                            {
+                                await page.ScreenshotAsync($"{outputFile}", new ScreenshotOptions()
+                                {
+                                    Type = ScreenshotType.Png,
+                                    FullPage = true,
+                                });
+                                Console.WriteLine($"{j}----------------->" + outputFile);
+                            }
+                            else
+                                Console.WriteLine($"{j}----------------->" + "buffer is big data");
+                        }
+                        else
+                        {
+                            Console.WriteLine($"{j}----------------->" + "没有生成图片");
+                        }
+                    }
+                    catch
+                    {
+                        var k = i + 1;
+                        Console.WriteLine($"{k}----------------->" + "error");
+                    }
+                }
+            });
+
+            return "";
         }
     }
 }
