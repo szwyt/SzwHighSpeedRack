@@ -162,23 +162,37 @@ namespace SzwHighSpeedRackApi.Controllers
                 new LaunchOptions
                 {
                     Headless = true,
-                    ExecutablePath = Path.Combine(chromePath, "chrome.exe")
-                });
-            await using var page = await browser.NewPageAsync();
+                    ExecutablePath = Path.Combine(chromePath, "chrome.exe"),
+                    Timeout = 3000
+                }).ConfigureAwait(false);
+
+            var browserContext = await browser.CreateIncognitoBrowserContextAsync();
+            await using var page = await browserContext.NewPageAsync();
+
             await page.SetViewportAsync(new ViewPortOptions
             {
                 Width = 1920,
                 Height = 1080,
+            }).ConfigureAwait(false);
+
+            var result = await page.GoToAsync($"{url}", new NavigationOptions
+            {
+                WaitUntil = new[]
+                {
+                    WaitUntilNavigation.DOMContentLoaded,
+                    WaitUntilNavigation.Load,
+                    WaitUntilNavigation.Networkidle0,
+                    WaitUntilNavigation.Networkidle2
+                }
             });
 
-            var result = await page.GoToAsync(url);
-            await page.WaitForTimeoutAsync(3000);
-            var buffer = await result.BufferAsync();
+            await page.WaitForTimeoutAsync(1000);
+
             await page.ScreenshotAsync($"{outputFile}", new ScreenshotOptions()
             {
                 Type = ScreenshotType.Png,
                 FullPage = true,
-            });
+            }).ConfigureAwait(false);
             return $"{Request.Host}/{fileName}";
         }
 
