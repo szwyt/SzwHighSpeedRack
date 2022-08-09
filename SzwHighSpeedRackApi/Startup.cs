@@ -8,18 +8,22 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
-using PuppeteerSharp;
+using Senparc.CO2NET;
+using Senparc.CO2NET.RegisterServices;
+using Senparc.Weixin;
+using Senparc.Weixin.Entities;
+using Senparc.Weixin.RegisterServices;
 using Swashbuckle.AspNetCore.SwaggerUI;
 using System;
 using System.IO;
-using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 using SzwHighSpeedRack.EntityFrameworkCore;
-using Zhulong.Library.Common.Extensions;
-
+using Senparc.Weixin.AspNet;
+using Senparc.Weixin.WxOpen;
 namespace SzwHighSpeedRackApi
 {
     public class Startup
@@ -34,6 +38,10 @@ namespace SzwHighSpeedRackApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            //使用本地缓存必须添加
+            services.AddMemoryCache();
+            services.AddSenparcGlobalServices(Configuration)
+            .AddSenparcWeixinServices(Configuration);
             //注入Http上下文
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             //将appsettings.json中的JwtSettings部分文件读取到JwtSettings中，这是给其他地方用的
@@ -147,6 +155,9 @@ namespace SzwHighSpeedRackApi
                 });
             });
 
+            services.AddMemoryCache()//使用本地缓存必须添加 
+           .AddSenparcWeixinServices(Configuration);//Senparc.Weixin 注册（必须）
+
             var serverVersion = new MariaDbServerVersion(new Version(8, 0, 27));
             string connectionString = "Server=127.0.0.1; Port=3306; Uid=root; Pwd=Aa000000; Database=warranty_base;SslMode=None";
             services.AddChimp<MySqlContext>(options =>
@@ -169,7 +180,7 @@ namespace SzwHighSpeedRackApi
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IOptions<SenparcSetting> senparcSetting, IOptions<SenparcWeixinSetting> senparcWeixinSetting)
         {
             if (env.IsDevelopment())
             {
@@ -207,7 +218,21 @@ namespace SzwHighSpeedRackApi
                 c.RoutePrefix = string.Empty;//这里主要是不需要再输入swagger这个默认前缀
             });
 
-            //抓图
+            ////注册 Senparc.Weixin 及基础库 
+            //app.UseSenparcGlobal(env, senparcSetting.Value, _ => { }, true)
+            //    .UseSenparcWeixin(senparcWeixinSetting.Value, senparcSetting.Value);
+            //await AccessTokenContainer.RegisterAsync(senparcWeixinSetting.Value.WxOpenAppId, senparcWeixinSetting.Value.WxOpenAppSecret);
+
+            //启用微信配置（必须）
+            var registerService = app.UseSenparcWeixin(env,
+                senparcSetting.Value /* 不为 null 则覆盖 appsettings  中的 SenpacSetting 配置*/,
+                senparcWeixinSetting.Value /* 不为 null 则覆盖 appsettings  中的 SenpacWeixinSetting 配置*/,
+                register => { },
+                (register, weixinSetting) =>
+                {
+                    //注册公众号信息（可以执行多次，注册多个小程序）
+                    register.RegisterWxOpenAccount(weixinSetting, "【盛派网络小助手】小程序");
+                });
 
             //可以支持虚拟路径或者index.html这类起始页
             app.Run(ctx =>

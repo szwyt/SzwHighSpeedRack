@@ -30,6 +30,9 @@
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="3.1.7" />
     <PackageReference Include="MiniRazor" Version="2.2.1" />
     <PackageReference Include="PuppeteerSharp" Version="7.1.0" />
+    <PackageReference Include="Senparc.Weixin.AspNet" Version="0.8.2" />
+    <PackageReference Include="Senparc.Weixin.MP" Version="16.18.5" />
+    <PackageReference Include="Senparc.Weixin.WxOpen" Version="3.15.5" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="5.5.1" />
     <PackageReference Include="Topshelf" Version="4.3.0" />
     <PackageReference Include="Zhulong.Library.NetCore.Common" Version="4.0.0" />

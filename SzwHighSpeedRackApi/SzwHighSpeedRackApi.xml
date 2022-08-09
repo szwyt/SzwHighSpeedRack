@@ -17,6 +17,7 @@
             </summary>
             <returns></returns>
         </member>
+        <!-- Badly formed XML comment ignored for member "M:SzwHighSpeedRackApi.Controllers.WeiXinMini.Generate(System.String,System.String,System.String,System.String,System.Nullable{System.Int32},System.Nullable{System.Int64},System.Nullable{System.Int32},Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp.UrlLinkJson.Generate_CloudBase,System.Int32)" -->
         <member name="T:SzwHighSpeedRackApi.Filters.SwaggerFileUploadFilter">
             <summary>
             Swagger 上传文件过滤器
